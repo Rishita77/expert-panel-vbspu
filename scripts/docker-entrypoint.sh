@@ -9,6 +9,7 @@ chown -R appuser:appuser "$PRIVATE_DOCUMENT_ROOT" /app/staticfiles
 
 exec su -s /bin/sh appuser -c '
   set -eu
+  export DJANGO_SETTINGS_MODULE=config.production
   python manage.py migrate --noinput
   python manage.py collectstatic --noinput
   exec gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 2 --timeout 120 --access-logfile - --error-logfile -
