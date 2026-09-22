@@ -1,0 +1,8 @@
+{% extends 'office/base.html' %}{% block content %}
+<div class="office-heading"><h1>{{ title }}</h1>{% if can_master %}<a class="btn btn-primary" href="{% url 'expert_new' kind %}">नया जोड़ें</a>{% endif %}</div>
+{% if kind == 'experts' %}<p>यह EC-स्वीकृत विशेषज्ञ निर्देशिका है, जिससे आवंटन इंजन उम्मीदवार जाँचता है। विषय, संस्था, शैक्षणिक पदनाम, प्रशासनिक पद और श्रेणी पूरी रखें।</p>{% else %}<p>यह EC स्वीकृति अभिलेख है।</p>{% endif %}
+{% if can_master %}<a href="{% url 'expert_import' %}">डेटा आयात की जाँच / प्रारूप</a>{% endif %}
+<form class="office-search" method="get"><label for="q">नाम / संस्था / सन्दर्भ</label><input id="q" name="q" value="{{ query }}" class="form-control"><button class="btn btn-outline-secondary">खोजें</button></form>
+<section class="office-card"><ul class="office-records">{% for row in page %}<li><a href="{% url 'expert_detail' kind row.pk %}">{{ row }}</a>{% if kind == 'pools' %}<small>{{ row.get_state_display }}</small>{% endif %}</li>{% empty %}<li>अभी कोई रिकॉर्ड नहीं है।</li>{% endfor %}</ul></section>
+<div class="office-pagination">{% if page.has_previous %}<a href="?q={{ query|urlencode }}&page={{ page.previous_page_number }}">पिछला</a>{% endif %}<span>{{ page.number }} / {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?q={{ query|urlencode }}&page={{ page.next_page_number }}">अगला</a>{% endif %}</div>
+{% endblock %}

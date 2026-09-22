@@ -1,0 +1,6 @@
+{% extends 'office/base.html' %}{% block content %}
+<div class="office-heading"><h1>{{ title }}</h1><a href="{% url source_view source.pk %}">स्रोत अभिलेख पर लौटें</a></div>
+<p>पत्र स्वीकृत स्रोत अभिलेख से बनेगा। इससे उपयोग संख्या नहीं बदलेगी।</p>
+{% for error in errors %}<p role="alert" class="alert alert-danger">{{ error }}</p>{% endfor %}
+<section class="office-card"><form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">पत्र प्रारूप बनाएँ</button></form></section>
+{% endblock %}

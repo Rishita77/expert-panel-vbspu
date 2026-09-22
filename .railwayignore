@@ -1,0 +1,14 @@
+.git
+.venv
+.tools
+.local
+.uv-cache
+tmp
+output
+test-results
+.pytest_cache
+.ruff_cache
+staticfiles
+*.log
+__pycache__
+*.py[cod]

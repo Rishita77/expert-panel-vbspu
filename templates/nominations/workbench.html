@@ -1,0 +1,10 @@
+{% extends 'office/base.html' %}{% block content %}
+<h1>विशेषज्ञ आवंटन</h1>
+<p><a href="{% url 'office_detail' 'requests' case.pk %}">{{ case }}</a> · संशोधन {{ case.revision }}</p>
+<section class="office-card"><p>आवंटन तिथि: {{ today|date:'d.m.Y' }}। पात्रता इसी तिथि पर जाँची जाएगी।</p>
+<p>प्रस्तावित पैनल बनने के बाद केवल उसके सदस्यों का उपलब्धता और हित-संघर्ष सत्यापन दर्ज किया जाएगा।</p>
+{% if can_vc and case.state == 'reviewed' %}<form method="post">{% csrf_token %}<input type="hidden" name="action" value="generate">{{ generation.as_p }}<button class="btn btn-primary">नियम-इंजन से प्रस्तावित पैनल तैयार करें</button></form>{% elif case.state == 'reviewed' %}<p>रजिस्ट्रार समीक्षा पूर्ण है। VC की पैनल-निर्माण कार्रवाई की प्रतीक्षा है।</p>{% elif case.state == 'offered' %}<p>प्रस्तावित पैनल तैयार हो चुका है। नीचे सहेजी हुई अनुशंसा खोलें।</p>{% endif %}
+{% for error in errors %}<p role="alert" class="alert alert-danger">{{ error }}</p>{% endfor %}
+<section class="office-card"><h2>सहेजी हुई जाँच</h2>{% for item in runs %}<p><a href="{% url 'allocation_run' item.pk %}">{{ item.created_at|date:'d.m.Y H:i' }}</a> · अनुरोध संशोधन {{ item.request_revision }}</p>{% empty %}<p>अभी कोई जाँच नहीं हुई है।</p>{% endfor %}
+{% if runs.has_previous %}<a href="?page={{ runs.previous_page_number }}">पिछला</a>{% endif %} {% if runs.has_next %}<a href="?page={{ runs.next_page_number }}">अगला</a>{% endif %}</section>
+{% endblock %}

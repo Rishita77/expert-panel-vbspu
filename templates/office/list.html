@@ -1,0 +1,7 @@
+{% extends 'office/base.html' %}{% block content %}
+<div class="office-heading"><h1>{{ title }}</h1>{% if can_write %}<a class="btn btn-primary" href="{% url 'office_new' kind %}">नया जोड़ें</a>{% endif %}</div>
+<form method="get" class="office-search"><label for="q">नाम / सन्दर्भ से खोजें</label><input class="form-control" id="q" name="q" value="{{ query }}" maxlength="200"><button class="btn btn-outline-secondary">खोजें</button></form>
+<div class="office-card"><ul class="office-records">{% for row in page %}<li><a href="{% url 'office_detail' kind row.pk %}">{{ row }}</a>
+{% if kind == 'requests' %}<small>{{ row.get_state_display }} · संशोधन {{ row.revision }} · {{ row.updated_at|date:'d.m.Y H:i' }} · {{ row.updated_by }}</small>{% else %}<small>{% if row.is_active %}सक्रिय{% else %}निष्क्रिय{% endif %}{% if row.official_code %} · {{ row.official_code }}{% endif %}</small>{% endif %}</li>{% empty %}<li>कोई रिकॉर्ड नहीं मिला।{% if can_write %} नया रिकॉर्ड जोड़कर शुरू करें।{% endif %}</li>{% endfor %}</ul></div>
+<div class="office-pagination">{% if page.has_previous %}<a href="?q={{ query|urlencode }}&page={{ page.previous_page_number }}">पिछला</a>{% endif %}<span>पृष्ठ {{ page.number }} / {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?q={{ query|urlencode }}&page={{ page.next_page_number }}">अगला</a>{% endif %}</div>
+{% endblock %}

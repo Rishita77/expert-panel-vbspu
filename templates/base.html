@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>{% block title %}विशेषज्ञ नामांकन{% endblock %} · VBSPU</title>
+  <link rel="icon" href="{% static 'brand.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'app.css' %}">
+  <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
+  <script src="{% static 'app.js' %}" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">मुख्य सामग्री पर जाएँ</a>
+<div class="app-frame">
+  <aside class="sidebar" aria-label="मुख्य नेविगेशन">
+    <a class="brand" href="{% url 'home' %}" aria-label="VBSPU मुख्य पृष्ठ">
+      <img src="{% static 'brand.svg' %}" width="44" height="44" alt="">
+      <span><strong lang="en">VBSPU</strong><small>विशेषज्ञ नामांकन</small></span>
+    </a>
+    <div class="sidebar-rule"></div>
+    <p class="nav-label" lang="en">UNIVERSITY WORKSPACE</p>
+    <nav>
+      <a href="{% url 'home' %}" class="nav-item {% if section == 'home' %}active{% endif %}" {% if section == 'home' %}aria-current="page"{% endif %}><span aria-hidden="true">◫</span> कार्यक्षेत्र <small lang="en">Overview</small></a>
+      <a href="{% url 'intake' %}" class="nav-item {% if section == 'intake' %}active{% endif %}" {% if section == 'intake' %}aria-current="page"{% endif %}><span aria-hidden="true">＋</span> अनुरोध प्रारूप <small lang="en">Request preview</small></a>
+      <a href="{% url 'policies' %}" class="nav-item {% if section == 'policies' %}active{% endif %}" {% if section == 'policies' %}aria-current="page"{% endif %}><span aria-hidden="true">▤</span> पैनल संरचना <small lang="en">Panel composition</small></a>
+    </nav>
+    <div class="sidebar-bottom"><span class="cycle-label">नामांकन वर्ष</span><strong>{{ nomination_cycle }}</strong><small>01 जुलाई — 30 जून</small><div class="sidebar-rule"></div><p>वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय<br>जौनपुर, उत्तर प्रदेश</p></div>
+  </aside>
+  <div class="main-column">
+    <header class="topbar"><div><span class="institution-name">वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय</span><small lang="en">Expert Panel Nomination System</small></div><span class="preview-badge"><i aria-hidden="true"></i> स्थानीय पूर्वावलोकन</span></header>
+    <main id="main" tabindex="-1">{% block content %}{% endblock %}</main>
+    <footer class="page-footer"><span>विश्वविद्यालय कार्यालय हेतु</span><span>पूर्वावलोकन • कोई विवरण सहेजा नहीं जाता</span></footer>
+  </div>
+</div>
+</body>
+</html>

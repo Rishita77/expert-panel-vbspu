@@ -1,0 +1,5 @@
+{% extends 'office/base.html' %}{% load reporting_extras %}{% block content %}
+<div class="office-heading"><div><p><a href="{% url 'reporting_home' %}">डैशबोर्ड</a></p><h1>{{ report.id }} · {{ report.title }}</h1></div>{% if not report.unavailable %}<a class="btn btn-outline-secondary" href="{% url 'reporting_export' report.slug %}?year={{ filters.year }}&college={{ filters.college }}&subject={{ filters.subject }}&role={{ filters.role }}&category={{ filters.category }}">CSV डाउनलोड</a>{% endif %}</div>
+{% include 'reporting/filter_form.html' %}
+{% if report.unavailable %}<p class="alert alert-info">{{ report.unavailable }}</p>{% else %}<section class="office-card"><div class="table-responsive"><table class="table"><thead><tr>{% for column in report.columns %}<th>{{ column }}</th>{% endfor %}</tr></thead><tbody>{% for row in report.rows %}<tr>{% for column in report.columns %}<td>{{ row|lookup:column|default_if_none:'—' }}</td>{% endfor %}</tr>{% empty %}<tr><td colspan="{{ report.columns|length }}">इस फ़िल्टर में कोई रिकॉर्ड नहीं है।</td></tr>{% endfor %}</tbody></table></div></section>{% endif %}
+{% endblock %}

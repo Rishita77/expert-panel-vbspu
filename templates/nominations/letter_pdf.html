@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="hi"><head><meta charset="utf-8"><style>
+{% if font_url %}@font-face { font-family: LetterHindi; src: url('{{ font_url }}'); }{% endif %}
+@page { size: A4; margin: 14mm 16mm 16mm; }
+* { box-sizing: border-box; }
+body { font-family: {% if font_url %}LetterHindi, {% endif %}'Noto Sans Devanagari', 'Nirmala UI', Mangal, sans-serif; font-size: 12pt; line-height: 1.45; color: #111; }
+.header { display: table; width: 100%; border-bottom: .5pt solid #222; padding-bottom: 4mm; }
+.header > div { display: table-cell; vertical-align: top; width: 38%; }
+.header .seal { width: 24%; text-align: center; }
+.header .right { text-align: right; }
+.seal img { width: 25mm; height: 25mm; }
+.centre { text-align: center; }.right { text-align: right; }.muted { font-size: 9pt; }
+.title { margin: 7mm 0 3mm; text-align: center; font-size: 14pt; }
+.meta { margin: 4mm 0 6mm; }.meta p { margin: 1.5mm 0; }
+table.members { border-collapse: collapse; width: 100%; margin-top: 5mm; }
+.members th, .members td { border: .4pt solid #777; padding: 2.5mm; text-align: left; vertical-align: top; }
+.members th { width: 32%; background: #f1f3f5; font-weight: normal; }
+.note { margin-top: 6mm; }.signature { margin-top: 18mm; text-align: right; }
+</style></head><body>
+<div class="header"><div><strong>प्रो० आर. के. सिंह</strong><br>कुलपति<br><span lang="en">Prof. R.K. Singh<br>Vice Chancellor</span></div><div class="seal">{% if logo_url %}<img src="{{ logo_url }}" alt="विश्वविद्यालय प्रतीक">{% endif %}</div><div class="right"><strong>वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय</strong><br>जौनपुर - २२२००३ (उ. प्र.)<br><span lang="en">Veer Bahadur Singh Purvanchal University<br>Jaunpur - 222003 (U.P.)</span></div></div>
+<p class="centre">विश्वविद्यालय कार्यालय प्रति</p><p class="right">पत्रांक: {{ revision.letter.reference }}<br>दिनांक: {{ revision.letter_date|date:'d.m.Y' }}</p>
+<h1 class="title">{{ data.request }}<br>{{ revision.letter.get_kind_display }}</h1>
+<div class="meta"><p>पद: {{ data.appointment_type }}</p><p>विषय: {{ data.subject|default:'—' }}</p>{% if data.selection_date %}<p>प्रस्तावित चयन तिथि: {{ data.selection_date }}</p>{% endif %}</div>
+<table class="members">{% for role,name in rows %}<tr><th>{{ role }}</th><td>{{ name }}</td></tr>{% endfor %}</table>
+<p class="note">यह पत्र विश्वविद्यालय अभिलेख से तैयार किया गया है। उपयोग संख्या में इस दस्तावेज से कोई परिवर्तन नहीं होता।</p>
+<p class="signature">कुलपति<br><span class="muted">ई-हस्ताक्षर लागू नहीं - इस संस्करण में डाउनलोड योग्य दस्तावेज</span></p>
+</body></html>

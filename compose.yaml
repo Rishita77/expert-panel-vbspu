@@ -1,0 +1,39 @@
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      APP_MODE: preview
+      POSTGRES_HOST: db
+      POSTGRES_DB: ${POSTGRES_DB:-vbspu}
+      POSTGRES_USER: ${POSTGRES_USER:-vbspu}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-}
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  db:
+    image: postgres:17
+    profiles: [database]
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-vbspu}
+      POSTGRES_USER: ${POSTGRES_USER:-vbspu}
+      # Set POSTGRES_PASSWORD in your environment before starting this optional service.
+      # With no password, PostgreSQL intentionally refuses initialisation.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  postgres_data:

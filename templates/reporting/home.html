@@ -1,0 +1,7 @@
+{% extends 'office/base.html' %}{% block content %}
+<div class="office-heading"><div><h1>डैशबोर्ड और रिपोर्ट</h1><p>केवल अंतिम लॉक और पुष्ट प्रतिस्थापन के जीवित उपयोग योगदान दिखाए गए हैं।</p></div></div>
+{% include 'reporting/filter_form.html' %}
+<div class="report-card-grid">{% for label,value,help in dashboard.cards %}<section class="office-card report-card"><h2>{{ value }}</h2><strong>{{ label }}</strong><p>{{ help }}</p></section>{% endfor %}</div>
+<section class="office-card"><div class="office-heading"><h2>विशेषज्ञ उपयोग सारांश</h2><span>{{ filters.year }}</span></div><div class="table-responsive"><table class="table"><thead><tr><th>विशेषज्ञ</th><th>संस्था</th><th>श्रेणी</th><th>इस वर्ष</th><th>कुल</th><th>अंतिम नामांकन</th></tr></thead><tbody>{% for row in dashboard.expert_rows %}<tr><td>{{ row.expert }} · #{{ row.sequence }}</td><td>{{ row.institution }}</td><td>{{ row.category }}</td><td>{{ row.current }}</td><td>{{ row.lifetime }}</td><td>{{ row.last|default:'—' }}</td></tr>{% empty %}<tr><td colspan="6">इस फ़िल्टर में कोई सक्रिय विशेषज्ञ नहीं है।</td></tr>{% endfor %}</tbody></table></div></section>
+<section class="office-card"><h2>SRS रिपोर्ट</h2><div class="report-links">{% for slug,item in reports.items %}<a href="{% url 'reporting_report' slug %}?year={{ filters.year }}">{{ item.0 }} · {{ item.1 }}</a>{% endfor %}</div></section>
+{% endblock %}

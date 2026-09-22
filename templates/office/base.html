@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html><html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>{{ title|default:'विश्वविद्यालय कार्यालय' }} · VBSPU</title>
+<link rel="icon" href="{% static 'brand.svg' %}" type="image/svg+xml">
+<link rel="stylesheet" href="{% static 'vendor/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'app.css' %}">
+<link rel="stylesheet" href="{% static 'office.css' %}">
+</head><body class="office-body"><a class="skip-link" href="#main">मुख्य सामग्री पर जाएँ</a>
+<div class="app-frame"><aside class="sidebar" aria-label="कार्यालय नेविगेशन">
+<a class="brand" href="{% url 'office_home' %}"><img src="{% static 'brand.svg' %}" width="44" height="44" alt=""><span><strong>VBSPU</strong><small>विश्वविद्यालय कार्यालय</small></span></a>
+<div class="sidebar-rule"></div><nav>
+{% if user.is_authenticated %}
+<a class="nav-item" href="{% url 'office_home' %}">कार्यक्षेत्र</a>
+{% if can_cases %}<a class="nav-item" href="{% url 'office_list' 'requests' %}">अनुरोध प्रारूप</a>{% endif %}
+{% if can_directory %}<a class="nav-item" href="{% url 'office_list' 'institutions' %}">संस्थाएँ</a><a class="nav-item" href="{% url 'office_list' 'subjects' %}">विषय</a>{% endif %}
+{% if can_experts %}<a class="nav-item" href="{% url 'expert_list' 'experts' %}">EC-स्वीकृत विशेषज्ञ</a>{% endif %}
+{% if can_reports %}<a class="nav-item" href="{% url 'reporting_home' %}">डैशबोर्ड और रिपोर्ट</a>{% endif %}
+{% if can_reviewer or can_vc or can_accounts %}<a class="nav-item" href="{% url 'document_queue' %}">पत्र कार्यसूची</a>{% endif %}
+{% if can_accounts %}<a class="nav-item" href="{% url 'office_list' 'staff' %}">कर्मचारी खाते</a>{% endif %}
+{% endif %}</nav><div class="sidebar-bottom"><p>वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय<br>जौनपुर, उत्तर प्रदेश</p></div></aside>
+<div class="main-column"><header class="topbar"><div><span class="institution-name">विश्वविद्यालय कार्यालय</span><small>स्थानीय प्रदर्शन · परीक्षण जानकारी हेतु</small></div>
+{% if user.is_authenticated %}<div class="office-account"><span>{{ user.full_name }}</span><a class="btn btn-outline-secondary btn-sm" href="{% url 'password_change' %}">पासवर्ड बदलें</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="btn btn-outline-secondary btn-sm">साइन आउट</button></form></div>{% endif %}</header>
+<main id="main" tabindex="-1" class="office-main">{% block content %}{% endblock %}</main>
+<footer class="page-footer">© 2026 Veer Bahadur Purvanchal University. All rights reserved.</footer></div></div></body></html>
