@@ -80,7 +80,8 @@ def listing(request, kind):
             "kind": kind,
             "query": query,
             "page": Paginator(rows, 25).get_page(request.GET.get("page")),
-            "can_write": write_role in roles_for(request.user),
+            "can_write": write_role in roles_for(request.user)
+            or Role.ADMIN in roles_for(request.user),
         },
     )
 
@@ -252,7 +253,7 @@ def detail(request, kind, pk):
                 and obj.state not in {RequestDraft.State.DRAFT, RequestDraft.State.RETURNED}
             ),
             "can_submit": kind == "requests"
-            and Role.PROCESSOR in roles
+            and bool(roles & {Role.PROCESSOR, Role.ADMIN})
             and obj.state in {RequestDraft.State.DRAFT, RequestDraft.State.RETURNED},
             "can_return": kind == "requests"
             and bool(roles & {Role.REVIEWER, Role.ADMIN})

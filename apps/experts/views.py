@@ -162,7 +162,7 @@ def detail(request, kind, pk):
     obj = get_object_or_404(model, pk=pk)
     if kind != "experts":
         return redirect(parent_url(kind, obj))
-    contacts = bool(roles_for(request.user) & {Role.MASTER, Role.PROCESSOR})
+    contacts = bool(roles_for(request.user) & {Role.MASTER, Role.PROCESSOR, Role.ADMIN})
     fields = form_class(instance=obj).fields
     rows = []
     for name, field in fields.items():

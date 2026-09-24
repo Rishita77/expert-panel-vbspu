@@ -37,13 +37,17 @@ def permitted(*roles):
 
 def context(request):
     roles = roles_for(request.user)
+    is_admin = Role.ADMIN in roles
     return {
         "persistent_mode": True,
-        "can_accounts": Role.ADMIN in roles,
-        "can_master": Role.MASTER in roles,
-        "can_process": Role.PROCESSOR in roles,
-        "can_reviewer": Role.REVIEWER in roles,
-        "can_vc": Role.VC in roles,
+        # A system administrator is deliberately an effective holder of every
+        # operational role.  Views also enforce this through require_role();
+        # these flags keep the visible actions consistent with that authority.
+        "can_accounts": is_admin,
+        "can_master": is_admin or Role.MASTER in roles,
+        "can_process": is_admin or Role.PROCESSOR in roles,
+        "can_reviewer": is_admin or Role.REVIEWER in roles,
+        "can_vc": is_admin or Role.VC in roles,
         "can_reports": bool(roles & {Role.REVIEWER, Role.VC, Role.ADMIN}),
         "can_cases": bool(roles.intersection({Role.PROCESSOR, Role.REVIEWER, Role.VC, Role.ADMIN})),
         "can_directory": bool(roles),
