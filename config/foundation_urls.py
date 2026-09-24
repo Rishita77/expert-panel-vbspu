@@ -2,6 +2,7 @@ from django.urls import include, path
 
 from apps.accounts import views as accounts
 from apps.cases import views
+from apps.institutions import bulk_import as institution_bulk_import
 
 urlpatterns = [
     path("office/allocation/", include("apps.nominations.urls")),
@@ -12,6 +13,16 @@ urlpatterns = [
     path("office/login/resend-email-code/", accounts.email_otp_resend, name="email_otp_resend"),
     path("office/logout/", accounts.sign_out, name="logout"),
     path("office/account/password/", accounts.password_change, name="password_change"),
+    path(
+        "office/institutions/import/",
+        institution_bulk_import.upload,
+        name="institution_bulk_import",
+    ),
+    path(
+        "office/institutions/import/template/",
+        institution_bulk_import.template,
+        name="institution_import_template",
+    ),
     path(
         "office/staff/<uuid:pk>/credentials/",
         accounts.issue_credentials,
