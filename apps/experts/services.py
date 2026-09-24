@@ -65,6 +65,8 @@ def save_expert(actor, data, revision=0, pk=None):
             setattr(obj, key, data[key])
     if "sequence" in data:
         raise ValidationError("स्थायी क्रमांक बदला नहीं जा सकता।")
+    if not pk and not data.get("university"):
+        raise ValidationError("नए विशेषज्ञ के लिए विश्वविद्यालय आवश्यक है।")
     if pk and obj.is_active:
         from apps.nominations.models import Assessment
 
@@ -89,6 +91,7 @@ def save_expert(actor, data, revision=0, pk=None):
             {
                 "expert_revision": obj.revision,
                 "institution": data["institution"],
+                "university": data["university"],
                 "administrative_post": data["administrative_post"],
                 "administrative_post_title": data["administrative_post_title"],
                 "academic_designation": data["academic_designation"],
@@ -137,6 +140,7 @@ def save_appointment(actor, expert_id, data, revision=0, pk=None):
         check_revision(obj, revision, reason)
     for key in [
         "institution",
+        "university",
         "administrative_post",
         "administrative_post_title",
         "academic_designation",
@@ -152,6 +156,8 @@ def save_appointment(actor, expert_id, data, revision=0, pk=None):
     if not obj.administrative_post:
         obj.administrative_post_title = ""
         obj.post_end_date = None
+    if obj.is_current and not obj.university_id:
+        raise ValidationError("वर्तमान संस्था के लिए विश्वविद्यालय आवश्यक है।")
     elif (
         obj.administrative_post == Appointment.AdministrativePost.OTHER
         and not obj.administrative_post_title.strip()
@@ -175,4 +181,3 @@ def save_appointment(actor, expert_id, data, revision=0, pk=None):
     expert.updated_by = actor
     expert.save(update_fields=["revision", "updated_by", "updated_at"])
     return obj
-

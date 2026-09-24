@@ -12,6 +12,11 @@ class ExpertForm(RevisionForm):
         queryset=Institution.objects.none(),
         required=True,
     )
+    university = forms.ModelChoiceField(
+        label="विश्वविद्यालय",
+        queryset=Institution.objects.none(),
+        required=True,
+    )
     academic_designation = forms.ChoiceField(
         label="शैक्षणिक पदनाम",
         choices=[
@@ -44,12 +49,16 @@ class ExpertForm(RevisionForm):
         super().__init__(*args, **kwargs)
         if self.instance._state.adding:
             self.fields["institution"].queryset = Institution.objects.filter(is_active=True)
+            self.fields["university"].queryset = Institution.objects.filter(
+                is_active=True, institution_kind=Institution.Kind.UNIVERSITY
+            )
             self.fields.pop("reason")
             self.order_fields(
                 [
                     "name",
                     "category",
                     "institution",
+                    "university",
                     "academic_designation",
                     "subjects",
                     "holds_administrative_post",
@@ -64,6 +73,7 @@ class ExpertForm(RevisionForm):
             )
         else:
             self.fields.pop("institution")
+            self.fields.pop("university")
             self.fields.pop("academic_designation")
             self.fields.pop("holds_administrative_post")
             self.fields.pop("administrative_post")
@@ -104,6 +114,10 @@ class AppointmentForm(RevisionForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["university"].queryset = Institution.objects.filter(
+            is_active=True, institution_kind=Institution.Kind.UNIVERSITY
+        )
+        self.fields["university"].required = True
         self.fields["holds_administrative_post"].initial = (
             "yes" if self.instance.administrative_post else "no"
         )
@@ -127,6 +141,7 @@ class AppointmentForm(RevisionForm):
         model = Appointment
         fields = [
             "institution",
+            "university",
             "academic_designation",
             "administrative_post",
             "administrative_post_title",

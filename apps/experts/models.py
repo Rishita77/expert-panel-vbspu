@@ -1,6 +1,7 @@
 import uuid
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.expressions import RawSQL
@@ -88,6 +89,14 @@ class Appointment(TrackedRecord):
     institution = models.ForeignKey(
         "institutions.Institution", on_delete=models.PROTECT, verbose_name="संस्था"
     )
+    university = models.ForeignKey(
+        "institutions.Institution",
+        on_delete=models.PROTECT,
+        related_name="university_appointments",
+        null=True,
+        blank=True,
+        verbose_name="विश्वविद्यालय",
+    )
     administrative_post = models.CharField(
         "धारित प्रशासनिक पद", max_length=20, choices=AdministrativePost.choices, blank=True
     )
@@ -150,3 +159,8 @@ class Appointment(TrackedRecord):
 
     def __str__(self):
         return f"{self.institution} · {self.get_academic_designation_display()}"
+
+    def clean(self):
+        super().clean()
+        if self.university_id and self.university.institution_kind != "university":
+            raise ValidationError({"university": "विश्वविद्यालय प्रकार की संस्था चुनें।"})
