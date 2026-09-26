@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db import IntegrityError
@@ -21,8 +22,8 @@ from .services import save_appointment, save_expert
 
 READ = (Role.MASTER, Role.PROCESSOR, Role.REVIEWER, Role.VC)
 REGISTRY = {
-    "experts": (Expert, ExpertForm, "विशेषज्ञ"),
-    "appointments": (Appointment, AppointmentForm, "संस्था / पद इतिहास"),
+    "experts": (Expert, ExpertForm, gettext_lazy("विशेषज्ञ")),
+    "appointments": (Appointment, AppointmentForm, gettext_lazy("संस्था / पद इतिहास")),
 }
 
 
@@ -92,7 +93,7 @@ def edit(request, kind, pk=None, parent=None):
             elif kind == "appointments":
                 saved = save_appointment(request.user, home.pk, data, data["revision"], pk)
             else:
-                raise ValidationError("अमान्य निर्देशिका रिकॉर्ड।")
+                raise ValidationError(gettext_lazy("अमान्य निर्देशिका रिकॉर्ड।"))
             return redirect(parent_url(kind, saved))
         except EditConflict as exc:
             form.add_error(None, exc)
@@ -102,7 +103,7 @@ def edit(request, kind, pk=None, parent=None):
                 form.add_error(None, message)
         except IntegrityError:
             form.add_error(
-                None, "तिथि, दोहराव या समकालीन बदलाव के कारण सहेजा नहीं गया। वर्तमान रिकॉर्ड जाँचें।"
+                None, gettext_lazy("तिथि, दोहराव या समकालीन बदलाव के कारण सहेजा नहीं गया। वर्तमान रिकॉर्ड जाँचें।")
             )
             status = 409
     back = (
@@ -126,16 +127,16 @@ def edit(request, kind, pk=None, parent=None):
 
 
 def field_labels():
-    labels = {"revision": "संशोधन", "subjects": "विषय", "sequence": "स्थायी क्रमांक"}
+    labels = {"revision": gettext_lazy("संशोधन"), "subjects": gettext_lazy("विषय"), "sequence": gettext_lazy("स्थायी क्रमांक")}
     for model, _, _ in REGISTRY.values():
         for field in model._meta.fields:
             labels[field.name] = str(field.verbose_name)
     labels.update(
         {
-            "state": "स्थिति",
-            "version": "संस्करण",
-            "previous_version": "पूर्व संस्करण",
-            "expert": "विशेषज्ञ",
+            "state": gettext_lazy("स्थिति"),
+            "version": gettext_lazy("संस्करण"),
+            "previous_version": gettext_lazy("पूर्व संस्करण"),
+            "expert": gettext_lazy("विशेषज्ञ"),
         }
     )
     return labels
@@ -150,7 +151,7 @@ def audit_rows(data, contacts):
         if key == "candidate_list":
             continue
         if isinstance(value, bool):
-            value = "हाँ" if value else "नहीं"
+            value = gettext_lazy("हाँ") if value else gettext_lazy("नहीं")
         output.append((labels.get(key, key), value if value is not None else "—"))
     return output
 
@@ -172,7 +173,7 @@ def detail(request, kind, pk):
         if name == "subjects":
             value = ", ".join(str(subject) for subject in obj.subjects.all())
         elif isinstance(value, bool):
-            value = "हाँ" if value else "नहीं"
+            value = gettext_lazy("हाँ") if value else gettext_lazy("नहीं")
         elif hasattr(obj, f"get_{name}_display"):
             value = getattr(obj, f"get_{name}_display")()
         rows.append((field.label, "—" if value is None or value == "" else value))

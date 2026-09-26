@@ -2,20 +2,21 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Assessment(models.Model):
     """Append-only staff declaration; DEC-037 does not require document upload."""
 
     STATUS = [
-        ("available", "उपलब्ध"),
-        ("unavailable", "उपलब्ध नहीं"),
-        ("leave", "अवकाश पर"),
-        ("retired", "सेवानिवृत्त — स्थायी निष्क्रिय"),
-        ("transferred", "स्थानान्तरित — स्थायी निष्क्रिय"),
-        ("deceased", "दिवंगत"),
-        ("temporary", "इस चयन के लिए अयोग्य"),
-        ("permanent", "स्थायी निष्क्रिय"),
+        ("available", _("उपलब्ध")),
+        ("unavailable", _("उपलब्ध नहीं")),
+        ("leave", _("अवकाश पर")),
+        ("retired", _("सेवानिवृत्त — स्थायी निष्क्रिय")),
+        ("transferred", _("स्थानान्तरित — स्थायी निष्क्रिय")),
+        ("deceased", _("दिवंगत")),
+        ("temporary", _("इस चयन के लिए अयोग्य")),
+        ("permanent", _("स्थायी निष्क्रिय")),
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     request = models.ForeignKey("cases.RequestDraft", on_delete=models.PROTECT)
@@ -75,8 +76,8 @@ class FinalSelection(models.Model):
     """VC's final choices from one immutable complete offered panel."""
 
     class State(models.TextChoices):
-        DRAFT = "draft", "प्रारूप"
-        LOCKED = "locked", "अंतिम रूप से लॉक"
+        DRAFT = "draft", _("प्रारूप")
+        LOCKED = "locked", _("अंतिम रूप से लॉक")
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     request = models.ForeignKey("cases.RequestDraft", on_delete=models.PROTECT)
@@ -116,11 +117,11 @@ class FinalMember(models.Model):
     role = models.CharField(
         max_length=20,
         choices=[
-            ("vc", "कुलपति नामित"),
-            ("principal", "प्राचार्य"),
-            ("professor", "प्रोफेसर"),
-            ("scst", "अतिरिक्त SC/ST"),
-            ("obc", "अतिरिक्त OBC"),
+            ("vc", _("कुलपति नामित")),
+            ("principal", _("प्राचार्य")),
+            ("professor", _("प्रोफेसर")),
+            ("scst", _("अतिरिक्त SC/ST")),
+            ("obc", _("अतिरिक्त OBC")),
         ],
     )
     position = models.PositiveSmallIntegerField(default=1)
@@ -157,14 +158,14 @@ class PanelChange(models.Model):
     """A separate, reviewed change to an immutable locked final selection."""
 
     class Type(models.TextChoices):
-        REPLACEMENT = "replacement", "प्रतिस्थापन"
-        CANCELLATION = "cancellation", "रद्दीकरण"
+        REPLACEMENT = "replacement", _("प्रतिस्थापन")
+        CANCELLATION = "cancellation", _("रद्दीकरण")
 
     class State(models.TextChoices):
-        DRAFT = "draft", "प्रारूप"
-        SUBMITTED = "submitted", "समीक्षा हेतु प्रस्तुत"
-        RETURNED = "returned", "वापस किया गया"
-        CONFIRMED = "confirmed", "पुष्ट"
+        DRAFT = "draft", _("प्रारूप")
+        SUBMITTED = "submitted", _("समीक्षा हेतु प्रस्तुत")
+        RETURNED = "returned", _("वापस किया गया")
+        CONFIRMED = "confirmed", _("पुष्ट")
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     selection = models.ForeignKey(FinalSelection, on_delete=models.PROTECT, related_name="changes")
@@ -234,7 +235,7 @@ class PanelChangeReviewEvent(models.Model):
     change = models.ForeignKey(PanelChange, on_delete=models.PROTECT, related_name="review_events")
     revision = models.PositiveIntegerField()
     action = models.CharField(
-        max_length=20, choices=[("submitted", "प्रस्तुत"), ("returned", "वापस"), ("confirmed", "पुष्ट")]
+        max_length=20, choices=[("submitted", _("प्रस्तुत")), ("returned", _("वापस")), ("confirmed", _("पुष्ट"))]
     )
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     reason = models.CharField(max_length=1000, blank=True)
@@ -291,10 +292,10 @@ class Letter(models.Model):
     """A staff-referenced document with immutable reviewer-approved revisions."""
 
     class Kind(models.TextChoices):
-        OFFER = "offer", "प्रस्तावित पैनल"
-        FINAL = "final", "अंतिम चयन अभिलेख"
-        REPLACEMENT = "replacement", "प्रतिस्थापन सूचना"
-        CANCELLATION = "cancellation", "रद्दीकरण सूचना"
+        OFFER = "offer", _("प्रस्तावित पैनल")
+        FINAL = "final", _("अंतिम चयन अभिलेख")
+        REPLACEMENT = "replacement", _("प्रतिस्थापन सूचना")
+        CANCELLATION = "cancellation", _("रद्दीकरण सूचना")
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     request = models.ForeignKey(
@@ -314,10 +315,10 @@ class Letter(models.Model):
 
 class LetterRevision(models.Model):
     class State(models.TextChoices):
-        DRAFT = "draft", "प्रारूप"
-        SUBMITTED = "submitted", "समीक्षा हेतु प्रस्तुत"
-        RETURNED = "returned", "वापस किया गया"
-        APPROVED = "approved", "डाउनलोड हेतु स्वीकृत"
+        DRAFT = "draft", _("प्रारूप")
+        SUBMITTED = "submitted", _("समीक्षा हेतु प्रस्तुत")
+        RETURNED = "returned", _("वापस किया गया")
+        APPROVED = "approved", _("डाउनलोड हेतु स्वीकृत")
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     letter = models.ForeignKey(Letter, on_delete=models.PROTECT, related_name="revisions")
@@ -379,11 +380,11 @@ class LetterEvent(models.Model):
     action = models.CharField(
         max_length=20,
         choices=[
-            ("prepared", "तैयार"),
-            ("submitted", "प्रस्तुत"),
-            ("returned", "वापस"),
-            ("approved", "स्वीकृत"),
-            ("downloaded", "डाउनलोड"),
+            ("prepared", _("तैयार")),
+            ("submitted", _("प्रस्तुत")),
+            ("returned", _("वापस")),
+            ("approved", _("स्वीकृत")),
+            ("downloaded", _("डाउनलोड")),
         ],
     )
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)

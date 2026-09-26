@@ -174,23 +174,6 @@ p {
   letter-spacing:.3px;
   margin-top:4px
 }
-.preview-badge {
-  border:1px solid #dedfcf;
-  background:#f8f6e9;
-  border-radius:30px;
-  padding:6px 12px;
-  font-size:10px;
-  white-space:nowrap;
-  color:#665322
-}
-.preview-badge i {
-  display:inline-block;
-  width:6px;
-  height:6px;
-  background:#a97a2e;
-  border-radius:50%;
-  margin-right:7px
-}
 main {
   padding:38px 50px 50px;
   max-width:1480px;
@@ -830,10 +813,6 @@ main:focus {
   }
   .topbar small {
     font-size:8px
-  }
-  .preview-badge {
-    font-size:8px;
-    padding:4px 8px
   }
   main {
     padding:27px 20px 35px

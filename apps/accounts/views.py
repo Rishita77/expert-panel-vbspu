@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy
 from datetime import timedelta
 
 from django.conf import settings
@@ -54,24 +55,24 @@ def sign_in(request):
         if not allow_attempt(
             request.POST.get("username", "")[:150], request.META.get("REMOTE_ADDR", "")
         ):
-            form.add_error(None, "बहुत अधिक प्रयास। कृपया 15 मिनट बाद पुनः प्रयास करें।")
+            form.add_error(None, gettext_lazy("बहुत अधिक प्रयास। कृपया 15 मिनट बाद पुनः प्रयास करें।"))
             status = 429
         elif not verify_turnstile(
             request.POST.get("cf-turnstile-response", ""), request.META.get("REMOTE_ADDR", "")
         ):
-            form.add_error(None, "सुरक्षा जाँच पूरी नहीं हुई। कृपया पुनः प्रयास करें।")
+            form.add_error(None, gettext_lazy("सुरक्षा जाँच पूरी नहीं हुई। कृपया पुनः प्रयास करें।"))
         elif form.is_valid():
             user = form.get_user()
             if settings.EMAIL_OTP_ENABLED:
                 if not user.email:
-                    form.add_error(None, "इस खाते में आधिकारिक ईमेल दर्ज नहीं है। प्रशासक से संपर्क करें।")
+                    form.add_error(None, gettext_lazy("इस खाते में आधिकारिक ईमेल दर्ज नहीं है। प्रशासक से संपर्क करें।"))
                 else:
                     try:
                         challenge = issue_email_login_challenge(
                             user, request.META.get("REMOTE_ADDR", "")
                         )
                     except EmailDeliveryError:
-                        form.add_error(None, "सत्यापन कोड नहीं भेजा जा सका। कृपया पुनः प्रयास करें।")
+                        form.add_error(None, gettext_lazy("सत्यापन कोड नहीं भेजा जा सका। कृपया पुनः प्रयास करें।"))
                     else:
                         request.session.cycle_key()
                         request.session["pending_email_login_challenge"] = str(challenge.pk)
@@ -115,7 +116,7 @@ def email_otp_verify(request):
     if request.method == "POST" and form.is_valid():
         user = consume_email_login_challenge(challenge.pk, form.cleaned_data["code"])
         if user is None:
-            form.add_error(None, "कोड अमान्य, प्रयुक्त या समाप्त हो चुका है।")
+            form.add_error(None, gettext_lazy("कोड अमान्य, प्रयुक्त या समाप्त हो चुका है।"))
         else:
             request.session.pop("pending_email_login_challenge", None)
             _complete_login(request, user)
@@ -190,7 +191,7 @@ def issue_credentials(request, pk):
     require_role(request.user, Role.ADMIN)
     target = get_object_or_404(StaffUser, pk=pk)
     if target == request.user:
-        raise PermissionDenied("अपने खाते के प्रमाण-पत्र यहाँ से रीसेट नहीं कर सकते।")
+        raise PermissionDenied(gettext_lazy("अपने खाते के प्रमाण-पत्र यहाँ से रीसेट नहीं कर सकते।"))
     form = CredentialIssueForm(request.POST or None, target=target)
     if request.method == "POST" and form.is_valid():
         try:

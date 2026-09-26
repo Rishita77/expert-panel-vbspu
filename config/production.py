@@ -68,6 +68,7 @@ MIDDLEWARE = [
     MIDDLEWARE[0],
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     *MIDDLEWARE[1:],
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "apps.accounts.middleware.SessionSecurityMiddleware",

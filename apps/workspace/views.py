@@ -38,5 +38,5 @@ def policies(request):
 
 @require_GET
 def health(request):
-    # Liveness only: never report database/auth/production readiness from this endpoint.
-    return JsonResponse({"status": "ok", "mode": "preview", "persistent_storage": False})
+    # Liveness only: never report database/auth readiness or environment details.
+    return JsonResponse({"status": "ok"})

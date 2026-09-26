@@ -1,3 +1,4 @@
+from django.utils.translation import gettext, gettext_lazy
 """One read-only reporting path over the immutable nomination ledger."""
 
 from collections import defaultdict
@@ -22,21 +23,21 @@ from apps.nominations.models import (
 
 
 REPORTS = {
-    "professors": ("REP-01", "प्रोफेसर-वार नामांकन", "role"),
-    "principals": ("REP-02", "प्राचार्य-वार नामांकन", "role"),
-    "vc-nominees": ("REP-03", "कुलपति नामित उपयोग", "role"),
-    "committees": ("REP-04", "महाविद्यालय-वार चयन समितियाँ", "committees"),
-    "subjects": ("REP-05", "विषय-वार नामांकन", "subjects"),
-    "months": ("REP-06", "माह-वार नामांकन", "months"),
-    "annual-utilisation": ("REP-07", "जुलाई-जून वार्षिक उपयोग", "annual"),
-    "scst-representation": ("REP-08", "SC/ST प्रतिनिधित्व", "representation_scst"),
-    "obc-representation": ("REP-09", "OBC प्रतिनिधित्व", "representation_obc"),
-    "not-nominated": ("REP-10", "वर्ष में नामांकित नहीं हुए विशेषज्ञ", "not_nominated"),
-    "maximum-nominations": ("REP-11", "सर्वाधिक नामांकित विशेषज्ञ", "maximum"),
-    "cancellations": ("REP-12", "रद्द नामांकन", "cancellations"),
-    "replacements": ("REP-13", "प्रतिस्थापन विशेषज्ञ", "replacements"),
-    "manual-deviations": ("REP-14", "मान्य मैनुअल विचलन", "unavailable_deviations"),
-    "expired-ec": ("REP-15", "अवधि समाप्त EC विशेषज्ञ", "unavailable_expiry"),
+    "professors": ("REP-01", gettext_lazy("प्रोफेसर-वार नामांकन"), "role"),
+    "principals": ("REP-02", gettext_lazy("प्राचार्य-वार नामांकन"), "role"),
+    "vc-nominees": ("REP-03", gettext_lazy("कुलपति नामित उपयोग"), "role"),
+    "committees": ("REP-04", gettext_lazy("महाविद्यालय-वार चयन समितियाँ"), "committees"),
+    "subjects": ("REP-05", gettext_lazy("विषय-वार नामांकन"), "subjects"),
+    "months": ("REP-06", gettext_lazy("माह-वार नामांकन"), "months"),
+    "annual-utilisation": ("REP-07", gettext_lazy("जुलाई-जून वार्षिक उपयोग"), "annual"),
+    "scst-representation": ("REP-08", gettext_lazy("SC/ST प्रतिनिधित्व"), "representation_scst"),
+    "obc-representation": ("REP-09", gettext_lazy("OBC प्रतिनिधित्व"), "representation_obc"),
+    "not-nominated": ("REP-10", gettext_lazy("वर्ष में नामांकित नहीं हुए विशेषज्ञ"), "not_nominated"),
+    "maximum-nominations": ("REP-11", gettext_lazy("सर्वाधिक नामांकित विशेषज्ञ"), "maximum"),
+    "cancellations": ("REP-12", gettext_lazy("रद्द नामांकन"), "cancellations"),
+    "replacements": ("REP-13", gettext_lazy("प्रतिस्थापन विशेषज्ञ"), "replacements"),
+    "manual-deviations": ("REP-14", gettext_lazy("मान्य मैनुअल विचलन"), "unavailable_deviations"),
+    "expired-ec": ("REP-15", gettext_lazy("अवधि समाप्त EC विशेषज्ञ"), "unavailable_expiry"),
 }
 
 
@@ -115,7 +116,7 @@ def effective_contributions(filters):
                 "subject": request.subject.name if request.subject_id else "—",
                 "request_id": str(request.pk),
                 "selection_id": str(entry.selection_id),
-                "source": "अंतिम लॉक",
+                "source": gettext_lazy("अंतिम लॉक"),
             }
         )
     replacements = (
@@ -147,7 +148,7 @@ def effective_contributions(filters):
                 "subject": request.subject.name if request.subject_id else "—",
                 "request_id": str(request.pk),
                 "selection_id": str(entry.change.selection_id),
-                "source": "पुष्ट प्रतिस्थापन",
+                "source": gettext_lazy("पुष्ट प्रतिस्थापन"),
             }
         )
     return [row for row in rows if _matches(row, filters)]
@@ -228,10 +229,10 @@ def expert_utilisation_rows(filters):
                 "lifetime": lifetime[str(expert.pk)],
                 "last": last.get(str(expert.pk)),
                 "roles": ", ".join(sorted(roles[str(expert.pk)])) or "—",
-                "institution": appointment.institution.name if appointment else "सत्यापन शेष",
-                "designation": appointment.get_academic_designation_display() if appointment else "सत्यापन शेष",
+                "institution": appointment.institution.name if appointment else gettext_lazy("सत्यापन शेष"),
+                "designation": appointment.get_academic_designation_display() if appointment else gettext_lazy("सत्यापन शेष"),
                 "post": appointment.get_administrative_post_display() if appointment else "—",
-                "active": "सक्रिय",
+                "active": gettext_lazy("सक्रिय"),
             }
         )
     return rows
@@ -247,34 +248,34 @@ def dashboard(filters):
     expert_rows = expert_utilisation_rows(filters)
     return {
         "cards": [
-            ("कुल अनुरोध", RequestDraft.objects.count(), "सभी अनुरोध प्रारूप"),
-            ("लंबित अनुरोध", pending.count(), "प्रस्तुत/प्रस्तावित, अभी अंतिम लॉक नहीं"),
-            ("लॉक समितियाँ", locked.count(), "VC/Admin द्वारा अंतिम लॉक"),
+            (gettext_lazy("कुल अनुरोध"), RequestDraft.objects.count(), gettext_lazy("सभी अनुरोध प्रारूप")),
+            (gettext_lazy("लंबित अनुरोध"), pending.count(), gettext_lazy("प्रस्तुत/प्रस्तावित, अभी अंतिम लॉक नहीं")),
+            (gettext_lazy("लॉक समितियाँ"), locked.count(), gettext_lazy("VC/Admin द्वारा अंतिम लॉक")),
             (
-                "जारी अंतिम पत्र",
+                gettext_lazy("जारी अंतिम पत्र"),
                 LetterRevision.objects.filter(
                     state=LetterRevision.State.APPROVED, letter__kind=Letter.Kind.FINAL
                 )
                 .values("source_selection_id")
                 .distinct()
                 .count(),
-                "स्वीकृत अंतिम दस्तावेज",
+                gettext_lazy("स्वीकृत अंतिम दस्तावेज"),
             ),
-            ("सक्रिय विशेषज्ञ", Expert.objects.filter(is_active=True).count(), "निर्देशिका"),
+            (gettext_lazy("सक्रिय विशेषज्ञ"), Expert.objects.filter(is_active=True).count(), gettext_lazy("निर्देशिका")),
             (
-                "SC/ST सक्रिय विशेषज्ञ",
+                gettext_lazy("SC/ST सक्रिय विशेषज्ञ"),
                 Expert.objects.filter(is_active=True, category__in=["sc", "st"]).count(),
-                "निर्देशिका",
+                gettext_lazy("निर्देशिका"),
             ),
             (
-                "OBC सक्रिय विशेषज्ञ",
+                gettext_lazy("OBC सक्रिय विशेषज्ञ"),
                 Expert.objects.filter(is_active=True, category="obc").count(),
-                "निर्देशिका",
+                gettext_lazy("निर्देशिका"),
             ),
             (
-                "इस वर्ष शून्य उपयोग",
+                gettext_lazy("इस वर्ष शून्य उपयोग"),
                 sum(row["current"] == 0 for row in expert_rows),
-                "सक्रिय विशेषज्ञ; केस-विशिष्ट पात्रता का दावा नहीं",
+                gettext_lazy("सक्रिय विशेषज्ञ; केस-विशिष्ट पात्रता का दावा नहीं"),
             ),
         ],
         "contribution_count": len(contributions),
@@ -286,7 +287,7 @@ def _group(rows, key, label):
     grouped = defaultdict(int)
     for row in rows:
         grouped[row[key]] += 1
-    return [{label: value, "नामांकन": count} for value, count in sorted(grouped.items())]
+    return [{label: value, gettext_lazy("नामांकन"): count} for value, count in sorted(grouped.items())]
 
 
 def _effective_members(selection):
@@ -317,41 +318,41 @@ def report_data(slug, filters):
     if kind == "role":
         required_role = {"professors": "professor", "principals": "principal", "vc-nominees": "vc"}[slug]
         rows = [row for row in rows if row["role"] == required_role]
-        grouped = defaultdict(lambda: {"नामांकन": 0, "अंतिम नामांकन": None, "भूमिका": ""})
+        grouped = defaultdict(lambda: {gettext_lazy("नामांकन"): 0, gettext_lazy("अंतिम नामांकन"): None, gettext_lazy("भूमिका"): ""})
         for row in rows:
             item = grouped[row["expert"]]
-            item.update({"विशेषज्ञ": row["expert"], "क्रमांक": row["sequence"], "भूमिका": row["role_label"]})
-            item["नामांकन"] += 1
-            item["अंतिम नामांकन"] = max(item["अंतिम नामांकन"] or row["recorded_at"].date(), row["recorded_at"].date())
-        data["columns"] = ["विशेषज्ञ", "क्रमांक", "भूमिका", "नामांकन", "अंतिम नामांकन"]
-        data["rows"] = sorted(grouped.values(), key=lambda item: (-item["नामांकन"], item["क्रमांक"]))
+            item.update({gettext_lazy("विशेषज्ञ"): row["expert"], gettext_lazy("क्रमांक"): row["sequence"], gettext_lazy("भूमिका"): row["role_label"]})
+            item[gettext_lazy("नामांकन")] += 1
+            item[gettext_lazy("अंतिम नामांकन")] = max(item[gettext_lazy("अंतिम नामांकन")] or row["recorded_at"].date(), row["recorded_at"].date())
+        data["columns"] = [gettext_lazy("विशेषज्ञ"), gettext_lazy("क्रमांक"), gettext_lazy("भूमिका"), gettext_lazy("नामांकन"), gettext_lazy("अंतिम नामांकन")]
+        data["rows"] = sorted(grouped.values(), key=lambda item: (-item[gettext_lazy("नामांकन")], item[gettext_lazy("क्रमांक")]))
     elif kind == "annual":
-        data["columns"] = ["विशेषज्ञ", "क्रमांक", "श्रेणी", "नामांकन", "अंतिम नामांकन"]
-        grouped = defaultdict(lambda: {"नामांकन": 0, "अंतिम नामांकन": None})
+        data["columns"] = [gettext_lazy("विशेषज्ञ"), gettext_lazy("क्रमांक"), gettext_lazy("श्रेणी"), gettext_lazy("नामांकन"), gettext_lazy("अंतिम नामांकन")]
+        grouped = defaultdict(lambda: {gettext_lazy("नामांकन"): 0, gettext_lazy("अंतिम नामांकन"): None})
         for row in rows:
             item = grouped[row["expert_id"]]
-            item.update({"विशेषज्ञ": row["expert"], "क्रमांक": row["sequence"], "श्रेणी": row["category"] or "—"})
-            item["नामांकन"] += 1
-            item["अंतिम नामांकन"] = max(item["अंतिम नामांकन"] or row["recorded_at"].date(), row["recorded_at"].date())
-        data["rows"] = sorted(grouped.values(), key=lambda item: (-item["नामांकन"], item["क्रमांक"]))
+            item.update({gettext_lazy("विशेषज्ञ"): row["expert"], gettext_lazy("क्रमांक"): row["sequence"], gettext_lazy("श्रेणी"): row["category"] or "—"})
+            item[gettext_lazy("नामांकन")] += 1
+            item[gettext_lazy("अंतिम नामांकन")] = max(item[gettext_lazy("अंतिम नामांकन")] or row["recorded_at"].date(), row["recorded_at"].date())
+        data["rows"] = sorted(grouped.values(), key=lambda item: (-item[gettext_lazy("नामांकन")], item[gettext_lazy("क्रमांक")]))
     elif kind == "subjects":
-        data["columns"] = ["विषय", "नामांकन"]
-        data["rows"] = _group(rows, "subject", "विषय")
+        data["columns"] = [gettext_lazy("विषय"), gettext_lazy("नामांकन")]
+        data["rows"] = _group(rows, "subject", gettext_lazy("विषय"))
     elif kind == "months":
-        data["columns"] = ["माह", "प्रभावी नामांकन", "उलटे योगदान"]
+        data["columns"] = [gettext_lazy("माह"), gettext_lazy("प्रभावी नामांकन"), gettext_lazy("उलटे योगदान")]
         for row in rows:
             row["recorded_month"] = row["recorded_at"].strftime("%Y-%m")
-        grouped = defaultdict(lambda: {"प्रभावी नामांकन": 0, "उलटे योगदान": 0})
+        grouped = defaultdict(lambda: {gettext_lazy("प्रभावी नामांकन"): 0, gettext_lazy("उलटे योगदान"): 0})
         for row in rows:
-            grouped[row["recorded_month"]]["माह"] = row["recorded_month"]
-            grouped[row["recorded_month"]]["प्रभावी नामांकन"] += 1
+            grouped[row["recorded_month"]][gettext_lazy("माह")] = row["recorded_month"]
+            grouped[row["recorded_month"]][gettext_lazy("प्रभावी नामांकन")] += 1
         for row in reversals(filters):
             month = row["reversed_at"].strftime("%Y-%m")
-            grouped[month]["माह"] = month
-            grouped[month]["उलटे योगदान"] += 1
+            grouped[month][gettext_lazy("माह")] = month
+            grouped[month][gettext_lazy("उलटे योगदान")] += 1
         data["rows"] = [grouped[key] for key in sorted(grouped)]
     elif kind == "not_nominated":
-        data["columns"] = ["विशेषज्ञ", "क्रमांक", "श्रेणी", "संस्था", "पदनाम"]
+        data["columns"] = [gettext_lazy("विशेषज्ञ"), gettext_lazy("क्रमांक"), gettext_lazy("श्रेणी"), gettext_lazy("संस्था"), gettext_lazy("पदनाम")]
         data["rows"] = [
             {key: row[key] for key in ["expert", "sequence", "category", "institution", "designation"]}
             for row in expert_utilisation_rows(filters)
@@ -360,9 +361,9 @@ def report_data(slug, filters):
     elif kind == "maximum":
         expert_rows = expert_utilisation_rows(filters)
         highest = max((row["current"] for row in expert_rows), default=0)
-        data["columns"] = ["विशेषज्ञ", "क्रमांक", "श्रेणी", "नामांकन"]
+        data["columns"] = [gettext_lazy("विशेषज्ञ"), gettext_lazy("क्रमांक"), gettext_lazy("श्रेणी"), gettext_lazy("नामांकन")]
         data["rows"] = [
-            {"विशेषज्ञ": row["expert"], "क्रमांक": row["sequence"], "श्रेणी": row["category"], "नामांकन": row["current"]}
+            {gettext_lazy("विशेषज्ञ"): row["expert"], gettext_lazy("क्रमांक"): row["sequence"], gettext_lazy("श्रेणी"): row["category"], gettext_lazy("नामांकन"): row["current"]}
             for row in expert_rows
             if row["current"] == highest and highest > 0
         ]
@@ -372,18 +373,18 @@ def report_data(slug, filters):
             .select_related("request__institution", "request__subject")
             .order_by("-locked_at")
         )
-        data["columns"] = ["महाविद्यालय", "पद", "विषय", "लॉक तिथि", "अंतिम संरचना", "पुष्ट परिवर्तन"]
+        data["columns"] = [gettext_lazy("महाविद्यालय"), gettext_lazy("पद"), gettext_lazy("विषय"), gettext_lazy("लॉक तिथि"), gettext_lazy("अंतिम संरचना"), gettext_lazy("पुष्ट परिवर्तन")]
         data["rows"] = [
             {
-                "महाविद्यालय": item.request.institution.name,
-                "पद": item.request.get_appointment_type_display(),
-                "विषय": item.request.subject.name if item.request.subject_id else "—",
-                "लॉक तिथि": item.locked_at.date() if item.locked_at else "—",
-                "अंतिम संरचना": "; ".join(
-                    f"{ROLE_LABELS.get(member['role'], member['role'])}: {member['name']}"
+                gettext_lazy("महाविद्यालय"): item.request.institution.name,
+                gettext_lazy("पद"): item.request.get_appointment_type_display(),
+                gettext_lazy("विषय"): item.request.subject.name if item.request.subject_id else "—",
+                gettext_lazy("लॉक तिथि"): item.locked_at.date() if item.locked_at else "—",
+                gettext_lazy("अंतिम संरचना"): "; ".join(
+                    f"{gettext(ROLE_LABELS.get(member['role'], member['role']))}: {member['name']}"
                     for member in _effective_members(item)
                 ),
-                "पुष्ट परिवर्तन": item.changes.filter(state=PanelChange.State.CONFIRMED).count(),
+                gettext_lazy("पुष्ट परिवर्तन"): item.changes.filter(state=PanelChange.State.CONFIRMED).count(),
             }
             for item in selections
             if (not filters["college"] or str(item.request.institution_id) == filters["college"])
@@ -392,7 +393,7 @@ def report_data(slug, filters):
     elif kind.startswith("representation_"):
         target = "obc" if kind == "representation_obc" else "scst"
         categories = {"obc"} if target == "obc" else {"sc", "st"}
-        data["columns"] = ["महाविद्यालय", "विशेषज्ञ", "भूमिका", "श्रेणी", "लॉक तिथि"]
+        data["columns"] = [gettext_lazy("महाविद्यालय"), gettext_lazy("विशेषज्ञ"), gettext_lazy("भूमिका"), gettext_lazy("श्रेणी"), gettext_lazy("लॉक तिथि")]
         selections = FinalSelection.objects.filter(state=FinalSelection.State.LOCKED).select_related(
             "request__institution", "request__subject"
         )
@@ -413,25 +414,25 @@ def report_data(slug, filters):
                     continue
                 data["rows"].append(
                     {
-                        "महाविद्यालय": selection.request.institution.name,
-                        "विशेषज्ञ": member["name"],
-                        "भूमिका": ROLE_LABELS.get(member["role"], member["role"]),
-                        "श्रेणी": category.upper(),
-                        "लॉक तिथि": selection.locked_at.date() if selection.locked_at else "—",
+                        gettext_lazy("महाविद्यालय"): selection.request.institution.name,
+                        gettext_lazy("विशेषज्ञ"): member["name"],
+                        gettext_lazy("भूमिका"): gettext(ROLE_LABELS.get(member["role"], member["role"])),
+                        gettext_lazy("श्रेणी"): category.upper(),
+                        gettext_lazy("लॉक तिथि"): selection.locked_at.date() if selection.locked_at else "—",
                     }
                 )
     elif kind == "cancellations":
         changes = PanelChange.objects.filter(
             change_type=PanelChange.Type.CANCELLATION, state=PanelChange.State.CONFIRMED
         ).select_related("selection__request__institution", "confirmed_by")
-        data["columns"] = ["महाविद्यालय", "कारण", "उलटे योगदान", "पुष्ट तिथि", "पुष्ट करने वाले"]
+        data["columns"] = [gettext_lazy("महाविद्यालय"), gettext_lazy("कारण"), gettext_lazy("उलटे योगदान"), gettext_lazy("पुष्ट तिथि"), gettext_lazy("पुष्ट करने वाले")]
         data["rows"] = [
             {
-                "महाविद्यालय": change.selection.request.institution.name,
-                "कारण": change.reason,
-                "उलटे योगदान": change.reversals.count(),
-                "पुष्ट तिथि": change.confirmed_at.date() if change.confirmed_at else "—",
-                "पुष्ट करने वाले": str(change.confirmed_by or "—"),
+                gettext_lazy("महाविद्यालय"): change.selection.request.institution.name,
+                gettext_lazy("कारण"): change.reason,
+                gettext_lazy("उलटे योगदान"): change.reversals.count(),
+                gettext_lazy("पुष्ट तिथि"): change.confirmed_at.date() if change.confirmed_at else "—",
+                gettext_lazy("पुष्ट करने वाले"): str(change.confirmed_by or "—"),
             }
             for change in changes
         ]
@@ -439,23 +440,23 @@ def report_data(slug, filters):
         changes = PanelChange.objects.filter(
             change_type=PanelChange.Type.REPLACEMENT, state=PanelChange.State.CONFIRMED
         ).select_related("selection__request__institution", "outgoing_expert", "replacement_expert", "confirmed_by")
-        data["columns"] = ["महाविद्यालय", "हटाए गए विशेषज्ञ", "प्रतिस्थापन", "भूमिका", "कारण", "गणना प्रभाव", "पुष्ट तिथि"]
+        data["columns"] = [gettext_lazy("महाविद्यालय"), gettext_lazy("हटाए गए विशेषज्ञ"), gettext_lazy("प्रतिस्थापन"), gettext_lazy("भूमिका"), gettext_lazy("कारण"), gettext_lazy("गणना प्रभाव"), gettext_lazy("पुष्ट तिथि")]
         data["rows"] = [
             {
-                "महाविद्यालय": change.selection.request.institution.name,
-                "हटाए गए विशेषज्ञ": change.outgoing_expert.name if change.outgoing_expert_id else "—",
-                "प्रतिस्थापन": change.replacement_expert.name if change.replacement_expert_id else "—",
-                "भूमिका": ROLE_LABELS.get(change.role, change.role),
-                "कारण": change.reason,
-                "गणना प्रभाव": "हटाया -1; प्रतिस्थापन +1",
-                "पुष्ट तिथि": change.confirmed_at.date() if change.confirmed_at else "—",
+                gettext_lazy("महाविद्यालय"): change.selection.request.institution.name,
+                gettext_lazy("हटाए गए विशेषज्ञ"): change.outgoing_expert.name if change.outgoing_expert_id else "—",
+                gettext_lazy("प्रतिस्थापन"): change.replacement_expert.name if change.replacement_expert_id else "—",
+                gettext_lazy("भूमिका"): gettext(ROLE_LABELS.get(change.role, change.role)),
+                gettext_lazy("कारण"): change.reason,
+                gettext_lazy("गणना प्रभाव"): gettext_lazy("हटाया -1; प्रतिस्थापन +1"),
+                gettext_lazy("पुष्ट तिथि"): change.confirmed_at.date() if change.confirmed_at else "—",
             }
             for change in changes
         ]
     else:
         data["unavailable"] = (
-            "मैनुअल विचलन के लिए कोई अधिकृत ओवरराइड रिकॉर्ड नहीं है।"
+            gettext_lazy("मैनुअल विचलन के लिए कोई अधिकृत ओवरराइड रिकॉर्ड नहीं है।")
             if kind == "unavailable_deviations"
-            else "EC विशेषज्ञ निर्देशिका में वैधता-अवधि का नियंत्रित रिकॉर्ड अभी परिभाषित नहीं है।"
+            else gettext_lazy("EC विशेषज्ञ निर्देशिका में वैधता-अवधि का नियंत्रित रिकॉर्ड अभी परिभाषित नहीं है।")
         )
     return data

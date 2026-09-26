@@ -11,6 +11,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Count
 from django.utils import timezone
+from django.utils.translation import override
 
 from apps.accounts.access import require_role
 from apps.accounts.models import Role
@@ -66,6 +67,7 @@ def _normalise_reference(reference):
     return " ".join(reference.split()).casefold()
 
 
+@override("hi")
 def _letter_snapshot(kind, source):
     if kind == Letter.Kind.OFFER:
         seats = source.snapshot.get("seats", [])
@@ -186,6 +188,7 @@ def _letter_rows(data):
     return rows
 
 
+@override("hi")
 def render_letter_pdf(revision):
     from django.template.loader import render_to_string
 

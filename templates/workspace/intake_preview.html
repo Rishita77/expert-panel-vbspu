@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
-{% block title %}विवरण का पूर्वावलोकन{% endblock %}
+{% extends 'base.html' %}{% load i18n %}
+{% block title %}{% translate 'विवरण का पूर्वावलोकन' %}{% endblock %}
 {% block content %}
-<div class="eyebrow" lang="en">REQUEST PREVIEW</div><div class="page-heading"><h1>दर्ज विवरण की समीक्षा</h1><p>वर्तनी, मात्राएँ और जानकारी जाँचें। यह सहेजा गया या जमा किया गया आवेदन नहीं है।</p></div>
-{% if policy.provisional %}<div class="notice provisional"><span class="notice-icon" aria-hidden="true">!</span><div><strong>विषय विशेषज्ञ की संरचना अस्थायी है।</strong><p>अभी प्राचार्य/विभागाध्यक्ष वाली संरचना लागू है; कुलपति की पुष्टि शेष है।</p></div></div>{% endif %}
-<article class="preview-sheet"><div class="sheet-heading"><span class="sheet-mark" lang="en">VBSPU</span><div><h2>महाविद्यालय अनुरोध विवरण</h2><p>केवल पूर्वावलोकन — आधिकारिक आवेदन नहीं</p></div></div><dl class="details-list">{% for label, value in rows %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}</dl></article>
-<div class="form-actions"><a class="text-link" href="{% url 'intake' %}">नया खाली प्रारूप</a><form action="{% url 'intake' %}" method="post">{% csrf_token %}{% for field in form %}{{ field.as_hidden }}{% endfor %}<button class="btn btn-primary" type="submit" name="_action" value="edit">← वापस जाकर सुधारें</button></form></div>
+<div class="eyebrow" lang="en">REQUEST PREVIEW</div><div class="page-heading"><h1>{% translate 'दर्ज विवरण की समीक्षा' %}</h1><p>{% translate 'वर्तनी, मात्राएँ और जानकारी जाँचें। यह सहेजा गया या जमा किया गया आवेदन नहीं है।' %}</p></div>
+{% if policy.provisional %}<div class="notice provisional"><span class="notice-icon" aria-hidden="true">!</span><div><strong>{% translate 'विषय विशेषज्ञ की संरचना अस्थायी है।' %}</strong><p>{% translate 'अभी प्राचार्य/विभागाध्यक्ष वाली संरचना लागू है; कुलपति की पुष्टि शेष है।' %}</p></div></div>{% endif %}
+<article class="preview-sheet"><div class="sheet-heading"><span class="sheet-mark" lang="en">VBSPU</span><div><h2>{% translate 'महाविद्यालय अनुरोध विवरण' %}</h2><p>{% translate 'केवल पूर्वावलोकन — आधिकारिक आवेदन नहीं' %}</p></div></div><dl class="details-list">{% for label, value in rows %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}</dl></article>
+<div class="form-actions"><a class="text-link" href="{% url 'intake' %}">{% translate 'नया खाली प्रारूप' %}</a><form action="{% url 'intake' %}" method="post">{% csrf_token %}{% for field in form %}{{ field.as_hidden }}{% endfor %}<button class="btn btn-primary" type="submit" name="_action" value="edit">{% translate '← वापस जाकर सुधारें' %}</button></form></div>
 {% endblock %}

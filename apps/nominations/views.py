@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy
 from pathlib import Path
 
 from django.conf import settings
@@ -67,7 +68,7 @@ def workbench(request, pk):
         bound = GenerateForm(request.POST)
         try:
             if action != "generate":
-                raise ValidationError("अमान्य कार्य।")
+                raise ValidationError(gettext_lazy("अमान्य कार्य।"))
             if bound.is_valid():
                 data = bound.cleaned_data
                 require_role(request.user, Role.VC)
@@ -113,7 +114,7 @@ def run_detail(request, pk):
                     errors = [message for values in form.errors.values() for message in values]
                     status = 400
                 elif str(form.cleaned_data["expert"].pk) not in seat_ids:
-                    raise ValidationError("केवल प्रस्तावित पैनल सदस्य का सत्यापन दर्ज किया जा सकता है।")
+                    raise ValidationError(gettext_lazy("केवल प्रस्तावित पैनल सदस्य का सत्यापन दर्ज किया जा सकता है।"))
                 else:
                     assess(
                         request.user,
@@ -129,7 +130,7 @@ def run_detail(request, pk):
                 new_run = generate(request.user, run.request_id, revision)
                 return redirect("allocation_run", pk=new_run.pk)
             else:
-                raise ValidationError("अमान्य कार्य।")
+                raise ValidationError(gettext_lazy("अमान्य कार्य।"))
         except (ValidationError, EditConflict, KeyError, ValueError) as exc:
             errors = exc.messages if isinstance(exc, ValidationError) else [str(exc)]
             status = 409 if isinstance(exc, EditConflict) else 400
@@ -187,14 +188,14 @@ def run_detail(request, pk):
 @require_http_methods(["GET", "POST"])
 def start_offer_letter(request, pk):
     run = get_object_or_404(AllocationRun.objects.select_related("request"), pk=pk)
-    return _start_letter(request, "offer", run, "allocation_run", "प्रस्तावित पैनल पत्र")
+    return _start_letter(request, "offer", run, "allocation_run", gettext_lazy("प्रस्तावित पैनल पत्र"))
 
 
 @permitted(Role.REVIEWER, Role.VC)
 @require_http_methods(["GET", "POST"])
 def start_final_letter(request, pk):
     selection = get_object_or_404(FinalSelection.objects.select_related("request"), pk=pk)
-    return _start_letter(request, "final", selection, "final_selection", "अंतिम चयन पत्र")
+    return _start_letter(request, "final", selection, "final_selection", gettext_lazy("अंतिम चयन पत्र"))
 
 
 @permitted(Role.REVIEWER, Role.VC)
@@ -266,7 +267,7 @@ def letter(request, pk):
                 revision = approve_letter(request.user, pk, form.cleaned_data["revision"])
                 return redirect("letter", pk=revision.pk)
             else:
-                raise ValidationError("अमान्य कार्य।")
+                raise ValidationError(gettext_lazy("अमान्य कार्य।"))
         except (ValidationError, EditConflict) as exc:
             errors = exc.messages if isinstance(exc, ValidationError) else [str(exc)]
             status = 409 if isinstance(exc, EditConflict) else 400
@@ -322,10 +323,10 @@ def letter_download(request, pk):
     ):
         from django.core.exceptions import PermissionDenied
 
-        raise PermissionDenied("POC केवल जारी अंतिम चयन पत्र डाउनलोड कर सकता है।")
+        raise PermissionDenied(gettext_lazy("POC केवल जारी अंतिम चयन पत्र डाउनलोड कर सकता है।"))
     path = Path(settings.PRIVATE_DOCUMENT_ROOT) / revision.pdf_key
     if not revision.pdf_key or not path.is_file():
-        raise Http404("पत्र PDF उपलब्ध नहीं है।")
+        raise Http404(gettext_lazy("पत्र PDF उपलब्ध नहीं है।"))
     LetterEvent.objects.create(revision=revision, action="downloaded", actor=request.user)
     record(request.user, "letter.downloaded", revision)
     return FileResponse(
@@ -359,7 +360,7 @@ def final_selection(request, pk):
     if is_poc_only and selection.state != FinalSelection.State.LOCKED:
         from django.core.exceptions import PermissionDenied
 
-        raise PermissionDenied("प्रस्तावित पैनल केवल रजिस्ट्रार, VC और प्रशासक देख सकते हैं।")
+        raise PermissionDenied(gettext_lazy("प्रस्तावित पैनल केवल रजिस्ट्रार, VC और प्रशासक देख सकते हैं।"))
     can_process = False
     can_reviewer = bool(roles & {Role.REVIEWER, Role.VC, Role.ADMIN})
     can_vc = bool(roles & {Role.VC, Role.ADMIN})
@@ -403,7 +404,7 @@ def final_selection(request, pk):
                     )
                     return redirect("final_selection", pk=selection.pk)
             else:
-                raise ValidationError("अमान्य कार्य।")
+                raise ValidationError(gettext_lazy("अमान्य कार्य।"))
         except (ValidationError, EditConflict, KeyError) as exc:
             errors = exc.messages if isinstance(exc, ValidationError) else [str(exc)]
             status = 409 if isinstance(exc, EditConflict) else 400
@@ -460,7 +461,7 @@ def panel_change_start(request, pk):
                 )
                 return redirect("panel_change", pk=change.pk)
             else:
-                raise ValidationError("अमान्य कार्य।")
+                raise ValidationError(gettext_lazy("अमान्य कार्य।"))
         except (ValidationError, EditConflict) as exc:
             errors = exc.messages if isinstance(exc, ValidationError) else [str(exc)]
             status = 409 if isinstance(exc, EditConflict) else 400
@@ -531,7 +532,7 @@ def panel_change(request, pk):
                     )
                     return redirect("panel_change", pk=change.pk)
             else:
-                raise ValidationError("अमान्य कार्य।")
+                raise ValidationError(gettext_lazy("अमान्य कार्य।"))
         except (ValidationError, EditConflict) as exc:
             errors = exc.messages if isinstance(exc, ValidationError) else [str(exc)]
             status = 409 if isinstance(exc, EditConflict) else 400

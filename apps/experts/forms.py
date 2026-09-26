@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from apps.cases.forms import RevisionForm
 from apps.institutions.models import Institution
@@ -8,40 +9,40 @@ from .models import Appointment, Expert
 
 class ExpertForm(RevisionForm):
     institution = forms.ModelChoiceField(
-        label="वर्तमान संस्था",
+        label=_("वर्तमान संस्था"),
         queryset=Institution.objects.none(),
         required=True,
     )
     university = forms.ModelChoiceField(
-        label="विश्वविद्यालय",
+        label=_("विश्वविद्यालय"),
         queryset=Institution.objects.none(),
         required=True,
     )
     academic_designation = forms.ChoiceField(
-        label="शैक्षणिक पदनाम",
+        label=_("शैक्षणिक पदनाम"),
         choices=[
-            (Appointment.AcademicDesignation.PROFESSOR, "प्रोफेसर"),
-            (Appointment.AcademicDesignation.ASSISTANT, "सहायक प्रोफेसर"),
-            (Appointment.AcademicDesignation.OTHER, "अन्य"),
+            (Appointment.AcademicDesignation.PROFESSOR, _("प्रोफेसर")),
+            (Appointment.AcademicDesignation.ASSISTANT, _("सहायक प्रोफेसर")),
+            (Appointment.AcademicDesignation.OTHER, _("अन्य")),
         ],
         required=True,
     )
     holds_administrative_post = forms.TypedChoiceField(
-        choices=[("yes", "हाँ"), ("no", "नहीं")],
+        choices=[("yes", _("हाँ")), ("no", _("नहीं"))],
         coerce=lambda value: value == "yes",
-        label="क्या वर्तमान में कोई प्रशासनिक पद धारण करते हैं?",
+        label=_("क्या वर्तमान में कोई प्रशासनिक पद धारण करते हैं?"),
         required=True,
         widget=forms.RadioSelect,
     )
     administrative_post = forms.ChoiceField(
-        label="धारित प्रशासनिक पद", choices=Appointment.AdministrativePost.choices, required=False
+        label=_("धारित प्रशासनिक पद"), choices=Appointment.AdministrativePost.choices, required=False
     )
     administrative_post_title = forms.CharField(
-        label="अन्य प्रशासनिक पद का नाम", max_length=200, required=False
+        label=_("अन्य प्रशासनिक पद का नाम"), max_length=200, required=False
     )
     post_end_date = forms.DateField(
-        label="प्रशासनिक पद समाप्ति तिथि", required=False,
-        help_text="तिथि ज्ञात न हो तो खाली छोड़ें।",
+        label=_("प्रशासनिक पद समाप्ति तिथि"), required=False,
+        help_text=_("तिथि ज्ञात न हो तो खाली छोड़ें।"),
         widget=forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
     )
 
@@ -89,12 +90,12 @@ class ExpertForm(RevisionForm):
             cleaned["administrative_post_title"] = ""
             cleaned["post_end_date"] = None
         elif not cleaned.get("administrative_post"):
-            self.add_error("administrative_post", "प्रशासनिक पद चुनें।")
+            self.add_error("administrative_post", _("प्रशासनिक पद चुनें।"))
         elif (
             cleaned.get("administrative_post") == Appointment.AdministrativePost.OTHER
             and not cleaned.get("administrative_post_title", "").strip()
         ):
-            self.add_error("administrative_post_title", "प्रशासनिक पद का नाम दर्ज करें।")
+            self.add_error("administrative_post_title", _("प्रशासनिक पद का नाम दर्ज करें।"))
         return cleaned
 
     class Meta:
@@ -105,9 +106,9 @@ class ExpertForm(RevisionForm):
 class AppointmentForm(RevisionForm):
     expert_revision = forms.IntegerField(widget=forms.HiddenInput, min_value=1)
     holds_administrative_post = forms.TypedChoiceField(
-        choices=[("yes", "हाँ"), ("no", "नहीं")],
+        choices=[("yes", _("हाँ")), ("no", _("नहीं"))],
         coerce=lambda value: value == "yes",
-        label="क्या इस अवधि में प्रशासनिक पद धारण किया?",
+        label=_("क्या इस अवधि में प्रशासनिक पद धारण किया?"),
         required=True,
         widget=forms.RadioSelect,
     )
@@ -129,12 +130,12 @@ class AppointmentForm(RevisionForm):
             cleaned["administrative_post_title"] = ""
             cleaned["post_end_date"] = None
         elif not cleaned.get("administrative_post"):
-            self.add_error("administrative_post", "प्रशासनिक पद चुनें।")
+            self.add_error("administrative_post", _("प्रशासनिक पद चुनें।"))
         elif (
             cleaned.get("administrative_post") == Appointment.AdministrativePost.OTHER
             and not cleaned.get("administrative_post_title", "").strip()
         ):
-            self.add_error("administrative_post_title", "प्रशासनिक पद का नाम दर्ज करें।")
+            self.add_error("administrative_post_title", _("प्रशासनिक पद का नाम दर्ज करें।"))
         return cleaned
 
     class Meta:
@@ -160,12 +161,12 @@ class AppointmentForm(RevisionForm):
 
 class CheckContextForm(forms.Form):
     at_date = forms.DateField(
-        label="वैधता जाँच की तिथि",
+        label=_("वैधता जाँच की तिथि"),
         required=False,
         widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
     )
     college = forms.ModelChoiceField(
-        label="अनुरोध महाविद्यालय (अपने महाविद्यालय की जाँच)",
+        label=_("अनुरोध महाविद्यालय (अपने महाविद्यालय की जाँच)"),
         queryset=Institution.objects.filter(
             institution_kind=Institution.Kind.COLLEGE, is_active=True
         ),

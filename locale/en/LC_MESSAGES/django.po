@@ -1,0 +1,2720 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: VBSPU Expert Panel\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-26 15:40+0530\n"
+"PO-Revision-Date: 2026-09-26 11:35+0530\n"
+"Last-Translator: VBSPU\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\accounts\forms.py:25
+msgid "अस्थायी पासवर्ड का तरीका"
+msgstr "Temporary password method"
+
+#: .\apps\accounts\forms.py:26
+msgid "सुरक्षित पासवर्ड बनाएँ"
+msgstr "Generate a secure password"
+
+#: .\apps\accounts\forms.py:26
+msgid "पासवर्ड स्वयं निर्धारित करें"
+msgstr "Set the password manually"
+
+#: .\apps\accounts\forms.py:31 .\templates\office\credential_handover.html:2
+msgid "अस्थायी पासवर्ड"
+msgstr "Temporary password"
+
+#: .\apps\accounts\forms.py:33
+msgid "पासवर्ड जारी होने पर खाता सक्रिय करें"
+msgstr "Activate account when the password is issued"
+
+#: .\apps\accounts\forms.py:34 .\apps\cases\forms.py:126
+msgid "कारण / प्राधिकरण सन्दर्भ"
+msgstr "Reason / authority reference"
+
+#: .\apps\accounts\forms.py:36
+msgid "अपना वर्तमान पासवर्ड"
+msgstr "Your current password"
+
+#: .\apps\accounts\forms.py:48
+msgid "अस्थायी पासवर्ड आवश्यक है।"
+msgstr "A temporary password is required."
+
+#: .\apps\accounts\forms.py:59
+msgid "वर्तमान पासवर्ड"
+msgstr "Current password"
+
+#: .\apps\accounts\forms.py:62
+msgid "नया पासवर्ड"
+msgstr "New password"
+
+#: .\apps\accounts\forms.py:65
+msgid "नया पासवर्ड फिर से लिखें"
+msgstr "Re-enter new password"
+
+#: .\apps\accounts\forms.py:71
+msgid "दोनों नए पासवर्ड समान नहीं हैं।"
+msgstr "The two new passwords do not match."
+
+#: .\apps\accounts\forms.py:77
+msgid "ईमेल पर भेजा गया छह अंकों का कोड"
+msgstr "Six-digit code sent by email"
+
+#: .\apps\accounts\forms.py:86
+msgid "छह अंकों का कोड लिखें।"
+msgstr "Enter the six-digit code."
+
+#: .\apps\accounts\models.py:11 .\apps\experts\models.py:34
+msgid "पूरा नाम"
+msgstr "Full name"
+
+#: .\apps\accounts\models.py:32
+msgid "सिस्टम प्रशासक"
+msgstr "System administrator"
+
+#: .\apps\accounts\models.py:33
+msgid "निर्देशिका प्रबन्धक"
+msgstr "Directory manager"
+
+#: .\apps\accounts\models.py:34
+msgid "विश्वविद्यालय POC"
+msgstr "University POC"
+
+#: .\apps\accounts\models.py:35
+msgid "रजिस्ट्रार / समीक्षक"
+msgstr "Registrar / reviewer"
+
+#: .\apps\accounts\models.py:36
+msgid "कुलपति"
+msgstr "Vice Chancellor"
+
+#: .\apps\accounts\views.py:58
+msgid "बहुत अधिक प्रयास। कृपया 15 मिनट बाद पुनः प्रयास करें।"
+msgstr "Too many attempts. Please try again after 15 minutes."
+
+#: .\apps\accounts\views.py:63
+msgid "सुरक्षा जाँच पूरी नहीं हुई। कृपया पुनः प्रयास करें।"
+msgstr "Security check was not completed. Please try again."
+
+#: .\apps\accounts\views.py:68
+msgid "इस खाते में आधिकारिक ईमेल दर्ज नहीं है। प्रशासक से संपर्क करें।"
+msgstr "This account has no official email address. Contact an administrator."
+
+#: .\apps\accounts\views.py:75
+msgid "सत्यापन कोड नहीं भेजा जा सका। कृपया पुनः प्रयास करें।"
+msgstr "The verification code could not be sent. Please try again."
+
+#: .\apps\accounts\views.py:119
+msgid "कोड अमान्य, प्रयुक्त या समाप्त हो चुका है।"
+msgstr "The code is invalid, already used, or has expired."
+
+#: .\apps\accounts\views.py:194
+msgid "अपने खाते के प्रमाण-पत्र यहाँ से रीसेट नहीं कर सकते।"
+msgstr "You cannot reset your own credentials here."
+
+#: .\apps\cases\forms.py:26
+msgid "परिवर्तन का कारण"
+msgstr "Reason for change"
+
+#: .\apps\cases\forms.py:39 .\apps\cases\views.py:178
+#: .\apps\experts\forms.py:31 .\apps\experts\forms.py:109
+#: .\apps\experts\views.py:154 .\apps\experts\views.py:176
+#: .\apps\nominations\forms.py:14 .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+#: .\templates\nominations\panel_change.html:5
+msgid "हाँ"
+msgstr "Yes"
+
+#: .\apps\cases\forms.py:39 .\apps\cases\views.py:178
+#: .\apps\experts\forms.py:31 .\apps\experts\forms.py:109
+#: .\apps\experts\views.py:154 .\apps\experts\views.py:176
+#: .\apps\nominations\forms.py:14 .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+#: .\templates\nominations\panel_change.html:5
+msgid "नहीं"
+msgstr "No"
+
+#: .\apps\cases\forms.py:41
+msgid "VBSPU से सम्बद्ध है?"
+msgstr "Affiliated to VBSPU?"
+
+#: .\apps\cases\forms.py:115
+msgid "वापसी का कारण"
+msgstr "Reason for return"
+
+#: .\apps\cases\forms.py:125 .\apps\cases\views.py:186
+msgid "अनुमतियाँ"
+msgstr "Permissions"
+
+#: .\apps\cases\forms.py:128
+msgid "ईमेल बदलने के लिए अपना वर्तमान पासवर्ड"
+msgstr "Your current password to change email"
+
+#: .\apps\cases\forms.py:130
+msgid "ईमेल में बदलाव न हो तो इसे खाली रखें।"
+msgstr "Leave blank if the email is not changing."
+
+#: .\apps\cases\forms.py:137
+msgid "लॉगिन नाम"
+msgstr "Login name"
+
+#: .\apps\cases\forms.py:137
+msgid "आधिकारिक ईमेल"
+msgstr "Official email"
+
+#: .\apps\cases\forms.py:137
+msgid "सक्रिय खाता"
+msgstr "Active account"
+
+#: .\apps\cases\forms.py:158
+msgid "सक्रिय खाते के लिए आधिकारिक ईमेल आवश्यक है।"
+msgstr "An official email is required for an active account."
+
+#: .\apps\cases\forms.py:164
+msgid "ईमेल बदलने के लिए अपना वर्तमान पासवर्ड आवश्यक है।"
+msgstr "Your current password is required to change email."
+
+#: .\apps\cases\models.py:10 .\apps\experts\models.py:74
+#: .\apps\nominations\models.py:121 .\apps\nominations\policies.py:15
+#: .\templates\nominations\result.html:3
+#: .\templates\reporting\filter_form.html:5 .\templates\workspace\home.html:5
+#: .\templates\workspace\policies.html:8
+msgid "प्राचार्य"
+msgstr "Principal"
+
+#: .\apps\cases\models.py:11 .\apps\experts\models.py:75
+#: .\apps\nominations\policies.py:16 .\templates\nominations\result.html:3
+msgid "विभागाध्यक्ष"
+msgstr "Head of Department"
+
+#: .\apps\cases\models.py:12 .\templates\nominations\result.html:3
+msgid "विषय विशेषज्ञ"
+msgstr "Subject expert"
+
+#: .\apps\cases\models.py:15 .\apps\nominations\models.py:79
+#: .\apps\nominations\models.py:165 .\apps\nominations\models.py:318
+msgid "प्रारूप"
+msgstr "Draft"
+
+#: .\apps\cases\models.py:16 .\apps\nominations\models.py:166
+#: .\apps\nominations\models.py:319
+msgid "समीक्षा हेतु प्रस्तुत"
+msgstr "Submitted for review"
+
+#: .\apps\cases\models.py:17
+msgid "समीक्षा स्वीकृत · VC कार्रवाई हेतु"
+msgstr "Review accepted · awaiting VC action"
+
+#: .\apps\cases\models.py:18
+msgid "सुधार हेतु वापस"
+msgstr "Returned for correction"
+
+#: .\apps\cases\models.py:19
+msgid "प्रस्तावित पैनल तैयार"
+msgstr "Proposed panel ready"
+
+#: .\apps\cases\models.py:23 .\apps\institutions\models.py:38
+#: .\apps\reporting\services.py:376 .\apps\reporting\services.py:379
+#: .\apps\reporting\services.py:396 .\apps\reporting\services.py:417
+#: .\apps\reporting\services.py:428 .\apps\reporting\services.py:431
+#: .\apps\reporting\services.py:443 .\apps\reporting\services.py:446
+#: .\templates\reporting\filter_form.html:3
+msgid "महाविद्यालय"
+msgstr "College"
+
+#: .\apps\cases\models.py:25 .\apps\workspace\forms.py:33
+msgid "नियुक्ति का पद"
+msgstr "Appointment post"
+
+#: .\apps\cases\models.py:27 .\apps\cases\views.py:23
+#: .\apps\experts\models.py:52 .\apps\experts\views.py:130
+#: .\apps\reporting\services.py:339 .\apps\reporting\services.py:340
+#: .\apps\reporting\services.py:376 .\apps\reporting\services.py:381
+#: .\templates\office\base.html:16 .\templates\office\home.html:5
+#: .\templates\reporting\filter_form.html:4
+msgid "विषय"
+msgstr "Subjects"
+
+#: .\apps\cases\models.py:29 .\apps\workspace\forms.py:28
+msgid "प्राचार्य / प्रबन्धक का विवरण"
+msgstr "Principal / manager details"
+
+#: .\apps\cases\models.py:30 .\apps\workspace\forms.py:41
+msgid "रिक्ति का स्वरूप"
+msgstr "Nature of vacancy"
+
+#: .\apps\cases\models.py:31 .\apps\workspace\forms.py:42
+msgid "स्वीकृत पद का विवरण"
+msgstr "Sanctioned post details"
+
+#: .\apps\cases\models.py:32 .\apps\workspace\forms.py:43
+msgid "विज्ञापन सन्दर्भ"
+msgstr "Advertisement reference"
+
+#: .\apps\cases\models.py:33 .\apps\workspace\forms.py:45
+msgid "प्रस्तावित चयन तिथि"
+msgstr "Proposed selection date"
+
+#: .\apps\cases\models.py:34
+msgid "अभ्यर्थियों की संख्या"
+msgstr "Number of candidates"
+
+#: .\apps\cases\models.py:35 .\apps\workspace\forms.py:57
+msgid "टिप्पणी"
+msgstr "Remarks"
+
+#: .\apps\cases\views.py:22 .\templates\office\base.html:16
+#: .\templates\office\home.html:5
+msgid "संस्थाएँ"
+msgstr "Institutions"
+
+#: .\apps\cases\views.py:24 .\templates\base.html:27
+#: .\templates\office\base.html:15 .\templates\office\home.html:4
+#: .\templates\workspace\intake.html:2
+msgid "अनुरोध प्रारूप"
+msgstr "Request drafts"
+
+#: .\apps\cases\views.py:25 .\templates\office\base.html:20
+#: .\templates\office\home.html:8
+msgid "कर्मचारी खाते"
+msgstr "Staff accounts"
+
+#: .\apps\cases\views.py:108
+msgid "नया कर्मचारी खाता बनाया गया"
+msgstr "New staff account created"
+
+#: .\apps\cases\views.py:123
+msgid "रिकॉर्ड बदल गया या यह पहचान पहले से मौजूद है। जाँचकर पुनः सहेजें।"
+msgstr "The record changed or this identifier already exists. Review and save again."
+
+#: .\apps\cases\views.py:195 .\apps\cases\views.py:197
+#: .\apps\cases\views.py:199
+msgid "प्रमाण-पत्र स्थिति"
+msgstr "Credential status"
+
+#: .\apps\cases\views.py:195
+msgid "अभी जारी नहीं"
+msgstr "Not issued yet"
+
+#: .\apps\cases\views.py:197
+msgid "अस्थायी पासवर्ड सक्रिय"
+msgstr "Temporary password active"
+
+#: .\apps\cases\views.py:199
+msgid "पासवर्ड निर्धारित"
+msgstr "Password set"
+
+#: .\apps\experts\forms.py:12 .\apps\experts\models.py:113
+msgid "वर्तमान संस्था"
+msgstr "Current institution"
+
+#: .\apps\experts\forms.py:17 .\apps\experts\models.py:99
+#: .\apps\institutions\models.py:39
+msgid "विश्वविद्यालय"
+msgstr "University"
+
+#: .\apps\experts\forms.py:22 .\apps\experts\models.py:108
+msgid "शैक्षणिक पदनाम"
+msgstr "Academic designation"
+
+#: .\apps\experts\forms.py:24 .\apps\experts\models.py:79
+#: .\apps\nominations\models.py:122 .\templates\reporting\filter_form.html:5
+#: .\templates\workspace\home.html:5 .\templates\workspace\policies.html:8
+msgid "प्रोफेसर"
+msgstr "Professor"
+
+#: .\apps\experts\forms.py:25 .\apps\experts\models.py:80
+msgid "सहायक प्रोफेसर"
+msgstr "Assistant Professor"
+
+#: .\apps\experts\forms.py:26 .\apps\experts\models.py:81
+#: .\apps\institutions\models.py:40 .\apps\institutions\models.py:45
+#: .\apps\workspace\forms.py:24
+msgid "अन्य"
+msgstr "Other"
+
+#: .\apps\experts\forms.py:33
+msgid "क्या वर्तमान में कोई प्रशासनिक पद धारण करते हैं?"
+msgstr "Do they currently hold an administrative post?"
+
+#: .\apps\experts\forms.py:38 .\apps\experts\models.py:102
+msgid "धारित प्रशासनिक पद"
+msgstr "Administrative post held"
+
+#: .\apps\experts\forms.py:41 .\apps\experts\models.py:105
+msgid "अन्य प्रशासनिक पद का नाम"
+msgstr "Other administrative post name"
+
+#: .\apps\experts\forms.py:44
+msgid "प्रशासनिक पद समाप्ति तिथि"
+msgstr "Administrative post end date"
+
+#: .\apps\experts\forms.py:45
+msgid "तिथि ज्ञात न हो तो खाली छोड़ें।"
+msgstr "Leave blank if the date is unknown."
+
+#: .\apps\experts\forms.py:93 .\apps\experts\forms.py:133
+msgid "प्रशासनिक पद चुनें।"
+msgstr "Select the administrative post."
+
+#: .\apps\experts\forms.py:98 .\apps\experts\forms.py:138
+msgid "प्रशासनिक पद का नाम दर्ज करें।"
+msgstr "Enter the administrative post name."
+
+#: .\apps\experts\forms.py:111
+msgid "क्या इस अवधि में प्रशासनिक पद धारण किया?"
+msgstr "Did they hold an administrative post during this period?"
+
+#: .\apps\experts\forms.py:164
+msgid "वैधता जाँच की तिथि"
+msgstr "Eligibility check date"
+
+#: .\apps\experts\forms.py:169
+msgid "अनुरोध महाविद्यालय (अपने महाविद्यालय की जाँच)"
+msgstr "Requesting college (own-college check)"
+
+#: .\apps\experts\import_preview.py:33 .\apps\institutions\bulk_import.py:36
+msgid "UTF-8 CSV फ़ाइल (अधिकतम 250 KB, 500 पंक्तियाँ)"
+msgstr "UTF-8 CSV file (maximum 250 KB, 500 rows)"
+
+#: .\apps\experts\import_preview.py:38 .\apps\institutions\bulk_import.py:41
+msgid "फ़ाइल 250 KB से बड़ी है।"
+msgstr "The file is larger than 250 KB."
+
+#: .\apps\experts\import_preview.py:42 .\apps\institutions\bulk_import.py:45
+msgid "UTF-8 CSV निर्यात करें; पुरानी फ़ॉन्ट एन्कोडिंग स्वीकार नहीं है।"
+msgstr "Export a UTF-8 CSV; legacy font encoding is not accepted."
+
+#: .\apps\experts\import_preview.py:45 .\apps\institutions\bulk_import.py:48
+msgid "स्तम्भ दिए गए प्रारूप से मेल नहीं खाते। सही प्रारूप डाउनलोड करें।"
+msgstr "The columns do not match the required format. Download the correct template."
+
+#: .\apps\experts\import_preview.py:49 .\apps\institutions\bulk_import.py:52
+msgid "अधिकतम 500 डेटा पंक्तियाँ स्वीकार हैं।"
+msgstr "A maximum of 500 data rows is accepted."
+
+#: .\apps\experts\import_preview.py:54
+msgid "CSV फ़ाइल में कम-से-कम एक विशेषज्ञ पंक्ति आवश्यक है।"
+msgstr "The CSV must contain at least one expert row."
+
+#: .\apps\experts\import_preview.py:87 .\apps\institutions\bulk_import.py:80
+msgid "source_key इसी फ़ाइल में दोहराया गया है।"
+msgstr "Duplicate source_key in this file."
+
+#: .\apps\experts\import_preview.py:91 .\apps\institutions\bulk_import.py:84
+msgid "name इसी फ़ाइल में दोहराया गया है।"
+msgstr "Duplicate name in this file."
+
+#: .\apps\experts\import_preview.py:94
+msgid "category: general, obc, sc या st चुनें।"
+msgstr "category: choose general, obc, sc or st."
+
+#: .\apps\experts\import_preview.py:100
+msgid "academic_designation: professor, assistant या other चुनें।"
+msgstr "academic_designation: choose professor, assistant or other."
+
+#: .\apps\experts\import_preview.py:102
+msgid "holds_administrative_post: true या false लिखें।"
+msgstr "holds_administrative_post: enter true or false."
+
+#: .\apps\experts\import_preview.py:104 .\apps\institutions\bulk_import.py:102
+msgid "is_active: true या false लिखें।"
+msgstr "is_active: enter true or false."
+
+#: .\apps\experts\import_preview.py:109
+msgid "administrative_post: principal, hod या other चुनें।"
+msgstr "administrative_post: choose principal, hod or other."
+
+#: .\apps\experts\import_preview.py:111
+msgid "administrative_post_title: other पद के लिए आवश्यक है।"
+msgstr "administrative_post_title: required for an other post."
+
+#: .\apps\experts\import_preview.py:113
+msgid "प्रशासनिक पद नहीं होने पर उसके सभी स्तम्भ खाली रखें।"
+msgstr "Leave all administrative post columns blank when no post is held."
+
+#: .\apps\experts\import_preview.py:118
+msgid "post_end_date: YYYY-MM-DD तिथि अपेक्षित है।"
+msgstr "post_end_date: use YYYY-MM-DD."
+
+#: .\apps\experts\import_preview.py:124
+msgid "subject_names: एक ही विषय दोहराया गया है।"
+msgstr "subject_names: duplicate subject."
+
+#: .\apps\experts\import_preview.py:130
+msgid "name: इसी नाम का विशेषज्ञ पहले से मौजूद है; पहले रिकॉर्ड की जाँच करें।"
+msgstr "name: an expert with this name already exists; review that record first."
+
+#: .\apps\experts\import_preview.py:155 .\apps\institutions\bulk_import.py:133
+msgid "त्रुटिपूर्ण फ़ाइल आयात नहीं की जा सकती।"
+msgstr "A file containing errors cannot be imported."
+
+#: .\apps\experts\import_preview.py:185 .\apps\institutions\bulk_import.py:170
+msgid "CSV संरचना अमान्य है।"
+msgstr "Invalid CSV structure."
+
+#: .\apps\experts\models.py:29 .\templates\reporting\filter_form.html:6
+msgid "सामान्य"
+msgstr "General"
+
+#: .\apps\experts\models.py:36 .\apps\experts\views.py:130
+msgid "स्थायी क्रमांक"
+msgstr "Permanent sequence number"
+
+#: .\apps\experts\models.py:42 .\apps\reporting\services.py:330
+#: .\apps\reporting\services.py:334 .\apps\reporting\services.py:355
+#: .\apps\reporting\services.py:364 .\apps\reporting\services.py:366
+#: .\apps\reporting\services.py:396 .\apps\reporting\services.py:420
+#: .\templates\nominations\result.html:12
+#: .\templates\reporting\filter_form.html:6 .\templates\reporting\home.html:5
+msgid "श्रेणी"
+msgstr "Category"
+
+#: .\apps\experts\models.py:45
+msgid "मोबाइल"
+msgstr "Mobile"
+
+#: .\apps\experts\models.py:48
+msgid "मान्य सम्पर्क नम्बर दर्ज करें।"
+msgstr "Enter a valid contact number."
+
+#: .\apps\experts\models.py:50
+msgid "ईमेल"
+msgstr "Email"
+
+#: .\apps\experts\models.py:51 .\apps\institutions\models.py:12
+#: .\apps\reporting\services.py:235 .\templates\experts\detail.html:14
+#: .\templates\office\list.html:5
+msgid "सक्रिय"
+msgstr "Active"
+
+#: .\apps\experts\models.py:73
+msgid "कोई प्रशासनिक पद नहीं"
+msgstr "No administrative post"
+
+#: .\apps\experts\models.py:76
+msgid "अन्य प्रशासनिक पद"
+msgstr "Other administrative post"
+
+#: .\apps\experts\models.py:82 .\apps\experts\models.py:87
+#: .\apps\reporting\services.py:232 .\apps\reporting\services.py:233
+#: .\templates\nominations\result.html:12
+msgid "सत्यापन शेष"
+msgstr "Verification pending"
+
+#: .\apps\experts\models.py:85
+msgid "VBSPU सम्बद्ध आन्तरिक"
+msgstr "Internal · affiliated to VBSPU"
+
+#: .\apps\experts\models.py:86
+msgid "बाह्य"
+msgstr "External"
+
+#: .\apps\experts\models.py:91 .\apps\reporting\services.py:355
+#: .\templates\nominations\result.html:12 .\templates\reporting\home.html:5
+msgid "संस्था"
+msgstr "Institution"
+
+#: .\apps\experts\models.py:114
+msgid "कार्यभार आरम्भ (यदि ज्ञात हो)"
+msgstr "Appointment start (if known)"
+
+#: .\apps\experts\models.py:115
+msgid "कार्यभार समाप्ति — यह तिथि शामिल नहीं है"
+msgstr "Appointment end — excluding this date"
+
+#: .\apps\experts\models.py:116
+msgid "प्रशासनिक पद समाप्ति (यदि ज्ञात हो)"
+msgstr "Administrative post end (if known)"
+
+#: .\apps\experts\models.py:118
+msgid "आन्तरिक / बाह्य"
+msgstr "Internal / external"
+
+#: .\apps\experts\models.py:123
+msgid "पद / रैंक / संस्था सत्यापन सन्दर्भ"
+msgstr "Position / rank / institution verification reference"
+
+#: .\apps\experts\models.py:167
+msgid "विश्वविद्यालय प्रकार की संस्था चुनें।"
+msgstr "Select an institution with type University."
+
+#: .\apps\experts\views.py:25 .\apps\experts\views.py:139
+#: .\apps\nominations\forms.py:11 .\apps\reporting\services.py:324
+#: .\apps\reporting\services.py:327 .\apps\reporting\services.py:330
+#: .\apps\reporting\services.py:334 .\apps\reporting\services.py:355
+#: .\apps\reporting\services.py:364 .\apps\reporting\services.py:366
+#: .\apps\reporting\services.py:396 .\apps\reporting\services.py:418
+#: .\templates\nominations\result.html:12
+#: .\templates\nominations\result.html:16 .\templates\office\home.html:6
+#: .\templates\reporting\home.html:5
+msgid "विशेषज्ञ"
+msgstr "Expert"
+
+#: .\apps\experts\views.py:26
+msgid "संस्था / पद इतिहास"
+msgstr "Institution / position history"
+
+#: .\apps\experts\views.py:96
+msgid "अमान्य निर्देशिका रिकॉर्ड।"
+msgstr "Invalid directory record."
+
+#: .\apps\experts\views.py:106
+msgid "तिथि, दोहराव या समकालीन बदलाव के कारण सहेजा नहीं गया। वर्तमान रिकॉर्ड जाँचें।"
+msgstr "Not saved because of dates, duplicates or concurrent changes. Review the current record."
+
+#: .\apps\experts\views.py:130 .\templates\office\list.html:5
+msgid "संशोधन"
+msgstr "Revision"
+
+#: .\apps\experts\views.py:136 .\templates\nominations\document_queue.html:4
+#: .\templates\nominations\document_queue.html:5
+#: .\templates\nominations\result.html:12 .\templates\office\detail.html:4
+msgid "स्थिति"
+msgstr "Status"
+
+#: .\apps\experts\views.py:137 .\templates\workspace\policies.html:8
+msgid "संस्करण"
+msgstr "Version"
+
+#: .\apps\experts\views.py:138
+msgid "पूर्व संस्करण"
+msgstr "Previous version"
+
+#: .\apps\institutions\bulk_import.py:57
+msgid "CSV फ़ाइल में कम-से-कम एक संस्था पंक्ति आवश्यक है।"
+msgstr "The CSV must contain at least one institution row."
+
+#: .\apps\institutions\bulk_import.py:87
+msgid "name: इसी नाम की संस्था पहले से मौजूद है।"
+msgstr "name: an institution with this name already exists."
+
+#: .\apps\institutions\bulk_import.py:91
+msgid "official_code इसी फ़ाइल में दोहराया गया है।"
+msgstr "Duplicate official_code in this file."
+
+#: .\apps\institutions\bulk_import.py:94
+msgid "official_code: यह आधिकारिक कोड पहले से मौजूद है।"
+msgstr "official_code: this official code already exists."
+
+#: .\apps\institutions\bulk_import.py:96
+msgid "institution_kind: college, university या other चुनें।"
+msgstr "institution_kind: choose college, university or other."
+
+#: .\apps\institutions\bulk_import.py:98
+msgid "management_type: government, aided, other या unknown चुनें।"
+msgstr "management_type: choose government, aided, other or unknown."
+
+#: .\apps\institutions\bulk_import.py:100
+msgid "is_affiliated_to_vbspu: true या false लिखें।"
+msgstr "is_affiliated_to_vbspu: enter true or false."
+
+#: .\apps\institutions\models.py:10
+msgid "नाम"
+msgstr "Name"
+
+#: .\apps\institutions\models.py:11
+msgid "आधिकारिक कोड (यदि उपलब्ध हो)"
+msgstr "Official code (if available)"
+
+#: .\apps\institutions\models.py:43
+msgid "सरकारी"
+msgstr "Government"
+
+#: .\apps\institutions\models.py:44 .\apps\workspace\forms.py:23
+msgid "अनुदानित"
+msgstr "Aided"
+
+#: .\apps\institutions\models.py:46
+msgid "अज्ञात"
+msgstr "Unknown"
+
+#: .\apps\institutions\models.py:48 .\apps\workspace\forms.py:16
+msgid "जनपद"
+msgstr "District"
+
+#: .\apps\institutions\models.py:49
+msgid "पता"
+msgstr "Address"
+
+#: .\apps\institutions\models.py:50
+msgid "संस्था का प्रकार"
+msgstr "Institution type"
+
+#: .\apps\institutions\models.py:52
+msgid "प्रबन्धन प्रकार"
+msgstr "Management type"
+
+#: .\apps\institutions\models.py:55
+msgid "VBSPU से सम्बद्ध"
+msgstr "Affiliated to VBSPU"
+
+#: .\apps\institutions\models.py:74
+msgid "विषय का नाम"
+msgstr "Subject name"
+
+#: .\apps\nominations\forms.py:12
+msgid "उपलब्धता स्थिति"
+msgstr "Availability status"
+
+#: .\apps\nominations\forms.py:16
+msgid "हित-संघर्ष है?"
+msgstr "Is there a conflict of interest?"
+
+#: .\apps\nominations\forms.py:18
+msgid "सत्यापन करने वाले का नाम / पद"
+msgstr "Name / position of verifier"
+
+#: .\apps\nominations\forms.py:20
+msgid "कारण / विवरण"
+msgstr "Reason / details"
+
+#: .\apps\nominations\forms.py:34
+msgid "VC निर्णय सन्दर्भ (वैकल्पिक)"
+msgstr "VC decision reference (optional)"
+
+#: .\apps\nominations\forms.py:42 .\apps\nominations\forms.py:86
+msgid "टिप्पणी / वापसी कारण"
+msgstr "Comment / reason for return"
+
+#: .\apps\nominations\forms.py:49
+msgid "बदला जाने वाला विशेषज्ञ"
+msgstr "Expert to be replaced"
+
+#: .\apps\nominations\forms.py:52 .\apps\reporting\services.py:428
+#: .\apps\reporting\services.py:432 .\apps\reporting\services.py:443
+#: .\apps\reporting\services.py:450
+msgid "कारण"
+msgstr "Reason"
+
+#: .\apps\nominations\forms.py:54
+msgid "सत्यापनकर्ता"
+msgstr "Verifier"
+
+#: .\apps\nominations\forms.py:55
+msgid "चयन कार्य अभी नहीं हुआ है"
+msgstr "Selection work has not yet taken place"
+
+#: .\apps\nominations\forms.py:65
+msgid "संशोधित प्रबन्ध समिति निर्णय सन्दर्भ"
+msgstr "Revised management-committee decision reference"
+
+#: .\apps\nominations\forms.py:68
+msgid "संशोधित निर्णय तिथि"
+msgstr "Revised decision date"
+
+#: .\apps\nominations\forms.py:70
+msgid "VC प्रतिस्थापन निर्णय सन्दर्भ"
+msgstr "VC replacement decision reference"
+
+#: .\apps\nominations\forms.py:72
+msgid "VC निर्णय तिथि"
+msgstr "VC decision date"
+
+#: .\apps\nominations\forms.py:77
+msgid "विश्वविद्यालय पत्रांक"
+msgstr "University letter number"
+
+#: .\apps\nominations\forms.py:78
+msgid "पत्र तिथि"
+msgstr "Letter date"
+
+#: .\apps\nominations\models.py:12
+msgid "उपलब्ध"
+msgstr "Available"
+
+#: .\apps\nominations\models.py:13
+msgid "उपलब्ध नहीं"
+msgstr "Unavailable"
+
+#: .\apps\nominations\models.py:14
+msgid "अवकाश पर"
+msgstr "On leave"
+
+#: .\apps\nominations\models.py:15
+msgid "सेवानिवृत्त — स्थायी निष्क्रिय"
+msgstr "Retired — permanently inactive"
+
+#: .\apps\nominations\models.py:16
+msgid "स्थानान्तरित — स्थायी निष्क्रिय"
+msgstr "Transferred — permanently inactive"
+
+#: .\apps\nominations\models.py:17
+msgid "दिवंगत"
+msgstr "Deceased"
+
+#: .\apps\nominations\models.py:18
+msgid "इस चयन के लिए अयोग्य"
+msgstr "Ineligible for this selection"
+
+#: .\apps\nominations\models.py:19
+msgid "स्थायी निष्क्रिय"
+msgstr "Permanently inactive"
+
+#: .\apps\nominations\models.py:80
+msgid "अंतिम रूप से लॉक"
+msgstr "Finally locked"
+
+#: .\apps\nominations\models.py:120 .\templates\reporting\filter_form.html:5
+msgid "कुलपति नामित"
+msgstr "Vice Chancellor nominee"
+
+#: .\apps\nominations\models.py:123 .\templates\reporting\filter_form.html:5
+msgid "अतिरिक्त SC/ST"
+msgstr "Additional SC/ST"
+
+#: .\apps\nominations\models.py:124 .\templates\reporting\filter_form.html:5
+msgid "अतिरिक्त OBC"
+msgstr "Additional OBC"
+
+#: .\apps\nominations\models.py:161 .\apps\reporting\services.py:443
+#: .\apps\reporting\services.py:448
+#: .\templates\nominations\panel_change_start.html:5
+msgid "प्रतिस्थापन"
+msgstr "Replacement"
+
+#: .\apps\nominations\models.py:162
+msgid "रद्दीकरण"
+msgstr "Cancellation"
+
+#: .\apps\nominations\models.py:167 .\apps\nominations\models.py:320
+msgid "वापस किया गया"
+msgstr "Returned"
+
+#: .\apps\nominations\models.py:168 .\apps\nominations\models.py:238
+msgid "पुष्ट"
+msgstr "Confirmed"
+
+#: .\apps\nominations\models.py:238 .\apps\nominations\models.py:384
+msgid "प्रस्तुत"
+msgstr "Submitted"
+
+#: .\apps\nominations\models.py:238 .\apps\nominations\models.py:385
+#: .\templates\experts\form.html:9
+msgid "वापस"
+msgstr "Back"
+
+#: .\apps\nominations\models.py:295 .\templates\nominations\result.html:2
+#: .\templates\nominations\result.html:10
+msgid "प्रस्तावित पैनल"
+msgstr "Proposed panel"
+
+#: .\apps\nominations\models.py:296
+msgid "अंतिम चयन अभिलेख"
+msgstr "Final selection record"
+
+#: .\apps\nominations\models.py:297
+msgid "प्रतिस्थापन सूचना"
+msgstr "Replacement notice"
+
+#: .\apps\nominations\models.py:298
+msgid "रद्दीकरण सूचना"
+msgstr "Cancellation notice"
+
+#: .\apps\nominations\models.py:321
+msgid "डाउनलोड हेतु स्वीकृत"
+msgstr "Approved for download"
+
+#: .\apps\nominations\models.py:383
+msgid "तैयार"
+msgstr "Prepared"
+
+#: .\apps\nominations\models.py:386
+msgid "स्वीकृत"
+msgstr "Approved"
+
+#: .\apps\nominations\models.py:387
+msgid "डाउनलोड"
+msgstr "Download"
+
+#: .\apps\nominations\policies.py:17
+#| msgid "विषय विशेषज्ञ"
+msgid "विषय विशेषज्ञ / प्रवक्ता"
+msgstr "Subject expert / Lecturer"
+
+#: .\apps\nominations\views.py:71 .\apps\nominations\views.py:133
+#: .\apps\nominations\views.py:270 .\apps\nominations\views.py:407
+#: .\apps\nominations\views.py:464 .\apps\nominations\views.py:535
+msgid "अमान्य कार्य।"
+msgstr "Invalid action."
+
+#: .\apps\nominations\views.py:117
+msgid "केवल प्रस्तावित पैनल सदस्य का सत्यापन दर्ज किया जा सकता है।"
+msgstr "Verification can only be recorded for a proposed panel member."
+
+#: .\apps\nominations\views.py:191
+msgid "प्रस्तावित पैनल पत्र"
+msgstr "Proposed panel letter"
+
+#: .\apps\nominations\views.py:198
+msgid "अंतिम चयन पत्र"
+msgstr "Final selection letter"
+
+#: .\apps\nominations\views.py:326
+msgid "POC केवल जारी अंतिम चयन पत्र डाउनलोड कर सकता है।"
+msgstr "The POC can only download an issued final selection letter."
+
+#: .\apps\nominations\views.py:329
+msgid "पत्र PDF उपलब्ध नहीं है।"
+msgstr "The letter PDF is unavailable."
+
+#: .\apps\nominations\views.py:363
+msgid "प्रस्तावित पैनल केवल रजिस्ट्रार, VC और प्रशासक देख सकते हैं।"
+msgstr "Only the Registrar, VC and administrator may view proposed panels."
+
+#: .\apps\reporting\services.py:26
+msgid "प्रोफेसर-वार नामांकन"
+msgstr "Nominations by Professor"
+
+#: .\apps\reporting\services.py:27
+msgid "प्राचार्य-वार नामांकन"
+msgstr "Nominations by Principal"
+
+#: .\apps\reporting\services.py:28
+msgid "कुलपति नामित उपयोग"
+msgstr "VC nominee utilisation"
+
+#: .\apps\reporting\services.py:29
+msgid "महाविद्यालय-वार चयन समितियाँ"
+msgstr "Selection committees by college"
+
+#: .\apps\reporting\services.py:30
+msgid "विषय-वार नामांकन"
+msgstr "Nominations by subject"
+
+#: .\apps\reporting\services.py:31
+msgid "माह-वार नामांकन"
+msgstr "Monthly nominations"
+
+#: .\apps\reporting\services.py:32
+msgid "जुलाई-जून वार्षिक उपयोग"
+msgstr "Annual utilisation (July–June)"
+
+#: .\apps\reporting\services.py:33
+msgid "SC/ST प्रतिनिधित्व"
+msgstr "SC/ST representation"
+
+#: .\apps\reporting\services.py:34
+msgid "OBC प्रतिनिधित्व"
+msgstr "OBC representation"
+
+#: .\apps\reporting\services.py:35
+msgid "वर्ष में नामांकित नहीं हुए विशेषज्ञ"
+msgstr "Experts not nominated this year"
+
+#: .\apps\reporting\services.py:36
+msgid "सर्वाधिक नामांकित विशेषज्ञ"
+msgstr "Most nominated experts"
+
+#: .\apps\reporting\services.py:37
+msgid "रद्द नामांकन"
+msgstr "Cancelled nominations"
+
+#: .\apps\reporting\services.py:38
+msgid "प्रतिस्थापन विशेषज्ञ"
+msgstr "Replacement experts"
+
+#: .\apps\reporting\services.py:39
+msgid "मान्य मैनुअल विचलन"
+msgstr "Authorised manual deviations"
+
+#: .\apps\reporting\services.py:40
+msgid "अवधि समाप्त EC विशेषज्ञ"
+msgstr "Expired EC experts"
+
+#: .\apps\reporting\services.py:119 .\templates\workspace\home.html:7
+msgid "अंतिम लॉक"
+msgstr "Final lock"
+
+#: .\apps\reporting\services.py:151
+msgid "पुष्ट प्रतिस्थापन"
+msgstr "Confirmed replacement"
+
+#: .\apps\reporting\services.py:251
+msgid "कुल अनुरोध"
+msgstr "Total requests"
+
+#: .\apps\reporting\services.py:251
+msgid "सभी अनुरोध प्रारूप"
+msgstr "All request drafts"
+
+#: .\apps\reporting\services.py:252
+msgid "लंबित अनुरोध"
+msgstr "Pending requests"
+
+#: .\apps\reporting\services.py:252
+msgid "प्रस्तुत/प्रस्तावित, अभी अंतिम लॉक नहीं"
+msgstr "Submitted / proposed, not yet finally locked"
+
+#: .\apps\reporting\services.py:253
+msgid "लॉक समितियाँ"
+msgstr "Locked committees"
+
+#: .\apps\reporting\services.py:253
+msgid "VC/Admin द्वारा अंतिम लॉक"
+msgstr "Finally locked by VC / Admin"
+
+#: .\apps\reporting\services.py:255
+msgid "जारी अंतिम पत्र"
+msgstr "Issued final letters"
+
+#: .\apps\reporting\services.py:262
+msgid "स्वीकृत अंतिम दस्तावेज"
+msgstr "Approved final documents"
+
+#: .\apps\reporting\services.py:264
+msgid "सक्रिय विशेषज्ञ"
+msgstr "Active experts"
+
+#: .\apps\reporting\services.py:264 .\apps\reporting\services.py:268
+#: .\apps\reporting\services.py:273 .\templates\office\home.html:5
+msgid "निर्देशिका"
+msgstr "Directory"
+
+#: .\apps\reporting\services.py:266
+msgid "SC/ST सक्रिय विशेषज्ञ"
+msgstr "Active SC/ST experts"
+
+#: .\apps\reporting\services.py:271
+msgid "OBC सक्रिय विशेषज्ञ"
+msgstr "Active OBC experts"
+
+#: .\apps\reporting\services.py:276
+msgid "इस वर्ष शून्य उपयोग"
+msgstr "Zero utilisation this year"
+
+#: .\apps\reporting\services.py:278
+msgid "सक्रिय विशेषज्ञ; केस-विशिष्ट पात्रता का दावा नहीं"
+msgstr "Active experts; does not establish eligibility for a particular case"
+
+#: .\apps\reporting\services.py:290 .\apps\reporting\services.py:321
+#: .\apps\reporting\services.py:325 .\apps\reporting\services.py:327
+#: .\apps\reporting\services.py:328 .\apps\reporting\services.py:330
+#: .\apps\reporting\services.py:331 .\apps\reporting\services.py:335
+#: .\apps\reporting\services.py:337 .\apps\reporting\services.py:339
+#: .\apps\reporting\services.py:364 .\apps\reporting\services.py:366
+msgid "नामांकन"
+msgstr "Nominations"
+
+#: .\apps\reporting\services.py:321 .\apps\reporting\services.py:326
+#: .\apps\reporting\services.py:327 .\apps\reporting\services.py:330
+#: .\apps\reporting\services.py:331 .\apps\reporting\services.py:336
+#: .\templates\nominations\result.html:16 .\templates\reporting\home.html:5
+msgid "अंतिम नामांकन"
+msgstr "Last nomination"
+
+#: .\apps\reporting\services.py:321 .\apps\reporting\services.py:324
+#: .\apps\reporting\services.py:327 .\apps\reporting\services.py:396
+#: .\apps\reporting\services.py:419 .\apps\reporting\services.py:443
+#: .\apps\reporting\services.py:449 .\templates\nominations\result.html:12
+#: .\templates\reporting\filter_form.html:5
+msgid "भूमिका"
+msgstr "Role"
+
+#: .\apps\reporting\services.py:324 .\apps\reporting\services.py:327
+#: .\apps\reporting\services.py:328 .\apps\reporting\services.py:330
+#: .\apps\reporting\services.py:334 .\apps\reporting\services.py:337
+#: .\apps\reporting\services.py:355 .\apps\reporting\services.py:364
+#: .\apps\reporting\services.py:366 .\templates\nominations\result.html:16
+msgid "क्रमांक"
+msgstr "Sequence number"
+
+#: .\apps\reporting\services.py:342 .\apps\reporting\services.py:347
+#: .\apps\reporting\services.py:351
+msgid "माह"
+msgstr "Month"
+
+#: .\apps\reporting\services.py:342 .\apps\reporting\services.py:345
+#: .\apps\reporting\services.py:348
+msgid "प्रभावी नामांकन"
+msgstr "Effective nominations"
+
+#: .\apps\reporting\services.py:342 .\apps\reporting\services.py:345
+#: .\apps\reporting\services.py:352 .\apps\reporting\services.py:428
+#: .\apps\reporting\services.py:433
+msgid "उलटे योगदान"
+msgstr "Reversed contributions"
+
+#: .\apps\reporting\services.py:355
+msgid "पदनाम"
+msgstr "Designation"
+
+#: .\apps\reporting\services.py:376 .\apps\reporting\services.py:380
+msgid "पद"
+msgstr "Post"
+
+#: .\apps\reporting\services.py:376 .\apps\reporting\services.py:382
+#: .\apps\reporting\services.py:396 .\apps\reporting\services.py:421
+msgid "लॉक तिथि"
+msgstr "Lock date"
+
+#: .\apps\reporting\services.py:376 .\apps\reporting\services.py:383
+msgid "अंतिम संरचना"
+msgstr "Final composition"
+
+#: .\apps\reporting\services.py:376 .\apps\reporting\services.py:387
+msgid "पुष्ट परिवर्तन"
+msgstr "Confirmed changes"
+
+#: .\apps\reporting\services.py:428 .\apps\reporting\services.py:434
+#: .\apps\reporting\services.py:443 .\apps\reporting\services.py:452
+msgid "पुष्ट तिथि"
+msgstr "Confirmation date"
+
+#: .\apps\reporting\services.py:428 .\apps\reporting\services.py:435
+msgid "पुष्ट करने वाले"
+msgstr "Confirmed by"
+
+#: .\apps\reporting\services.py:443 .\apps\reporting\services.py:447
+msgid "हटाए गए विशेषज्ञ"
+msgstr "Removed expert"
+
+#: .\apps\reporting\services.py:443 .\apps\reporting\services.py:451
+msgid "गणना प्रभाव"
+msgstr "Count adjustment"
+
+#: .\apps\reporting\services.py:451
+msgid "हटाया -1; प्रतिस्थापन +1"
+msgstr "Removed -1; replacement +1"
+
+#: .\apps\reporting\services.py:458
+msgid "मैनुअल विचलन के लिए कोई अधिकृत ओवरराइड रिकॉर्ड नहीं है।"
+msgstr "No authorised override records exist for manual deviations."
+
+#: .\apps\reporting\services.py:460
+msgid "EC विशेषज्ञ निर्देशिका में वैधता-अवधि का नियंत्रित रिकॉर्ड अभी परिभाषित नहीं है।"
+msgstr "Controlled validity-period records have not yet been defined for the EC expert directory."
+
+#: .\apps\workspace\forms.py:14
+msgid "महाविद्यालय कोड"
+msgstr "College code"
+
+#: .\apps\workspace\forms.py:15
+msgid "महाविद्यालय का नाम"
+msgstr "College name"
+
+#: .\apps\workspace\forms.py:18
+msgid "महाविद्यालय का प्रकार"
+msgstr "College type"
+
+#: .\apps\workspace\forms.py:21
+msgid "चुनें"
+msgstr "Select"
+
+#: .\apps\workspace\forms.py:22
+msgid "राजकीय"
+msgstr "Government"
+
+#: .\apps\workspace\forms.py:36
+msgid "पद चुनें"
+msgstr "Select post"
+
+#: .\apps\workspace\forms.py:40
+msgid "विभाग / विषय"
+msgstr "Department / subject"
+
+#: .\apps\workspace\forms.py:51
+msgid "अभ्यर्थियों की संख्या (यदि उपलब्ध हो)"
+msgstr "Number of candidates (if available)"
+
+#: .\apps\workspace\forms.py:73
+msgid "महाविद्यालय का पूरा नाम"
+msgstr "Full college name"
+
+#: .\apps\workspace\forms.py:74
+msgid "जैसे: हिन्दी, राजनीति विज्ञान"
+msgstr "For example: Hindi, Political Science"
+
+#: .\templates\403.html:1
+msgid "अनुमति आवश्यक · VBSPU"
+msgstr "Permission required · VBSPU"
+
+#: .\templates\403.html:1
+msgid "इस कार्य की अनुमति नहीं है"
+msgstr "You do not have permission for this action"
+
+#: .\templates\403.html:1
+msgid "अपने कार्य की अनुमति के लिए खाता प्रशासक से सम्पर्क करें।"
+msgstr "Contact the account administrator for permission to perform this action."
+
+#: .\templates\403.html:1
+msgid "कार्यालय कार्यक्षेत्र पर लौटें"
+msgstr "Return to Office workspace"
+
+#: .\templates\base.html:8 .\templates\base.html:21
+msgid "विशेषज्ञ नामांकन"
+msgstr "Expert nomination"
+
+#: .\templates\base.html:16 .\templates\office\base.html:9
+msgid "मुख्य सामग्री पर जाएँ"
+msgstr "Skip to main content"
+
+#: .\templates\base.html:18
+msgid "मुख्य नेविगेशन"
+msgstr "Main navigation"
+
+#: .\templates\base.html:19
+msgid "VBSPU मुख्य पृष्ठ"
+msgstr "VBSPU home"
+
+#: .\templates\base.html:26 .\templates\office\base.html:14
+#: .\templates\workspace\home.html:2
+msgid "कार्यक्षेत्र"
+msgstr "Workspace"
+
+#: .\templates\base.html:28 .\templates\workspace\home.html:5
+#: .\templates\workspace\policies.html:2
+msgid "पैनल संरचना"
+msgstr "Panel composition"
+
+#: .\templates\base.html:30 .\templates\reporting\filter_form.html:2
+msgid "नामांकन वर्ष"
+msgstr "Nomination year"
+
+#: .\templates\base.html:30
+msgid "01 जुलाई — 30 जून"
+msgstr "1 July — 30 June"
+
+#: .\templates\base.html:30 .\templates\base.html:33
+#: .\templates\office\base.html:21
+msgid "वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय"
+msgstr "Veer Bahadur Singh Purvanchal University"
+
+#: .\templates\base.html:30 .\templates\office\base.html:21
+msgid "जौनपुर, उत्तर प्रदेश"
+msgstr "Jaunpur, Uttar Pradesh"
+
+#: .\templates\base.html:33
+msgid "स्थानीय पूर्वावलोकन"
+msgstr "Local preview"
+
+#: .\templates\base.html:35
+msgid "विश्वविद्यालय कार्यालय हेतु"
+msgstr "For University Office use"
+
+#: .\templates\base.html:35
+msgid "पूर्वावलोकन • कोई विवरण सहेजा नहीं जाता"
+msgstr "Preview • no information is saved"
+
+#: .\templates\experts\blocked.html:1
+msgid "कार्रवाई पूरी नहीं हुई"
+msgstr "Action could not be completed"
+
+#: .\templates\experts\blocked.html:1
+msgid "वर्तमान रिकॉर्ड देखें"
+msgstr "View current record"
+
+#: .\templates\experts\detail.html:2 .\templates\experts\detail.html:13
+#: .\templates\experts\detail.html:14 .\templates\experts\form.html:2
+#: .\templates\office\detail.html:2 .\templates\office\form.html:2
+msgid "बदलें"
+msgstr "Edit"
+
+#: .\templates\experts\detail.html:3
+msgid "नामांकन उपयोग:"
+msgstr "Nomination use:"
+
+#: .\templates\experts\detail.html:3
+msgid "सभी विशेषज्ञ वर्तमान चक्र में शून्य से आरम्भ होते हैं।"
+msgstr "All experts start at zero in the current cycle."
+
+#: .\templates\experts\detail.html:3
+msgid "अंतिम लॉक के बाद ही उपयोग संख्या बढ़ेगी।"
+msgstr "The use count increases only after final lock."
+
+#: .\templates\experts\detail.html:3
+msgid "इसी नाम का एक अन्य रिकॉर्ड मौजूद है। पहचान की समीक्षा करें; रिकॉर्ड स्वतः नहीं मिलाए गए हैं।"
+msgstr "Another record with the same name exists. Review the identity; records have not been merged automatically."
+
+#: .\templates\experts\detail.html:4
+msgid "स्थिति:"
+msgstr "Status:"
+
+#: .\templates\experts\detail.html:4
+msgid "· संस्करण"
+msgstr "· Version"
+
+#: .\templates\experts\detail.html:6
+msgid "रिकॉर्ड की जाँच"
+msgstr "Record check"
+
+#: .\templates\experts\detail.html:6
+msgid "यह इसी रिकॉर्ड की जाँच है। चयन तिथि, सहमति, हित-संघर्ष और अन्तिम प्राधिकरण की जाँच नामांकन प्रक्रिया में होगी।"
+msgstr "This check applies only to this record. Selection date, consent, conflict of interest, and final authority are checked during the nomination process."
+
+#: .\templates\experts\detail.html:7
+msgid "तिथि / महाविद्यालय के अनुसार देखें"
+msgstr "View by date / college"
+
+#: .\templates\experts\detail.html:8
+msgid "दर्ज जानकारी में इन जाँचों से कोई कमी नहीं मिली। यह किसी विशेष चयन के लिए अन्तिम पात्रता नहीं है।"
+msgstr "These checks found no missing information in the record. This is not final eligibility for a particular selection."
+
+#: .\templates\experts\detail.html:9
+msgid "एक से अधिक लागू सूचियों की प्राथमिकता और VC / अतिरिक्त श्रेणी स्वीकृति-प्राधिकारी के नीतिगत सत्यापन नामांकन चरण में होंगे।"
+msgstr "Priority between applicable lists and verification of VC / additional-category approval authority are handled at the nomination stage."
+
+#: .\templates\experts\detail.html:10
+msgid "संस्था और पद का इतिहास"
+msgstr "Institution and position history"
+
+#: .\templates\experts\detail.html:10
+msgid "संस्था / पद जोड़ें"
+msgstr "Add institution / position"
+
+#: .\templates\experts\detail.html:11
+msgid "· विश्वविद्यालय:"
+msgstr "· University:"
+
+#: .\templates\experts\detail.html:11
+msgid "दर्ज नहीं"
+msgstr "Not recorded"
+
+#: .\templates\experts\detail.html:11
+msgid "वर्तमान"
+msgstr "Current"
+
+#: .\templates\experts\detail.html:11
+msgid "पूर्व"
+msgstr "Previous"
+
+#: .\templates\experts\detail.html:11
+msgid "· संस्था कार्यकाल:"
+msgstr "· Institution tenure:"
+
+#: .\templates\experts\detail.html:11
+msgid "आरम्भ अज्ञात"
+msgstr "Start unknown"
+
+#: .\templates\experts\detail.html:11
+msgid "समाप्ति दर्ज नहीं"
+msgstr "End not recorded"
+
+#: .\templates\experts\detail.html:11
+msgid "· प्रशासनिक पद समाप्ति:"
+msgstr "· Administrative post ends:"
+
+#: .\templates\experts\detail.html:11
+msgid "ज्ञात नहीं"
+msgstr "Unknown"
+
+#: .\templates\experts\detail.html:11
+msgid "इस इतिहास रिकॉर्ड को बदलें"
+msgstr "Edit this history record"
+
+#: .\templates\experts\detail.html:11
+msgid "अभी संस्था / पद नहीं जुड़ा है।"
+msgstr "No institution / position is linked yet."
+
+#: .\templates\experts\detail.html:13
+msgid "नियुक्ति और विषय सीमा"
+msgstr "Appointment and subject scope"
+
+#: .\templates\experts\detail.html:13
+msgid "सीमा जोड़ें"
+msgstr "Add scope"
+
+#: .\templates\experts\detail.html:13
+msgid "सीमा अभी दर्ज नहीं है।"
+msgstr "No scope recorded yet."
+
+#: .\templates\experts\detail.html:14
+msgid "सूची के विशेषज्ञ"
+msgstr "Experts in the list"
+
+#: .\templates\experts\detail.html:14
+msgid "सदस्य जोड़ें"
+msgstr "Add member"
+
+#: .\templates\experts\detail.html:14
+msgid "हटाई गई सदस्यता:"
+msgstr "Withdrawn membership:"
+
+#: .\templates\experts\detail.html:14
+msgid "अभी सदस्य नहीं जुड़े हैं।"
+msgstr "No members added yet."
+
+#: .\templates\experts\detail.html:15
+msgid "मौजूदा विश्वविद्यालय स्वीकृति दर्ज करें"
+msgstr "Record existing university approval"
+
+#: .\templates\experts\detail.html:15
+msgid "बदलाव के लिए नया संस्करण"
+msgstr "New version for changes"
+
+#: .\templates\experts\detail.html:15
+msgid "स्वीकृति दर्ज करें"
+msgstr "Record approval"
+
+#: .\templates\experts\detail.html:15
+msgid "नया प्रारूप संस्करण बनाएँ"
+msgstr "Create new draft version"
+
+#: .\templates\experts\detail.html:16
+msgid "संस्करण:"
+msgstr "Version:"
+
+#: .\templates\experts\detail.html:17 .\templates\office\detail.html:6
+msgid "परिवर्तन इतिहास"
+msgstr "Change history"
+
+#: .\templates\experts\detail.html:17
+#: .\templates\nominations\panel_change.html:5
+#: .\templates\office\detail.html:7
+msgid "कारण:"
+msgstr "Reason:"
+
+#: .\templates\experts\detail.html:17 .\templates\office\detail.html:8
+msgid "पहले और बाद का विवरण"
+msgstr "Before and after details"
+
+#: .\templates\experts\detail.html:17 .\templates\office\detail.html:8
+msgid "पहले"
+msgstr "Before"
+
+#: .\templates\experts\detail.html:17 .\templates\office\detail.html:8
+msgid "बाद में"
+msgstr "After"
+
+#: .\templates\experts\detail.html:18
+msgid "पिछला इतिहास"
+msgstr "Previous history"
+
+#: .\templates\experts\detail.html:18
+msgid "अगला इतिहास"
+msgstr "Next history"
+
+#: .\templates\experts\form.html:2 .\templates\office\form.html:2
+msgid "नया"
+msgstr "New"
+
+#: .\templates\experts\form.html:3
+msgid "क्रमांक एक बार स्वतः मिलेगा। पहले शैक्षणिक पदनाम और विषय दर्ज करें। प्रशासनिक पद वैकल्पिक है; यदि पद धारण करते हैं तो उसका नाम और समाप्ति तिथि दर्ज करें। तिथि ज्ञात न हो तो खाली छोड़ें।"
+msgstr "The sequence number is assigned automatically once. Enter academic designation and subjects first. The administrative post is optional; if held, enter its name and end date. Leave the date blank if unknown."
+
+#: .\templates\experts\form.html:4
+msgid "शैक्षणिक पदनाम और प्रशासनिक पद अलग हैं: एक व्यक्ति प्रोफेसर होते हुए प्राचार्य हो सकता है। नई वर्तमान संस्था सहेजने पर पुराना रिकॉर्ड इतिहास में रहेगा। अज्ञात तिथियाँ खाली छोड़ें।"
+msgstr "Academic designation and administrative post are separate: a Professor may also be a Principal. Saving a new current institution preserves the previous record in history. Leave unknown dates blank."
+
+#: .\templates\experts\form.html:5
+msgid "पहले प्रारूप बनाएँ, फिर विषय सीमा और सदस्य जोड़ें। स्वीकृति दर्ज करना विश्वविद्यालय की मौजूदा स्वीकृति का अभिलेखन है।"
+msgstr "Create a draft, then add subject scope and members. Recording approval records an existing university decision."
+
+#: .\templates\experts\form.html:7
+msgid "सहेजा नहीं गया।"
+msgstr "Not saved."
+
+#: .\templates\experts\form.html:7 .\templates\office\form.html:6
+msgid "वर्तमान रिकॉर्ड नए टैब में देखें"
+msgstr "View the current record in a new tab"
+
+#: .\templates\experts\form.html:9 .\templates\office\form.html:8
+msgid "सहेजें"
+msgstr "Save"
+
+#: .\templates\experts\import.html:2 .\templates\experts\list.html:4
+msgid "विशेषज्ञों को थोक में आयात करें"
+msgstr "Import experts in bulk"
+
+#: .\templates\experts\import.html:2
+msgid "विशेषज्ञ सूची पर वापस जाएँ"
+msgstr "Back to expert list"
+
+#: .\templates\experts\import.html:3
+#: .\templates\institutions\bulk_import.html:3
+msgid "1. CSV प्रारूप डाउनलोड करें"
+msgstr "1. Download the CSV template"
+
+#: .\templates\experts\import.html:3
+msgid "विशेषज्ञ CSV प्रारूप डाउनलोड करें"
+msgstr "Download expert CSV template"
+
+#: .\templates\experts\import.html:3
+msgid "संस्था, विश्वविद्यालय और विषय का नाम निर्देशिका में दर्ज सक्रिय नाम से अक्षरशः मिलना चाहिए। अनेक विषय"
+msgstr "Institution, university and subject names must exactly match active directory records. Separate multiple subjects using"
+
+#: .\templates\experts\import.html:3
+msgid "से अलग करें।"
+msgstr "."
+
+#: .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+msgid "2. अनिवार्य स्तम्भ"
+msgstr "2. Required columns"
+
+#: .\templates\experts\import.html:4
+msgid "इनमें से कोई भी खाली हुआ तो पूरी CSV फ़ाइल आयात नहीं होगी।"
+msgstr "If any required value is missing, the entire CSV import is rejected."
+
+#: .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+msgid "स्तम्भ"
+msgstr "Column"
+
+#: .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+msgid "भरना आवश्यक है?"
+msgstr "Required?"
+
+#: .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+msgid "निर्देश"
+msgstr "Instructions"
+
+#: .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+msgid "इस CSV पंक्ति की अलग पहचान"
+msgstr "Unique identifier for this CSV row"
+
+#: .\templates\experts\import.html:4
+msgid "विशेषज्ञ का पूरा नाम"
+msgstr "Expert's full name"
+
+#: .\templates\experts\import.html:4
+msgid "general, obc, sc या st"
+msgstr "general, obc, sc or st"
+
+#: .\templates\experts\import.html:4
+msgid "वर्तमान कॉलेज / संस्था का ठीक वही सक्रिय नाम"
+msgstr "Exact active name of the current college / institution"
+
+#: .\templates\experts\import.html:4
+msgid "निर्देशिका में दर्ज विश्वविद्यालय प्रकार की सक्रिय संस्था का ठीक वही नाम"
+msgstr "Exact name of an active university in the directory"
+
+#: .\templates\experts\import.html:4
+msgid "निर्देशिका में मौजूद विषय; कई विषय"
+msgstr "Existing directory subjects; separate multiple subjects using"
+
+#: .\templates\experts\import.html:4
+msgid "से अलग करें"
+msgstr "."
+
+#: .\templates\experts\import.html:4
+msgid "professor, assistant या other"
+msgstr "professor, assistant or other"
+
+#: .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+msgid "true या false"
+msgstr "true or false"
+
+#: .\templates\experts\import.html:4
+#: .\templates\institutions\bulk_import.html:4
+msgid "उपलब्ध होने पर भरें"
+msgstr "Fill in if available"
+
+#: .\templates\experts\import.html:4
+msgid "शर्त के साथ"
+msgstr "Conditional"
+
+#: .\templates\experts\import.html:4
+msgid "केवल holds_administrative_post = true हो तो principal, hod या other"
+msgstr "principal, hod or other, only when holds_administrative_post = true"
+
+#: .\templates\experts\import.html:4
+msgid "केवल administrative_post = other हो तो आवश्यक"
+msgstr "Required only when administrative_post = other"
+
+#: .\templates\experts\import.html:4
+msgid "ज्ञात हो तो YYYY-MM-DD; प्रशासनिक पद न हो तो खाली रखें"
+msgstr "YYYY-MM-DD if known; leave blank if no administrative post is held"
+
+#: .\templates\experts\import.html:5
+#: .\templates\institutions\bulk_import.html:5
+msgid "3. CSV अपलोड करें"
+msgstr "3. Upload CSV"
+
+#: .\templates\experts\import.html:5
+#: .\templates\institutions\bulk_import.html:5
+msgid "केवल जाँचें"
+msgstr "Check only"
+
+#: .\templates\experts\import.html:5
+#: .\templates\institutions\bulk_import.html:5
+msgid "सत्यापन के बाद पूरी फ़ाइल आयात करें"
+msgstr "Validate and import the complete file"
+
+#: .\templates\experts\import.html:6
+#: .\templates\institutions\bulk_import.html:6
+msgid "आयात पूर्ण"
+msgstr "Import complete"
+
+#: .\templates\experts\import.html:6
+msgid "नए विशेषज्ञ बनाए गए हैं। सभी को स्थायी क्रमांक अपने-आप मिला है।"
+msgstr "new experts created. Each has been assigned a permanent sequence number."
+
+#: .\templates\experts\import.html:6
+msgid "विशेषज्ञ सूची खोलें"
+msgstr "Open expert list"
+
+#: .\templates\experts\import.html:6
+#: .\templates\institutions\bulk_import.html:6
+msgid "पंक्ति परिणाम"
+msgstr "Row results"
+
+#: .\templates\experts\import.html:6
+#: .\templates\institutions\bulk_import.html:6
+msgid "किसी भी त्रुटि को सुधारकर वही फ़ाइल फिर अपलोड करें। जाँच के दौरान कोई पंक्ति सहेजी नहीं गई है।"
+msgstr "Correct any errors and upload the file again. No rows were saved during validation."
+
+#: .\templates\experts\import.html:6
+#: .\templates\institutions\bulk_import.html:6
+msgid "पंक्ति"
+msgstr "Row"
+
+#: .\templates\experts\import.html:6
+#: .\templates\institutions\bulk_import.html:6
+msgid "त्रुटि नहीं मिली।"
+msgstr "No errors found."
+
+#: .\templates\experts\import.html:6
+msgid "फ़ाइल में कोई डेटा पंक्ति नहीं है।"
+msgstr "The file contains no data rows."
+
+#: .\templates\experts\list.html:2 .\templates\office\list.html:2
+msgid "नया जोड़ें"
+msgstr "Add new"
+
+#: .\templates\experts\list.html:3
+msgid "यह EC-स्वीकृत विशेषज्ञ निर्देशिका है, जिससे आवंटन इंजन उम्मीदवार जाँचता है। विषय, संस्था, शैक्षणिक पदनाम, प्रशासनिक पद और श्रेणी पूरी रखें।"
+msgstr "This is the EC-approved expert directory used by the allocation engine to check candidates. Keep subjects, institution, academic designation, administrative post, and category complete."
+
+#: .\templates\experts\list.html:3
+msgid "यह EC स्वीकृति अभिलेख है।"
+msgstr "This is an EC approval record."
+
+#: .\templates\experts\list.html:5
+msgid "नाम / संस्था / सन्दर्भ"
+msgstr "Name / institution / reference"
+
+#: .\templates\experts\list.html:5 .\templates\office\list.html:3
+msgid "खोजें"
+msgstr "Search"
+
+#: .\templates\experts\list.html:6
+msgid "अभी कोई रिकॉर्ड नहीं है।"
+msgstr "There are no records yet."
+
+#: .\templates\experts\list.html:7
+#: .\templates\nominations\document_queue.html:6
+#: .\templates\nominations\workbench.html:9 .\templates\office\detail.html:9
+#: .\templates\office\list.html:6
+msgid "पिछला"
+msgstr "Previous"
+
+#: .\templates\experts\list.html:7
+#: .\templates\nominations\document_queue.html:6
+#: .\templates\nominations\workbench.html:9 .\templates\office\detail.html:9
+#: .\templates\office\list.html:6
+msgid "अगला"
+msgstr "Next"
+
+#: .\templates\institutions\bulk_import.html:2 .\templates\office\list.html:2
+msgid "संस्थाओं को थोक में आयात करें"
+msgstr "Import institutions in bulk"
+
+#: .\templates\institutions\bulk_import.html:2
+msgid "संस्था सूची पर वापस जाएँ"
+msgstr "Back to institution list"
+
+#: .\templates\institutions\bulk_import.html:3
+msgid "संस्था CSV प्रारूप डाउनलोड करें"
+msgstr "Download institution CSV template"
+
+#: .\templates\institutions\bulk_import.html:3
+msgid "हर कॉलेज, विश्वविद्यालय और बाह्य संस्था एक अलग पंक्ति में भरें।"
+msgstr "Enter each college, university and external institution on a separate row."
+
+#: .\templates\institutions\bulk_import.html:4
+msgid "इनमें से कोई भी खाली या अमान्य हुआ तो पूरी CSV फ़ाइल आयात नहीं होगी।"
+msgstr "Any missing or invalid required value blocks the entire CSV import."
+
+#: .\templates\institutions\bulk_import.html:4
+msgid "संस्था का पूरा नाम"
+msgstr "Full institution name"
+
+#: .\templates\institutions\bulk_import.html:4
+msgid "college, university या other"
+msgstr "college, university or other"
+
+#: .\templates\institutions\bulk_import.html:4
+msgid "government, aided, other या unknown"
+msgstr "government, aided, other or unknown"
+
+#: .\templates\institutions\bulk_import.html:6
+#, python-format
+msgid "%(number)s नई संस्था बनाई गई है।"
+msgid_plural "%(number)s नई संस्थाएँ बनाई गई हैं।"
+msgstr[0] "%(number)s new institution was created."
+msgstr[1] "%(number)s new institutions were created."
+
+#: .\templates\institutions\bulk_import.html:6
+msgid "संस्था सूची खोलें"
+msgstr "Open institution list"
+
+#: .\templates\nominations\blocked.html:1
+msgid "कार्य पूरा नहीं हो सका"
+msgstr "The task could not be completed"
+
+#: .\templates\nominations\document_queue.html:2
+#: .\templates\office\base.html:19
+msgid "पत्र कार्यसूची"
+msgstr "Letter queue"
+
+#: .\templates\nominations\document_queue.html:2
+msgid "सभी पत्र"
+msgstr "All letters"
+
+#: .\templates\nominations\document_queue.html:3
+msgid "तैयार, समीक्षा हेतु प्रस्तुत, वापस किए गए और जारी किए गए पत्र एक ही स्थान पर उपलब्ध हैं।"
+msgstr "Prepared, submitted, returned and issued letters are available in one place."
+
+#: .\templates\nominations\document_queue.html:4
+#: .\templates\reporting\filter_form.html:3
+#: .\templates\reporting\filter_form.html:4
+#: .\templates\reporting\filter_form.html:5
+#: .\templates\reporting\filter_form.html:6
+msgid "सभी"
+msgstr "All"
+
+#: .\templates\nominations\document_queue.html:4
+msgid "छानें"
+msgstr "Filter"
+
+#: .\templates\nominations\document_queue.html:5
+msgid "पत्र"
+msgstr "Letters"
+
+#: .\templates\nominations\document_queue.html:5
+msgid "अनुरोध"
+msgstr "Request"
+
+#: .\templates\nominations\document_queue.html:5
+msgid "तैयार करने वाला"
+msgstr "Prepared by"
+
+#: .\templates\nominations\document_queue.html:5
+msgid "तारीख"
+msgstr "Date"
+
+#: .\templates\nominations\document_queue.html:5
+msgid "इस स्थिति में कोई पत्र नहीं है।"
+msgstr "No letters have this status."
+
+#: .\templates\nominations\final_selection.html:2
+msgid "अंतिम चयन और VC लॉक"
+msgstr "Final selection and VC lock"
+
+#: .\templates\nominations\final_selection.html:2
+#: .\templates\nominations\letter.html:2
+msgid "मूल अनुशंसा"
+msgstr "Source recommendation"
+
+#: .\templates\nominations\final_selection.html:3
+#: .\templates\nominations\letter.html:3
+#: .\templates\nominations\panel_change.html:3
+msgid "· स्थिति:"
+msgstr "· Status:"
+
+#: .\templates\nominations\final_selection.html:3
+#: .\templates\nominations\panel_change.html:3
+#: .\templates\nominations\workbench.html:3 .\templates\office\detail.html:4
+msgid "· संशोधन"
+msgstr "· Revision"
+
+#: .\templates\nominations\final_selection.html:5
+msgid "VC द्वारा लॉक किया गया"
+msgstr "Locked by VC"
+
+#: .\templates\nominations\final_selection.html:5
+msgid "लॉक:"
+msgstr "Locked:"
+
+#: .\templates\nominations\final_selection.html:5
+msgid "। उपयोग योगदान इसी एक कार्रवाई में दर्ज हुए हैं।"
+msgstr ". Utilisation contributions were recorded in this same action."
+
+#: .\templates\nominations\final_selection.html:5
+msgid "प्रतिस्थापन / रद्दीकरण"
+msgstr "Replacement / cancellation"
+
+#: .\templates\nominations\final_selection.html:5
+msgid "अंतिम चयन पत्र बनाएँ"
+msgstr "Create final selection letter"
+
+#: .\templates\nominations\final_selection.html:6
+msgid "VC के अंतिम विकल्प"
+msgstr "VC final choices"
+
+#: .\templates\nominations\final_selection.html:6
+msgid "1 प्राचार्य, 4 प्रोफेसर और 1 अलग VC नामित चुनें। SC/ST और OBC प्रतिनिधित्व पूर्ण होना चाहिए; VC इस जाँच में शामिल नहीं है।"
+msgstr "Select 1 Principal, 4 Professors and 1 separate VC nominee. SC/ST and OBC representation must be complete; the VC nominee is excluded from this check."
+
+#: .\templates\nominations\final_selection.html:6
+msgid "प्रस्तावित पैनल से चयन"
+msgstr "Select from proposed panel"
+
+#: .\templates\nominations\final_selection.html:6
+msgid "श्रेणी अज्ञात"
+msgstr "Category unknown"
+
+#: .\templates\nominations\final_selection.html:6
+#: .\templates\office\form.html:8
+msgid "प्रारूप सहेजें"
+msgstr "Save draft"
+
+#: .\templates\nominations\final_selection.html:6
+msgid "VC द्वारा अनुमोदित और लॉक करें"
+msgstr "Approve and lock as VC"
+
+#: .\templates\nominations\final_selection.html:7
+msgid "चुने गए सदस्य"
+msgstr "Selected members"
+
+#: .\templates\nominations\final_selection.html:8
+#: .\templates\nominations\letter.html:2
+msgid "पैनल परिवर्तन"
+msgstr "Panel changes"
+
+#: .\templates\nominations\letter.html:2 .\templates\office\detail.html:4
+msgid "अंतिम चयन"
+msgstr "Final selection"
+
+#: .\templates\nominations\letter.html:3
+msgid "पत्रांक:"
+msgstr "Letter number:"
+
+#: .\templates\nominations\letter.html:3
+msgid "· तिथि:"
+msgstr "· Date:"
+
+#: .\templates\nominations\letter.html:5
+msgid "पत्र का स्रोत एवं पूर्वावलोकन"
+msgstr "Letter source and preview"
+
+#: .\templates\nominations\letter.html:5
+msgid "यह पत्रांक और तिथि के साथ अंतिम स्वीकृत स्रोत से तैयार होगा। स्वीकृति के बाद सुरक्षित PDF डाउनलोड उपलब्ध होगा।"
+msgstr "This letter will be produced from the final approved source with its letter number and date. A secure PDF download will be available after approval."
+
+#: .\templates\nominations\letter.html:6
+msgid "PDF स्वीकृति हेतु प्रस्तुत करें"
+msgstr "Submit PDF for approval"
+
+#: .\templates\nominations\letter.html:7
+msgid "VC / प्रशासक निर्णय"
+msgstr "VC / administrator decision"
+
+#: .\templates\nominations\letter.html:7
+#: .\templates\nominations\panel_change.html:7
+#: .\templates\office\detail.html:4
+msgid "कारण सहित वापस करें"
+msgstr "Return with reason"
+
+#: .\templates\nominations\letter.html:7
+msgid "PDF स्वीकृत करें"
+msgstr "Approve PDF"
+
+#: .\templates\nominations\letter.html:7
+msgid "यह पत्र VC / प्रशासक की स्वीकृति की प्रतीक्षा में है।"
+msgstr "This letter is awaiting VC / administrator approval."
+
+#: .\templates\nominations\letter.html:8
+msgid "डाउनलोड के लिए स्वीकृत"
+msgstr "Approved for download"
+
+#: .\templates\nominations\letter.html:8
+msgid "समीक्षक:"
+msgstr "Reviewer:"
+
+#: .\templates\nominations\letter.html:8
+msgid "PDF डाउनलोड करें"
+msgstr "Download PDF"
+
+#: .\templates\nominations\letter.html:9 .\templates\office\detail.html:9
+msgid "इतिहास"
+msgstr "History"
+
+#: .\templates\nominations\letter.html:9
+msgid "अभी कोई कार्रवाई नहीं है।"
+msgstr "There is no action yet."
+
+#: .\templates\nominations\letter_start.html:2
+msgid "स्रोत अभिलेख पर लौटें"
+msgstr "Return to source record"
+
+#: .\templates\nominations\letter_start.html:3
+msgid "पत्र स्वीकृत स्रोत अभिलेख से बनेगा। इससे उपयोग संख्या नहीं बदलेगी।"
+msgstr "The letter uses the approved source record. This does not change utilisation counts."
+
+#: .\templates\nominations\letter_start.html:5
+msgid "पत्र प्रारूप बनाएँ"
+msgstr "Create letter draft"
+
+#: .\templates\nominations\panel_change.html:2
+#: .\templates\nominations\panel_change_start.html:2
+msgid "अंतिम चयन पर लौटें"
+msgstr "Return to final selection"
+
+#: .\templates\nominations\panel_change.html:5
+msgid "परिवर्तन विवरण"
+msgstr "Change details"
+
+#: .\templates\nominations\panel_change.html:5
+msgid "सत्यापनकर्ता:"
+msgstr "Verified by:"
+
+#: .\templates\nominations\panel_change.html:5
+msgid "के स्थान पर नियम-इंजन अनुशंसा:"
+msgstr "— rule-engine replacement recommendation:"
+
+#: .\templates\nominations\panel_change.html:5
+msgid "· भूमिका:"
+msgstr "· Role:"
+
+#: .\templates\nominations\panel_change.html:5
+msgid "नई आवंटन तिथि:"
+msgstr "New allocation date:"
+
+#: .\templates\nominations\panel_change.html:5
+msgid "अनुशंसा विवरण"
+msgstr "Recommendation details"
+
+#: .\templates\nominations\panel_change.html:5
+msgid "चयन कार्य न होने की पुष्टि:"
+msgstr "Confirmation that selection has not taken place:"
+
+#: .\templates\nominations\panel_change.html:6
+msgid "VC अनुमोदन हेतु प्रस्तुत करें"
+msgstr "Submit for VC approval"
+
+#: .\templates\nominations\panel_change.html:6
+msgid "प्रस्तुत करें"
+msgstr "Submit"
+
+#: .\templates\nominations\panel_change.html:7
+msgid "VC निर्णय"
+msgstr "VC decision"
+
+#: .\templates\nominations\panel_change.html:7
+msgid "परिवर्तन की पुष्टि करें"
+msgstr "Confirm change"
+
+#: .\templates\nominations\panel_change.html:8
+msgid "परिवर्तन पत्र बनाएँ"
+msgstr "Create change letter"
+
+#: .\templates\nominations\panel_change.html:9
+msgid "समीक्षा इतिहास"
+msgstr "Review history"
+
+#: .\templates\nominations\panel_change.html:9
+msgid "अभी कोई समीक्षा कार्रवाई नहीं है।"
+msgstr "No review action yet."
+
+#: .\templates\nominations\panel_change_start.html:2
+msgid "पैनल में परिवर्तन"
+msgstr "Panel change"
+
+#: .\templates\nominations\panel_change_start.html:3
+msgid "लॉक पैनल:"
+msgstr "Locked panel:"
+
+#: .\templates\nominations\panel_change_start.html:3
+msgid "। मूल चयन और उसके उपयोग अभिलेख सुरक्षित रहेंगे।"
+msgstr ". The original selection and its utilisation records are preserved."
+
+#: .\templates\nominations\panel_change_start.html:5
+msgid "अगला योग्य व्यक्ति वर्तमान तिथि पर नियम-इंजन से अनुशंसित होगा। लॉक होने तक उपयोग संख्या नहीं बदलेगी।"
+msgstr "The rule engine recommends the next eligible person as of today. Counts change only when locked."
+
+#: .\templates\nominations\panel_change_start.html:5
+msgid "नियम-इंजन अनुशंसा बनाएँ"
+msgstr "Create rule-engine recommendation"
+
+#: .\templates\nominations\panel_change_start.html:6
+msgid "पूरा पैनल रद्द करें"
+msgstr "Cancel entire panel"
+
+#: .\templates\nominations\panel_change_start.html:6
+msgid "यह केवल तब है जब चयन कार्य अभी नहीं हुआ है। समीक्षा पुष्टि पर सक्रिय उपयोग योगदान वापस होंगे।"
+msgstr "Use only if selection has not taken place. Confirmation reverses active utilisation contributions."
+
+#: .\templates\nominations\panel_change_start.html:6
+msgid "रद्दीकरण प्रारूप बनाएँ"
+msgstr "Create cancellation draft"
+
+#: .\templates\nominations\result.html:2
+msgid "आवंटन का विवरण"
+msgstr "Allocation details"
+
+#: .\templates\nominations\result.html:3
+msgid "नियुक्ति प्रकार"
+msgstr "Appointment type"
+
+#: .\templates\nominations\result.html:3
+msgid "उदाहरण"
+msgstr "Example"
+
+#: .\templates\nominations\result.html:3
+msgid "दो अतिरिक्त श्रेणी विशेषज्ञ"
+msgstr "Two additional category experts"
+
+#: .\templates\nominations\result.html:3
+msgid "अलग उपयोग और अंतिम नामांकन तिथियाँ"
+msgstr "Different counts and last nomination dates"
+
+#: .\templates\nominations\result.html:3
+msgid "योग्य प्रोफेसर कम हैं"
+msgstr "Insufficient qualified Professors"
+
+#: .\templates\nominations\result.html:3
+msgid "उदाहरण देखें"
+msgstr "View example"
+
+#: .\templates\nominations\result.html:4
+msgid "केवल प्रदर्शन — सभी नाम और उपयोग आँकड़े काल्पनिक हैं।"
+msgstr "Demonstration only — all names and counts are fictional."
+
+#: .\templates\nominations\result.html:4
+msgid "यह विश्वविद्यालय का जारी पैनल नहीं है।"
+msgstr "This is not an issued university panel."
+
+#: .\templates\nominations\result.html:4
+msgid "· यह नियम-इंजन का प्रस्तावित पैनल है। VC के चयन से अंतिम पैनल बनेगा।"
+msgstr "· This is the rule engine's proposed panel. The VC selects the final panel."
+
+#: .\templates\nominations\result.html:6
+msgid "अनुरोध पर वापस जाएँ / नई जाँच"
+msgstr "Return to request / run a new check"
+
+#: .\templates\nominations\result.html:7 .\templates\office\detail.html:4
+msgid "अंतिम चयन देखें"
+msgstr "View final selection"
+
+#: .\templates\nominations\result.html:7
+msgid "VC अंतिम चयन प्रारूप बनाएँ"
+msgstr "Create VC final-selection draft"
+
+#: .\templates\nominations\result.html:8
+msgid "अनुरोध बदल चुका है। यह पुराने संशोधन की सहेजी हुई जाँच है। नई जाँच करें।"
+msgstr "The request has changed. These results use an earlier revision. Run a new check."
+
+#: .\templates\nominations\result.html:9
+msgid "आवंटन तिथि"
+msgstr "Allocation date"
+
+#: .\templates\nominations\result.html:9
+msgid "· नामांकन वर्ष"
+msgstr "· Nomination year"
+
+#: .\templates\nominations\result.html:9
+msgid "नियम संस्करण"
+msgstr "Policy version"
+
+#: .\templates\nominations\result.html:10
+msgid "पैनल तैयार नहीं हो सका"
+msgstr "Panel could not be generated"
+
+#: .\templates\nominations\result.html:12
+msgid "· हित-संघर्ष"
+msgstr "· Conflict of interest"
+
+#: .\templates\nominations\result.html:12
+msgid "अपूर्ण तथ्य या इतिहास के कारण नामों का चयन नहीं किया गया।"
+msgstr "Names were not selected because facts or history are incomplete."
+
+#: .\templates\nominations\result.html:14
+msgid "इस जाँच से उपयोग संख्या नहीं बढ़ती। अंतिम चयन और लॉक अलग कार्य हैं।"
+msgstr "This check does not increase the use count. Final selection and lock are separate actions."
+
+#: .\templates\nominations\result.html:15
+msgid "प्रस्तावित सदस्यों का सत्यापन"
+msgstr "Proposed-member verification"
+
+#: .\templates\nominations\result.html:15
+msgid "केवल इस प्रस्तावित पैनल के सदस्य यहाँ दिखते हैं। अनुपलब्धता या हित-संघर्ष दर्ज करने के बाद संशोधित पैनल तैयार करें।"
+msgstr "Only members of this proposed panel appear here. Record unavailability or conflicts, then generate a revised panel."
+
+#: .\templates\nominations\result.html:15
+msgid "सत्यापन सहेजें"
+msgstr "Save verification"
+
+#: .\templates\nominations\result.html:15
+msgid "संशोधित प्रस्तावित पैनल तैयार करें"
+msgstr "Generate revised proposed panel"
+
+#: .\templates\nominations\result.html:16
+msgid "VC के लिए चयन आधार"
+msgstr "Selection basis for VC"
+
+#: .\templates\nominations\result.html:16
+msgid "वर्तमान वर्ष"
+msgstr "Current year"
+
+#: .\templates\nominations\result.html:16
+msgid "आजीवन उपयोग"
+msgstr "Lifetime use"
+
+#: .\templates\nominations\result.html:16
+msgid "अभी नहीं"
+msgstr "Not yet"
+
+#: .\templates\nominations\workbench.html:2
+msgid "विशेषज्ञ आवंटन"
+msgstr "Expert allocation"
+
+#: .\templates\nominations\workbench.html:4
+msgid "आवंटन तिथि:"
+msgstr "Allocation date:"
+
+#: .\templates\nominations\workbench.html:4
+msgid "। पात्रता इसी तिथि पर जाँची जाएगी।"
+msgstr ". Eligibility is checked on this date."
+
+#: .\templates\nominations\workbench.html:5
+msgid "प्रस्तावित पैनल बनने के बाद केवल उसके सदस्यों का उपलब्धता और हित-संघर्ष सत्यापन दर्ज किया जाएगा।"
+msgstr "After the proposed panel is created, availability and conflict checks are recorded only for its members."
+
+#: .\templates\nominations\workbench.html:6
+msgid "नियम-इंजन से प्रस्तावित पैनल तैयार करें"
+msgstr "Generate proposed panel with rule engine"
+
+#: .\templates\nominations\workbench.html:6 .\templates\office\detail.html:4
+msgid "रजिस्ट्रार समीक्षा पूर्ण है। VC की पैनल-निर्माण कार्रवाई की प्रतीक्षा है।"
+msgstr "The Registrar review is complete. Waiting for the VC to generate the panel."
+
+#: .\templates\nominations\workbench.html:6
+msgid "प्रस्तावित पैनल तैयार हो चुका है। नीचे सहेजी हुई अनुशंसा खोलें।"
+msgstr "The proposed panel has been generated. Open the saved recommendation below."
+
+#: .\templates\nominations\workbench.html:8
+msgid "सहेजी हुई जाँच"
+msgstr "Saved checks"
+
+#: .\templates\nominations\workbench.html:8
+msgid "· अनुरोध संशोधन"
+msgstr "· Request revision"
+
+#: .\templates\nominations\workbench.html:8
+msgid "अभी कोई जाँच नहीं हुई है।"
+msgstr "No check has been run yet."
+
+#: .\templates\office\base.html:4 .\templates\office\base.html:11
+#: .\templates\office\base.html:22
+msgid "विश्वविद्यालय कार्यालय"
+msgstr "University Office"
+
+#: .\templates\office\base.html:10
+msgid "कार्यालय नेविगेशन"
+msgstr "Office navigation"
+
+#: .\templates\office\base.html:17
+msgid "EC-स्वीकृत विशेषज्ञ"
+msgstr "EC-approved experts"
+
+#: .\templates\office\base.html:18 .\templates\office\home.html:7
+#: .\templates\reporting\home.html:2
+msgid "डैशबोर्ड और रिपोर्ट"
+msgstr "Dashboard and reports"
+
+#: .\templates\office\base.html:22
+msgid "स्थानीय प्रदर्शन · परीक्षण जानकारी हेतु"
+msgstr "Local demonstration · for testing only"
+
+#: .\templates\office\base.html:23 .\templates\office\password_change.html:2
+msgid "पासवर्ड बदलें"
+msgstr "Change password"
+
+#: .\templates\office\base.html:23
+msgid "साइन आउट"
+msgstr "Sign out"
+
+#: .\templates\office\credential_handover.html:2
+msgid "केवल एक बार दिखाया जाएगा"
+msgstr "Shown only once"
+
+#: .\templates\office\credential_handover.html:2
+msgid "के लिए अस्थायी पासवर्ड:"
+msgstr "— temporary password:"
+
+#: .\templates\office\credential_handover.html:2
+msgid "इसे अभी सुरक्षित विश्वविद्यालय माध्यम से दें। पृष्ठ से हटने या रीफ्रेश करने पर यह पासवर्ड फिर दिखाई नहीं देगा। कर्मचारी को पहले साइन इन के बाद अपना नया पासवर्ड निर्धारित करना होगा।"
+msgstr "Share this now through a secure University channel. It will not be shown again after leaving or refreshing this page. The staff member must set a new password after their first sign-in."
+
+#: .\templates\office\credential_handover.html:2
+msgid "पूर्ण करें"
+msgstr "Finish"
+
+#: .\templates\office\credential_issue.html:2
+#: .\templates\office\credential_issue.html:6
+msgid "प्रमाण-पत्र जारी करें"
+msgstr "Issue credentials"
+
+#: .\templates\office\credential_issue.html:2
+msgid "खाते पर लौटें"
+msgstr "Return to account"
+
+#: .\templates\office\credential_issue.html:3
+msgid "अस्थायी पासवर्ड केवल अगली स्क्रीन पर एक बार दिखेगा। इसे सुरक्षित विश्वविद्यालय माध्यम से कर्मचारी तक पहुँचाएँ।"
+msgstr "The temporary password will be shown only once on the next screen. Send it to the staff member through a secure University channel."
+
+#: .\templates\office\detail.html:2
+msgid "प्रमाण-पत्र जारी / रीसेट करें"
+msgstr "Issue / reset credentials"
+
+#: .\templates\office\detail.html:4
+msgid "समीक्षा हेतु भेजें"
+msgstr "Send for review"
+
+#: .\templates\office\detail.html:4
+msgid "अनुरोध भेजने के बाद पैनल नहीं दिखेगा। रजिस्ट्रार केवल प्रारूप की वैधता की समीक्षा करेगा।"
+msgstr "The panel will not be shown after the request is sent. The Registrar only reviews whether the draft is valid."
+
+#: .\templates\office\detail.html:4
+msgid "समीक्षा हेतु प्रस्तुत करें"
+msgstr "Submit for review"
+
+#: .\templates\office\detail.html:4
+msgid "यह अनुरोध अभी POC के प्रारूप चरण में है।"
+msgstr "This request is still in the POC draft stage."
+
+#: .\templates\office\detail.html:4
+msgid "प्रारूप समीक्षा"
+msgstr "Format review"
+
+#: .\templates\office\detail.html:4
+msgid "प्रारूप सही होने पर इसे VC की कार्रवाई के लिए भेजें। पैनल केवल VC तैयार कर सकता है।"
+msgstr "When the draft is correct, send it for VC action. Only the VC can generate the panel."
+
+#: .\templates\office\detail.html:4
+msgid "समीक्षा स्वीकार करें और VC को भेजें"
+msgstr "Accept review and send to VC"
+
+#: .\templates\office\detail.html:4
+msgid "सुधार हेतु वापस करें"
+msgstr "Return for correction"
+
+#: .\templates\office\detail.html:4
+msgid "VC कार्रवाई"
+msgstr "VC action"
+
+#: .\templates\office\detail.html:4
+msgid "रजिस्ट्रार ने प्रारूप की समीक्षा स्वीकार कर ली है। अब नियम-इंजन से प्रस्तावित पैनल तैयार करें।"
+msgstr "The Registrar has accepted the draft review. Now generate the proposed panel using the rule engine."
+
+#: .\templates\office\detail.html:4
+msgid "प्रस्तावित पैनल तैयार करें"
+msgstr "Generate proposed panel"
+
+#: .\templates\office\detail.html:4
+msgid "प्रस्तावित पैनल देखें"
+msgstr "View proposed panel"
+
+#: .\templates\office\detail.html:4
+msgid "VC द्वारा अनुमोदित और लॉक किया गया पैनल उपलब्ध है।"
+msgstr "The panel approved and locked by the VC is available."
+
+#: .\templates\office\detail.html:4
+msgid "इस अनुरोध के पत्र"
+msgstr "Letters for this request"
+
+#: .\templates\office\detail.html:4
+msgid "सभी पत्र कार्यसूची"
+msgstr "All letter work queue"
+
+#: .\templates\office\detail.html:4
+msgid "प्रकार"
+msgstr "Type"
+
+#: .\templates\office\detail.html:4
+msgid "पत्रांक"
+msgstr "Letter number"
+
+#: .\templates\office\detail.html:4
+msgid "तैयार करने वाले"
+msgstr "Prepared by"
+
+#: .\templates\office\detail.html:4
+msgid "खोलें"
+msgstr "Open"
+
+#: .\templates\office\detail.html:4
+msgid "अभी कोई पत्र तैयार नहीं है।"
+msgstr "No letter has been prepared yet."
+
+#: .\templates\office\detail.html:4
+msgid "जारी अंतिम चयन पत्र डाउनलोड करें"
+msgstr "Download issued final-selection letter"
+
+#: .\templates\office\detail.html:8
+msgid "नया रिकॉर्ड"
+msgstr "New record"
+
+#: .\templates\office\detail.html:8
+msgid "कोई परिवर्तन दर्ज नहीं है।"
+msgstr "No changes recorded."
+
+#: .\templates\office\email_otp_verify.html:2
+msgid "ईमेल सत्यापन"
+msgstr "Email verification"
+
+#: .\templates\office\email_otp_verify.html:2
+msgid "साइन इन कोड लिखें"
+msgstr "Enter sign-in code"
+
+#: .\templates\office\email_otp_verify.html:3
+msgid "छह अंकों का एक बार उपयोग होने वाला कोड"
+msgstr "A six-digit, single-use code"
+
+#: .\templates\office\email_otp_verify.html:3
+msgid "पर भेजा गया है। यह 10 मिनट तक वैध है।"
+msgstr "was sent to. It is valid for 10 minutes."
+
+#: .\templates\office\email_otp_verify.html:4
+msgid "कोड फिर से नहीं भेजा जा सका। कृपया कुछ समय बाद प्रयास करें।"
+msgstr "The code could not be resent. Please try again later."
+
+#: .\templates\office\email_otp_verify.html:5
+msgid "सत्यापित करें"
+msgstr "Verify"
+
+#: .\templates\office\email_otp_verify.html:6
+msgid "नया कोड भेजें"
+msgstr "Send a new code"
+
+#: .\templates\office\email_otp_verify.html:7
+msgid "कोड या पासवर्ड किसी के साथ साझा न करें।"
+msgstr "Do not share your code or password with anyone."
+
+#: .\templates\office\form.html:3
+msgid "प्रारूप सहेजने के लिए महाविद्यालय और नियुक्ति का पद आवश्यक हैं। बाकी जानकारी बाद में पूरी कर सकते हैं।"
+msgstr "College and appointment post are required to save a draft. Other details can be completed later."
+
+#: .\templates\office\form.html:4
+msgid "नया खाता निष्क्रिय रहेगा। सहेजने के बाद प्रशासक इसी कार्यालय में प्रमाण-पत्र जारी कर सकेगा।"
+msgstr "New accounts remain inactive. After saving, an administrator can issue credentials here."
+
+#: .\templates\office\form.html:6
+msgid "सहेजा नहीं गया। नीचे दी गई त्रुटियाँ सुधारें।"
+msgstr "Not saved. Correct the errors below."
+
+#: .\templates\office\form.html:8
+msgid "सूची पर लौटें"
+msgstr "Return to list"
+
+#: .\templates\office\home.html:2
+msgid "कार्यालय कार्यक्षेत्र"
+msgstr "Office workspace"
+
+#: .\templates\office\home.html:2
+msgid "अपनी अनुमति के अनुसार निर्देशिका और अनुरोध प्रारूप सँभालें।"
+msgstr "Manage the directory and request drafts according to your permissions."
+
+#: .\templates\office\home.html:4
+msgid "सभी महाविद्यालयों की साझा कार्य-सूची।"
+msgstr "Shared work queue for all colleges."
+
+#: .\templates\office\home.html:4
+msgid "कार्य-सूची खोलें"
+msgstr "Open work queue"
+
+#: .\templates\office\home.html:4
+msgid "नया प्रारूप"
+msgstr "New draft"
+
+#: .\templates\office\home.html:5
+msgid "संस्थाओं और विषयों की जानकारी देखें।"
+msgstr "View institution and subject information."
+
+#: .\templates\office\home.html:6
+msgid "विशेषज्ञ निर्देशिका"
+msgstr "Expert directory"
+
+#: .\templates\office\home.html:6
+msgid "आवंटन इंजन सक्रिय विशेषज्ञों को इसी EC-स्वीकृत निर्देशिका से जाँचता है।"
+msgstr "The allocation engine checks active experts from this EC-approved directory."
+
+#: .\templates\office\home.html:6
+msgid "अभी कोई कार्य अनुमति नहीं है। खाता प्रशासक से सम्पर्क करें।"
+msgstr "You do not currently have any work permissions. Contact the account administrator."
+
+#: .\templates\office\home.html:7
+msgid "लॉक किए गए नामांकन, उपयोग, प्रतिनिधित्व और परिवर्तन सारांश देखें।"
+msgstr "View locked nominations, utilisation, representation, and change summaries."
+
+#: .\templates\office\home.html:7
+msgid "रिपोर्ट खोलें"
+msgstr "Open reports"
+
+#: .\templates\office\home.html:8
+msgid "व्यक्तिगत खाते और स्पष्ट कार्य अनुमतियाँ।"
+msgstr "Individual accounts and clear work permissions."
+
+#: .\templates\office\home.html:8
+msgid "खाते सँभालें"
+msgstr "Manage accounts"
+
+#: .\templates\office\list.html:3
+msgid "नाम / सन्दर्भ से खोजें"
+msgstr "Search by name / reference"
+
+#: .\templates\office\list.html:5
+msgid "निष्क्रिय"
+msgstr "Inactive"
+
+#: .\templates\office\list.html:5
+msgid "कोई रिकॉर्ड नहीं मिला।"
+msgstr "No records found."
+
+#: .\templates\office\list.html:5
+msgid "नया रिकॉर्ड जोड़कर शुरू करें।"
+msgstr "Add a new record to begin."
+
+#: .\templates\office\list.html:6
+msgid "पृष्ठ"
+msgstr "Page"
+
+#: .\templates\office\login.html:2
+msgid "कर्मचारी साइन इन"
+msgstr "Staff sign in"
+
+#: .\templates\office\login.html:3
+msgid "विश्वविद्यालय द्वारा बनाए गए व्यक्तिगत खाते का उपयोग करें।"
+msgstr "Use your University-created personal account."
+
+#: .\templates\office\login.html:4
+msgid "साइन इन"
+msgstr "Sign in"
+
+#: .\templates\office\login.html:5
+msgid "नए खाते या पासवर्ड सहायता के लिए खाता प्रशासक से सम्पर्क करें।"
+msgstr "Contact the account administrator for a new account or password help."
+
+#: .\templates\office\password_change.html:2
+msgid "नया पासवर्ड निर्धारित करें"
+msgstr "Set new password"
+
+#: .\templates\office\password_change.html:2
+msgid "कार्य जारी रखने से पहले अपना निजी पासवर्ड निर्धारित करें।"
+msgstr "Set your private password before continuing work."
+
+#: .\templates\office\password_change.html:2
+msgid "अपने खाते के लिए नया निजी पासवर्ड निर्धारित करें।"
+msgstr "Set a new private password for your account."
+
+#: .\templates\office\password_change.html:2
+msgid "पासवर्ड सहेजें"
+msgstr "Save password"
+
+#: .\templates\reporting\filter_form.html:7
+msgid "रिपोर्ट देखें"
+msgstr "View report"
+
+#: .\templates\reporting\home.html:2
+msgid "केवल अंतिम लॉक और पुष्ट प्रतिस्थापन के जीवित उपयोग योगदान दिखाए गए हैं।"
+msgstr "Only live use contributions from final locks and confirmed replacements are shown."
+
+#: .\templates\reporting\home.html:5
+msgid "विशेषज्ञ उपयोग सारांश"
+msgstr "Expert use summary"
+
+#: .\templates\reporting\home.html:5
+msgid "इस वर्ष"
+msgstr "This year"
+
+#: .\templates\reporting\home.html:5
+msgid "कुल"
+msgstr "Total"
+
+#: .\templates\reporting\home.html:5
+msgid "इस फ़िल्टर में कोई सक्रिय विशेषज्ञ नहीं है।"
+msgstr "There are no active experts for this filter."
+
+#: .\templates\reporting\home.html:6
+msgid "SRS रिपोर्ट"
+msgstr "SRS reports"
+
+#: .\templates\reporting\report.html:2
+msgid "डैशबोर्ड"
+msgstr "Dashboard"
+
+#: .\templates\reporting\report.html:2
+msgid "CSV डाउनलोड"
+msgstr "Download CSV"
+
+#: .\templates\reporting\report.html:4
+msgid "इस फ़िल्टर में कोई रिकॉर्ड नहीं है।"
+msgstr "There are no records for this filter."
+
+#: .\templates\workspace\home.html:5
+msgid "निष्पक्ष चयन."
+msgstr "Fair selection."
+
+#: .\templates\workspace\home.html:5
+msgid "स्पष्ट प्रक्रिया."
+msgstr "Clear process."
+
+#: .\templates\workspace\home.html:5
+msgid "महाविद्यालय के अनुरोध से विशेषज्ञ पैनल तक।"
+msgstr "From a college request to an expert panel."
+
+#: .\templates\workspace\home.html:5
+msgid "विश्वविद्यालय कार्यालय के लिए एक सुव्यवस्थित कार्यक्षेत्र।"
+msgstr "One organised workspace for the University Office."
+
+#: .\templates\workspace\home.html:5
+msgid "विश्वविद्यालय कर्मचारी साइन इन"
+msgstr "University staff sign in"
+
+#: .\templates\workspace\home.html:5
+msgid "अनुरोध प्रारूप का पूर्वावलोकन देखें"
+msgstr "Preview request format"
+
+#: .\templates\workspace\home.html:5
+msgid "नियम-आधारित"
+msgstr "Rule-based"
+
+#: .\templates\workspace\home.html:5
+msgid "पारदर्शी"
+msgstr "Transparent"
+
+#: .\templates\workspace\home.html:6
+msgid "पहला कार्यशील पूर्वावलोकन"
+msgstr "First working preview"
+
+#: .\templates\workspace\home.html:6
+msgid "हिन्दी अनुरोध का प्रारूप देखें और पैनल संरचना की समीक्षा करें। अभी वास्तविक अनुरोध, नामांकन या उपयोग-गणना दर्ज नहीं होती।"
+msgstr "Preview the Hindi request format and review the panel composition. Real requests, nominations, and utilisation counts are not recorded here."
+
+#: .\templates\workspace\home.html:7
+msgid "अनुरोध से अंतिम चयन तक"
+msgstr "From request to final selection"
+
+#: .\templates\workspace\home.html:7
+msgid "प्रस्तावित कार्यप्रवाह"
+msgstr "Proposed workflow"
+
+#: .\templates\workspace\home.html:7
+msgid "अनुरोध विवरण"
+msgstr "Request details"
+
+#: .\templates\workspace\home.html:7
+msgid "विश्वविद्यालय POC कॉलेज से प्राप्त जानकारी दर्ज करता है।"
+msgstr "The University POC records the information received from the college."
+
+#: .\templates\workspace\home.html:7
+msgid "विशेषज्ञ पैनल"
+msgstr "Expert panel"
+
+#: .\templates\workspace\home.html:7
+msgid "स्वीकृत सूची से नियमों के अनुसार छह नाम प्रस्तावित होते हैं।"
+msgstr "Six names are proposed from the approved directory according to the rules."
+
+#: .\templates\workspace\home.html:7
+msgid "प्रबन्ध समिति का चयन"
+msgstr "Management committee selection"
+
+#: .\templates\workspace\home.html:7
+msgid "अंतिम चुने गए सदस्यों का विवरण POC दर्ज करता है।"
+msgstr "The POC records the final members selected."
+
+#: .\templates\workspace\home.html:7
+msgid "केवल अंतिम लॉक में शामिल सदस्यों की उपयोग-गणना बढ़ती है।"
+msgstr "Only members included in the final lock have their utilisation count increased."
+
+#: .\templates\workspace\home.html:8
+msgid "पैनल का आधार"
+msgstr "Panel basis"
+
+#: .\templates\workspace\home.html:8
+msgid "एक स्पष्ट संरचना,"
+msgstr "A clear structure,"
+
+#: .\templates\workspace\home.html:8
+msgid "अलग नियुक्ति नियम।"
+msgstr "separate appointment rules."
+
+#: .\templates\workspace\home.html:8
+msgid "प्राचार्य, विभागाध्यक्ष और विषय विशेषज्ञ के नियम अलग रखे गए हैं, ताकि भविष्य का बदलाव पुराने रिकॉर्ड को न बदले।"
+msgstr "Rules for Principals, Heads of Department, and Subject Experts are separate so future changes do not alter old records."
+
+#: .\templates\workspace\home.html:8
+msgid "नियुक्ति-वार संरचना देखें"
+msgstr "View appointment-wise composition"
+
+#: .\templates\workspace\home.html:8
+msgid "हिन्दी में काम करें"
+msgstr "Work in Hindi"
+
+#: .\templates\workspace\home.html:8
+msgid "आपकी भाषा में,"
+msgstr "In your language,"
+
+#: .\templates\workspace\home.html:8
+msgid "आपका कार्यक्षेत्र।"
+msgstr "your workspace."
+
+#: .\templates\workspace\home.html:8
+msgid "अपने हिन्दी कीबोर्ड से नाम, विषय और विवरण लिखें। पूर्वावलोकन में मात्राएँ और संयुक्ताक्षर जाँचें।"
+msgstr "Use your Hindi keyboard to enter names, subjects, and details. Check matras and conjuncts in the preview."
+
+#: .\templates\workspace\home.html:8
+msgid "प्राचार्य · विश्वविद्यालय · विशेषज्ञ"
+msgstr "Principal · University · Expert"
+
+#: .\templates\workspace\intake.html:4
+msgid "अनुरोध का प्रारूप"
+msgstr "Request draft"
+
+#: .\templates\workspace\intake.html:4
+msgid "महाविद्यालय से प्राप्त जानकारी हिन्दी में दर्ज करके उसका पूर्वावलोकन देखें।"
+msgstr "Enter the information received from the college in Hindi and preview it."
+
+#: .\templates\workspace\intake.html:5
+msgid "यह आवेदन जमा करने का चरण नहीं है।"
+msgstr "This is not an application submission."
+
+#: .\templates\workspace\intake.html:5
+msgid "यहाँ भरा विवरण सहेजा नहीं जाता। केवल नमूना जानकारी इस्तेमाल करें। अनिवार्य दस्तावेज़ और जमा करने के नियम अगली समीक्षा में तय होंगे।"
+msgstr "Details entered here are not saved. Use sample information only. Required documents and submission rules will be settled at the next review."
+
+#: .\templates\workspace\intake.html:6
+msgid "कृपया ये विवरण जाँचें:"
+msgstr "Please check these details:"
+
+#: .\templates\workspace\intake.html:8
+msgid "महाविद्यालय का विवरण"
+msgstr "College details"
+
+#: .\templates\workspace\intake.html:9
+msgid "नियुक्ति का विवरण"
+msgstr "Appointment details"
+
+#: .\templates\workspace\intake.html:10
+msgid "पूर्वावलोकन से कोई नामांकन या गणना नहीं बदलेगी।"
+msgstr "Previewing does not change nominations or counts."
+
+#: .\templates\workspace\intake.html:10
+#: .\templates\workspace\intake_preview.html:2
+msgid "विवरण का पूर्वावलोकन"
+msgstr "Preview details"
+
+#: .\templates\workspace\intake_preview.html:4
+msgid "दर्ज विवरण की समीक्षा"
+msgstr "Review entered details"
+
+#: .\templates\workspace\intake_preview.html:4
+msgid "वर्तनी, मात्राएँ और जानकारी जाँचें। यह सहेजा गया या जमा किया गया आवेदन नहीं है।"
+msgstr "Check spelling, Hindi vowel marks and details. This application has not been saved or submitted."
+
+#: .\templates\workspace\intake_preview.html:5
+msgid "विषय विशेषज्ञ की संरचना अस्थायी है।"
+msgstr "Subject expert composition is provisional."
+
+#: .\templates\workspace\intake_preview.html:5
+msgid "अभी प्राचार्य/विभागाध्यक्ष वाली संरचना लागू है; कुलपति की पुष्टि शेष है।"
+msgstr "The Principal / HoD composition currently applies, pending VC confirmation."
+
+#: .\templates\workspace\intake_preview.html:6
+msgid "महाविद्यालय अनुरोध विवरण"
+msgstr "College request details"
+
+#: .\templates\workspace\intake_preview.html:6
+msgid "केवल पूर्वावलोकन — आधिकारिक आवेदन नहीं"
+msgstr "Preview only — not an official application"
+
+#: .\templates\workspace\intake_preview.html:7
+msgid "नया खाली प्रारूप"
+msgstr "New blank draft"
+
+#: .\templates\workspace\intake_preview.html:7
+msgid "← वापस जाकर सुधारें"
+msgstr "← Go back and correct"
+
+#: .\templates\workspace\policies.html:4
+msgid "नियुक्ति-वार पैनल संरचना"
+msgstr "Panel composition by appointment"
+
+#: .\templates\workspace\policies.html:4
+msgid "स्वीकृत दिशा के अनुसार संरचना। यह पृष्ठ किसी विशेषज्ञ का आवंटन नहीं करता।"
+msgstr "Composition follows the approved direction. This page does not allocate experts."
+
+#: .\templates\workspace\policies.html:5
+msgid "नियुक्ति का प्रकार"
+msgstr "Appointment type"
+
+#: .\templates\workspace\policies.html:7
+msgid "अस्थायी संरचना — कुलपति की पुष्टि शेष"
+msgstr "Provisional composition — awaiting VC confirmation"
+
+#: .\templates\workspace\policies.html:7
+msgid "आपके निर्देशानुसार अभी समान संरचना रखी गई है। विषय विशेषज्ञ के नियम बाद में स्वतंत्र रूप से बदले जा सकते हैं।"
+msgstr "The same composition currently applies. Subject expert rules can be changed independently later."
+
+#: .\templates\workspace\policies.html:8
+msgid "अलग कुलपति नामित"
+msgstr "Separate VC nominee"
+
+#: .\templates\workspace\policies.html:8
+msgid "मुख्य पैनल: छह नाम। SC/ST या OBC प्रतिनिधित्व अनुपस्थित होने पर SRS के अनुसार अतिरिक्त विशेषज्ञ।"
+msgstr "Main panel: six names. Add experts under SRS rules if SC/ST or OBC representation is missing."
+
+#: .\templates\workspace\policies.html:9
+msgid "आवंटन प्राथमिकता"
+msgstr "Allocation priority"
+
+#: .\templates\workspace\policies.html:9
+msgid "न्यूनतम उपयोग पहले"
+msgstr "Lowest utilisation first"
+
+#: .\templates\workspace\policies.html:9
+msgid "वर्तमान वर्ष की सम्बन्धित उपयोग-गणना"
+msgstr "Applicable current-year utilisation count"
+
+#: .\templates\workspace\policies.html:9
+msgid "सबसे पुरानी पिछली नामांकन तिथि"
+msgstr "Earliest last nomination date"
+
+#: .\templates\workspace\policies.html:9
+msgid "निश्चित क्रम संख्या"
+msgstr "Fixed sequence number"
+
+#: .\templates\workspace\policies.html:9
+msgid "अलग गणनाओं का सटीक दायरा और कभी नामित न हुए विशेषज्ञों का क्रम अभी चर्चा में है।"
+msgstr "The scope of separate counts and ordering of never-nominated experts is under discussion."
+
+#: .\templates\workspace\policies.html:9
+msgid "अभी खुला निर्णय"
+msgstr "Open decision"
+
+#: .\templates\workspace\policies.html:9
+msgid "लम्बित आरक्षण"
+msgstr "Pending reservations"
+
+#: .\templates\workspace\policies.html:9
+msgid "विशेषज्ञ को कब रोकना है, किन अनुरोधों से रोकना है और आरक्षण कब छोड़ना है—ये नियम अभी तय नहीं हैं।"
+msgstr "Rules for reserving experts, affected requests and releasing reservations are not yet settled."
+
+#: .\templates\workspace\policies.html:9
+msgid "कोई आरक्षण नियम सक्रिय नहीं"
+msgstr "No reservation rule is active"
+
+# Dynamic system labels stored in historical records
+msgid "मुख्य छह में प्रतिनिधित्व"
+msgstr "Represented in the main six"
+
+msgid "परिवर्तन"
+msgstr "Changed"
+
+msgid "स्वीकृत पद"
+msgstr "Sanctioned posts"

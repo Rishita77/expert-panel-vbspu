@@ -1,9 +1,9 @@
-{% extends 'office/base.html' %}{% block content %}
-<h1>{{ title }} · {% if is_edit %}बदलें{% else %}नया{% endif %}</h1>
-{% if kind == 'requests' %}<p>प्रारूप सहेजने के लिए महाविद्यालय और नियुक्ति का पद आवश्यक हैं। बाकी जानकारी बाद में पूरी कर सकते हैं।</p>{% endif %}
-{% if kind == 'staff' and not is_edit %}<p>नया खाता निष्क्रिय रहेगा। सहेजने के बाद प्रशासक इसी कार्यालय में प्रमाण-पत्र जारी कर सकेगा।</p>{% endif %}
+{% extends 'office/base.html' %}{% load i18n %}{% block content %}
+<h1>{{ title }} · {% if is_edit %}{% translate "बदलें" %}{% else %}{% translate "नया" %}{% endif %}</h1>
+{% if kind == 'requests' %}<p>{% translate "प्रारूप सहेजने के लिए महाविद्यालय और नियुक्ति का पद आवश्यक हैं। बाकी जानकारी बाद में पूरी कर सकते हैं।" %}</p>{% endif %}
+{% if kind == 'staff' and not is_edit %}<p>{% translate "नया खाता निष्क्रिय रहेगा। सहेजने के बाद प्रशासक इसी कार्यालय में प्रमाण-पत्र जारी कर सकेगा।" %}</p>{% endif %}
 <section class="office-card"><form method="post">{% csrf_token %}
-{% if form.errors %}<div class="alert alert-danger" role="alert"><strong>सहेजा नहीं गया। नीचे दी गई त्रुटियाँ सुधारें।</strong>{{ form.non_field_errors }}{% if record %}<a href="{% url 'office_detail' kind record.pk %}" target="_blank" rel="noopener">वर्तमान रिकॉर्ड नए टैब में देखें</a>{% endif %}</div>{% endif %}
+{% if form.errors %}<div class="alert alert-danger" role="alert"><strong>{% translate "सहेजा नहीं गया। नीचे दी गई त्रुटियाँ सुधारें।" %}</strong>{{ form.non_field_errors }}{% if record %}<a href="{% url 'office_detail' kind record.pk %}" target="_blank" rel="noopener">{% translate "वर्तमान रिकॉर्ड नए टैब में देखें" %}</a>{% endif %}</div>{% endif %}
 {% for field in form %}{% if field.is_hidden %}{{ field }}{{ field.errors }}{% else %}<div class="office-field">{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}</div>{% endif %}{% endfor %}
-<div class="office-actions"><button class="btn btn-primary">{% if kind == 'requests' %}प्रारूप सहेजें{% else %}सहेजें{% endif %}</button><a class="btn btn-outline-secondary" href="{% url 'office_list' kind %}">सूची पर लौटें</a></div></form></section>
+<div class="office-actions"><button class="btn btn-primary">{% if kind == 'requests' %}{% translate "प्रारूप सहेजें" %}{% else %}{% translate "सहेजें" %}{% endif %}</button><a class="btn btn-outline-secondary" href="{% url 'office_list' kind %}">{% translate "सूची पर लौटें" %}</a></div></form></section>
 {% endblock %}

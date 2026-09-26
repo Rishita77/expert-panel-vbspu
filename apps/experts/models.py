@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.expressions import RawSQL
+from django.utils.translation import gettext_lazy as _
 
 
 class TrackedRecord(models.Model):
@@ -25,30 +26,30 @@ class TrackedRecord(models.Model):
 
 class Expert(TrackedRecord):
     class Category(models.TextChoices):
-        GENERAL = "general", "सामान्य"
+        GENERAL = "general", _("सामान्य")
         OBC = "obc", "OBC"
         SC = "sc", "SC"
         ST = "st", "ST"
 
-    name = models.CharField("पूरा नाम", max_length=200)
+    name = models.CharField(_("पूरा नाम"), max_length=200)
     sequence = models.BigIntegerField(
-        "स्थायी क्रमांक",
+        _("स्थायी क्रमांक"),
         unique=True,
         editable=False,
         db_default=RawSQL("nextval('experts_permanent_sequence')", []),
     )
     category = models.CharField(
-        "श्रेणी", max_length=12, choices=Category.choices, null=True, blank=True
+        _("श्रेणी"), max_length=12, choices=Category.choices, null=True, blank=True
     )
     mobile = models.CharField(
-        "मोबाइल",
+        _("मोबाइल"),
         max_length=32,
         blank=True,
-        validators=[RegexValidator(r"^\+?[0-9][0-9 ()-]{4,30}[0-9]$", "मान्य सम्पर्क नम्बर दर्ज करें।")],
+        validators=[RegexValidator(r"^\+?[0-9][0-9 ()-]{4,30}[0-9]$", _("मान्य सम्पर्क नम्बर दर्ज करें।"))],
     )
-    email = models.EmailField("ईमेल", max_length=254, blank=True)
-    is_active = models.BooleanField("सक्रिय", default=True)
-    subjects = models.ManyToManyField("institutions.Subject", verbose_name="विषय", blank=True)
+    email = models.EmailField(_("ईमेल"), max_length=254, blank=True)
+    is_active = models.BooleanField(_("सक्रिय"), default=True)
+    subjects = models.ManyToManyField("institutions.Subject", verbose_name=_("विषय"), blank=True)
 
     class Meta:
         ordering = ["sequence"]
@@ -69,25 +70,25 @@ class Expert(TrackedRecord):
 
 class Appointment(TrackedRecord):
     class AdministrativePost(models.TextChoices):
-        NONE = "", "कोई प्रशासनिक पद नहीं"
-        PRINCIPAL = "principal", "प्राचार्य"
-        HOD = "hod", "विभागाध्यक्ष"
-        OTHER = "other", "अन्य प्रशासनिक पद"
+        NONE = "", _("कोई प्रशासनिक पद नहीं")
+        PRINCIPAL = "principal", _("प्राचार्य")
+        HOD = "hod", _("विभागाध्यक्ष")
+        OTHER = "other", _("अन्य प्रशासनिक पद")
 
     class AcademicDesignation(models.TextChoices):
-        PROFESSOR = "professor", "प्रोफेसर"
-        ASSISTANT = "assistant", "सहायक प्रोफेसर"
-        OTHER = "other", "अन्य"
-        UNKNOWN = "unknown", "सत्यापन शेष"
+        PROFESSOR = "professor", _("प्रोफेसर")
+        ASSISTANT = "assistant", _("सहायक प्रोफेसर")
+        OTHER = "other", _("अन्य")
+        UNKNOWN = "unknown", _("सत्यापन शेष")
 
     class Classification(models.TextChoices):
-        INTERNAL = "internal", "VBSPU सम्बद्ध आन्तरिक"
-        EXTERNAL = "external", "बाह्य"
-        UNVERIFIED = "unverified", "सत्यापन शेष"
+        INTERNAL = "internal", _("VBSPU सम्बद्ध आन्तरिक")
+        EXTERNAL = "external", _("बाह्य")
+        UNVERIFIED = "unverified", _("सत्यापन शेष")
 
     expert = models.ForeignKey(Expert, on_delete=models.PROTECT, related_name="appointments")
     institution = models.ForeignKey(
-        "institutions.Institution", on_delete=models.PROTECT, verbose_name="संस्था"
+        "institutions.Institution", on_delete=models.PROTECT, verbose_name=_("संस्था")
     )
     university = models.ForeignKey(
         "institutions.Institution",
@@ -95,31 +96,31 @@ class Appointment(TrackedRecord):
         related_name="university_appointments",
         null=True,
         blank=True,
-        verbose_name="विश्वविद्यालय",
+        verbose_name=_("विश्वविद्यालय"),
     )
     administrative_post = models.CharField(
-        "धारित प्रशासनिक पद", max_length=20, choices=AdministrativePost.choices, blank=True
+        _("धारित प्रशासनिक पद"), max_length=20, choices=AdministrativePost.choices, blank=True
     )
     administrative_post_title = models.CharField(
-        "अन्य प्रशासनिक पद का नाम", max_length=200, blank=True
+        _("अन्य प्रशासनिक पद का नाम"), max_length=200, blank=True
     )
     academic_designation = models.CharField(
-        "शैक्षणिक पदनाम",
+        _("शैक्षणिक पदनाम"),
         max_length=20,
         choices=AcademicDesignation.choices,
         default=AcademicDesignation.UNKNOWN,
     )
-    is_current = models.BooleanField("वर्तमान संस्था", default=True)
-    start_date = models.DateField("कार्यभार आरम्भ (यदि ज्ञात हो)", null=True, blank=True)
-    end_date = models.DateField("कार्यभार समाप्ति — यह तिथि शामिल नहीं है", null=True, blank=True)
-    post_end_date = models.DateField("प्रशासनिक पद समाप्ति (यदि ज्ञात हो)", null=True, blank=True)
+    is_current = models.BooleanField(_("वर्तमान संस्था"), default=True)
+    start_date = models.DateField(_("कार्यभार आरम्भ (यदि ज्ञात हो)"), null=True, blank=True)
+    end_date = models.DateField(_("कार्यभार समाप्ति — यह तिथि शामिल नहीं है"), null=True, blank=True)
+    post_end_date = models.DateField(_("प्रशासनिक पद समाप्ति (यदि ज्ञात हो)"), null=True, blank=True)
     classification = models.CharField(
-        "आन्तरिक / बाह्य",
+        _("आन्तरिक / बाह्य"),
         max_length=20,
         choices=Classification.choices,
         default=Classification.UNVERIFIED,
     )
-    evidence = models.CharField("पद / रैंक / संस्था सत्यापन सन्दर्भ", max_length=500, blank=True)
+    evidence = models.CharField(_("पद / रैंक / संस्था सत्यापन सन्दर्भ"), max_length=500, blank=True)
 
     class Meta:
         ordering = ["-is_current", "-start_date", "-created_at"]
@@ -163,4 +164,4 @@ class Appointment(TrackedRecord):
     def clean(self):
         super().clean()
         if self.university_id and self.university.institution_kind != "university":
-            raise ValidationError({"university": "विश्वविद्यालय प्रकार की संस्था चुनें।"})
+            raise ValidationError({"university": _("विश्वविद्यालय प्रकार की संस्था चुनें।")})

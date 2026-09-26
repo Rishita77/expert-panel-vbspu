@@ -38,6 +38,7 @@ AUTHENTICATION_BACKENDS = ["apps.accounts.auth.StaffBackend"]
 MIDDLEWARE = [
     MIDDLEWARE[0],
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     *MIDDLEWARE[1:],
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "apps.accounts.middleware.SessionSecurityMiddleware",

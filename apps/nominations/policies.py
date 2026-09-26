@@ -6,6 +6,16 @@ displayed composition as permission to issue or lock an actual nomination.
 
 from dataclasses import asdict, dataclass
 from types import MappingProxyType
+from django.utils.translation import gettext_noop
+
+
+# Dynamic policy labels are also exposed to gettext extraction. Stored policy
+# snapshots continue to contain the original Hindi and English facts.
+TRANSLATABLE_POLICY_LABELS = (
+    gettext_noop("प्राचार्य"),
+    gettext_noop("विभागाध्यक्ष"),
+    gettext_noop("विषय विशेषज्ञ / प्रवक्ता"),
+)
 
 
 @dataclass(frozen=True)

@@ -1,7 +1,7 @@
-{% extends 'office/base.html' %}{% block content %}
-<section class="office-card login-card"><p class="eyebrow">UNIVERSITY STAFF</p><h1>कर्मचारी साइन इन</h1>
-<p>विश्वविद्यालय द्वारा बनाए गए व्यक्तिगत खाते का उपयोग करें।</p>
-<form method="post">{% csrf_token %}{{ form.as_p }}{% if turnstile_enabled %}<div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}"></div>{% endif %}<button class="btn btn-primary">साइन इन</button></form>
-<p class="mt-4 text-secondary">नए खाते या पासवर्ड सहायता के लिए खाता प्रशासक से सम्पर्क करें।</p></section>
+{% extends 'office/base.html' %}{% load i18n %}{% block content %}
+<section class="office-card login-card"><p class="eyebrow">UNIVERSITY STAFF</p><h1>{% translate "कर्मचारी साइन इन" %}</h1>
+<p>{% translate "विश्वविद्यालय द्वारा बनाए गए व्यक्तिगत खाते का उपयोग करें।" %}</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}{% if turnstile_enabled %}<div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}"></div>{% endif %}<button class="btn btn-primary">{% translate "साइन इन" %}</button></form>
+<p class="mt-4 text-secondary">{% translate "नए खाते या पासवर्ड सहायता के लिए खाता प्रशासक से सम्पर्क करें।" %}</p></section>
 {% if turnstile_enabled %}<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>{% endif %}
 {% endblock %}

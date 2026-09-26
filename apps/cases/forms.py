@@ -1,5 +1,6 @@
 from django import forms
 from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import Role, StaffUser
 from apps.institutions.models import Institution, Subject
@@ -22,7 +23,7 @@ class StyledForm:
 
 class RevisionForm(StyledForm, forms.ModelForm):
     revision = forms.IntegerField(widget=forms.HiddenInput, initial=0, min_value=0)
-    reason = forms.CharField(label="परिवर्तन का कारण", max_length=500, required=False)
+    reason = forms.CharField(label=_("परिवर्तन का कारण"), max_length=500, required=False)
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("label_suffix", "")
@@ -35,9 +36,9 @@ class RevisionForm(StyledForm, forms.ModelForm):
 
 class InstitutionForm(RevisionForm):
     is_affiliated_to_vbspu = forms.TypedChoiceField(
-        choices=[("yes", "हाँ"), ("no", "नहीं")],
+        choices=[("yes", _("हाँ")), ("no", _("नहीं"))],
         coerce=lambda value: value == "yes",
-        label="VBSPU से सम्बद्ध है?",
+        label=_("VBSPU से सम्बद्ध है?"),
         required=False,
     )
 
@@ -111,7 +112,7 @@ class DraftForm(RevisionForm):
 class RequestReturnForm(StyledForm, forms.Form):
     revision = forms.IntegerField(widget=forms.HiddenInput, min_value=1)
     reason = forms.CharField(
-        label="वापसी का कारण", max_length=500, widget=forms.Textarea(attrs={"rows": 3})
+        label=_("वापसी का कारण"), max_length=500, widget=forms.Textarea(attrs={"rows": 3})
     )
 
     def __init__(self, *args, **kwargs):
@@ -121,19 +122,19 @@ class RequestReturnForm(StyledForm, forms.Form):
 
 
 class StaffForm(StyledForm, forms.ModelForm):
-    roles = forms.MultipleChoiceField(label="अनुमतियाँ", choices=Role.choices, required=False)
-    reason = forms.CharField(label="कारण / प्राधिकरण सन्दर्भ", max_length=500)
+    roles = forms.MultipleChoiceField(label=_("अनुमतियाँ"), choices=Role.choices, required=False)
+    reason = forms.CharField(label=_("कारण / प्राधिकरण सन्दर्भ"), max_length=500)
     admin_password = forms.CharField(
-        label="ईमेल बदलने के लिए अपना वर्तमान पासवर्ड",
+        label=_("ईमेल बदलने के लिए अपना वर्तमान पासवर्ड"),
         required=False,
-        help_text="ईमेल में बदलाव न हो तो इसे खाली रखें।",
+        help_text=_("ईमेल में बदलाव न हो तो इसे खाली रखें।"),
         widget=forms.PasswordInput(render_value=False),
     )
 
     class Meta:
         model = StaffUser
         fields = ["username", "full_name", "email", "is_active"]
-        labels = {"username": "लॉगिन नाम", "email": "आधिकारिक ईमेल", "is_active": "सक्रिय खाता"}
+        labels = {"username": _("लॉगिन नाम"), "email": _("आधिकारिक ईमेल"), "is_active": _("सक्रिय खाता")}
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("label_suffix", "")
@@ -154,11 +155,11 @@ class StaffForm(StyledForm, forms.ModelForm):
         cleaned = super().clean()
         email = (cleaned.get("email") or "").strip()
         if cleaned.get("is_active") and not email:
-            self.add_error("email", "सक्रिय खाते के लिए आधिकारिक ईमेल आवश्यक है।")
+            self.add_error("email", _("सक्रिय खाते के लिए आधिकारिक ईमेल आवश्यक है।"))
         if (
             not self.instance._state.adding
             and email != (self.instance.email or "").strip()
             and not cleaned.get("admin_password")
         ):
-            self.add_error("admin_password", "ईमेल बदलने के लिए अपना वर्तमान पासवर्ड आवश्यक है।")
+            self.add_error("admin_password", _("ईमेल बदलने के लिए अपना वर्तमान पासवर्ड आवश्यक है।"))
         return cleaned

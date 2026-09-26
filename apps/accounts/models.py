@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy
 import uuid
 
 from django.contrib.auth.models import AbstractUser
@@ -7,7 +8,7 @@ from django.db.models.functions import Lower
 
 class StaffUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    full_name = models.CharField("पूरा नाम", max_length=200)
+    full_name = models.CharField(gettext_lazy("पूरा नाम"), max_length=200)
     is_active = models.BooleanField(default=False)
     must_change_password = models.BooleanField(default=False)
     temporary_password_expires_at = models.DateTimeField(null=True, blank=True)
@@ -28,11 +29,11 @@ class StaffUser(AbstractUser):
 
 
 class Role(models.TextChoices):
-    ADMIN = "admin", "सिस्टम प्रशासक"
-    MASTER = "master", "निर्देशिका प्रबन्धक"
-    PROCESSOR = "processor", "विश्वविद्यालय POC"
-    REVIEWER = "reviewer", "रजिस्ट्रार / समीक्षक"
-    VC = "vc", "कुलपति"
+    ADMIN = "admin", gettext_lazy("सिस्टम प्रशासक")
+    MASTER = "master", gettext_lazy("निर्देशिका प्रबन्धक")
+    PROCESSOR = "processor", gettext_lazy("विश्वविद्यालय POC")
+    REVIEWER = "reviewer", gettext_lazy("रजिस्ट्रार / समीक्षक")
+    VC = "vc", gettext_lazy("कुलपति")
 
 
 class RoleAssignment(models.Model):

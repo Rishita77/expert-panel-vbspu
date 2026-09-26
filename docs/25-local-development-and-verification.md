@@ -24,6 +24,17 @@ If it is not running, start it:
 
 ```powershell
 & .\.tools\postgresql17\pgsql\bin\pg_ctl.exe -D .\.local\postgres17-foundation -l .\.local\postgres.log -w start
+
+On some Windows installations `pg_ctl start` can fail with a restricted-token
+error even though the PostgreSQL cluster itself is healthy. In that case, run
+the server directly in a separate PowerShell window and leave that window open:
+
+& .\.tools\postgresql17\pgsql\bin\postgres.exe -D .\.local\postgres17-foundation
+
+The successful startup ends with `database system is ready to accept
+connections`. Then use a second window for Django. This is the project-owned
+cluster on port 55432; the Windows PostgreSQL service on port 5432 is not the
+database used by `config.foundation`.
 ```
 
 To stop it when finished:

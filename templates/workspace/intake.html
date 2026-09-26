@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
-{% block title %}अनुरोध प्रारूप{% endblock %}
+{% extends 'base.html' %}{% load i18n %}
+{% block title %}{% translate 'अनुरोध प्रारूप' %}{% endblock %}
 {% block content %}
-<div class="eyebrow" lang="en">REQUEST INTAKE · PREVIEW</div><div class="page-heading"><h1>अनुरोध का प्रारूप</h1><p>महाविद्यालय से प्राप्त जानकारी हिन्दी में दर्ज करके उसका पूर्वावलोकन देखें।</p></div>
-<div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>यह आवेदन जमा करने का चरण नहीं है।</strong><p>यहाँ भरा विवरण सहेजा नहीं जाता। केवल नमूना जानकारी इस्तेमाल करें। अनिवार्य दस्तावेज़ और जमा करने के नियम अगली समीक्षा में तय होंगे।</p></div></div>
-{% if error_summary %}<div class="error-summary" role="alert"><strong>कृपया ये विवरण जाँचें:</strong><ul>{% for field in form %}{% if field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ field.errors|striptags }}</a></li>{% endif %}{% endfor %}</ul></div>{% endif %}
+<div class="eyebrow" lang="en">REQUEST INTAKE · PREVIEW</div><div class="page-heading"><h1>{% translate 'अनुरोध का प्रारूप' %}</h1><p>{% translate 'महाविद्यालय से प्राप्त जानकारी हिन्दी में दर्ज करके उसका पूर्वावलोकन देखें।' %}</p></div>
+<div class="notice"><span class="notice-icon" aria-hidden="true">i</span><div><strong>{% translate 'यह आवेदन जमा करने का चरण नहीं है।' %}</strong><p>{% translate 'यहाँ भरा विवरण सहेजा नहीं जाता। केवल नमूना जानकारी इस्तेमाल करें। अनिवार्य दस्तावेज़ और जमा करने के नियम अगली समीक्षा में तय होंगे।' %}</p></div></div>
+{% if error_summary %}<div class="error-summary" role="alert"><strong>{% translate 'कृपया ये विवरण जाँचें:' %}</strong><ul>{% for field in form %}{% if field.errors %}<li><a href="#{{ field.id_for_label }}">{{ field.label }}: {{ field.errors|striptags }}</a></li>{% endif %}{% endfor %}</ul></div>{% endif %}
 <form method="post" action="{% url 'intake' %}" class="intake-form" autocomplete="off">{% csrf_token %}
-<div class="form-section"><div class="form-section-title"><span>01</span><div><h2>महाविद्यालय का विवरण</h2><p lang="en">College information</p></div></div><div class="row g-4">{% for field in form %}{% if forloop.counter <= 6 %}{% include 'workspace/field.html' %}{% endif %}{% endfor %}</div></div>
-<div class="form-section"><div class="form-section-title"><span>02</span><div><h2>नियुक्ति का विवरण</h2><p lang="en">Selection information</p></div></div><div class="row g-4">{% for field in form %}{% if forloop.counter > 6 %}{% include 'workspace/field.html' %}{% endif %}{% endfor %}</div></div>
-<div class="form-actions"><span>पूर्वावलोकन से कोई नामांकन या गणना नहीं बदलेगी।</span><button class="btn btn-primary" type="submit">विवरण का पूर्वावलोकन <span aria-hidden="true">→</span></button></div>
+<div class="form-section"><div class="form-section-title"><span>01</span><div><h2>{% translate 'महाविद्यालय का विवरण' %}</h2><p lang="en">College information</p></div></div><div class="row g-4">{% for field in form %}{% if forloop.counter <= 6 %}{% include 'workspace/field.html' %}{% endif %}{% endfor %}</div></div>
+<div class="form-section"><div class="form-section-title"><span>02</span><div><h2>{% translate 'नियुक्ति का विवरण' %}</h2><p lang="en">Selection information</p></div></div><div class="row g-4">{% for field in form %}{% if forloop.counter > 6 %}{% include 'workspace/field.html' %}{% endif %}{% endfor %}</div></div>
+<div class="form-actions"><span>{% translate 'पूर्वावलोकन से कोई नामांकन या गणना नहीं बदलेगी।' %}</span><button class="btn btn-primary" type="submit">{% translate 'विवरण का पूर्वावलोकन' %} <span aria-hidden="true">→</span></button></div>
 </form>
 {% endblock %}

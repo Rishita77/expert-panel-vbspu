@@ -1,1 +1,1 @@
-{% extends 'office/base.html' %}{% block content %}<h1>कार्य पूरा नहीं हो सका</h1>{% for error in errors %}<p role="alert">{{ error }}</p>{% endfor %}{% endblock %}
+{% extends 'office/base.html' %}{% load i18n %}{% block content %}<h1>{% translate 'कार्य पूरा नहीं हो सका' %}</h1>{% for error in errors %}<p role="alert">{{ error }}</p>{% endfor %}{% endblock %}

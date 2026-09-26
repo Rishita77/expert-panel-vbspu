@@ -1,12 +1,12 @@
-{% extends 'office/base.html' %}{% block content %}
-<h1>{{ title }} · {% if is_edit %}बदलें{% else %}नया{% endif %}</h1>
-{% if kind == 'experts' %}<p>क्रमांक एक बार स्वतः मिलेगा। पहले शैक्षणिक पदनाम और विषय दर्ज करें। प्रशासनिक पद वैकल्पिक है; यदि पद धारण करते हैं तो उसका नाम और समाप्ति तिथि दर्ज करें। तिथि ज्ञात न हो तो खाली छोड़ें।</p>{% endif %}
-{% if kind == 'appointments' %}<p>शैक्षणिक पदनाम और प्रशासनिक पद अलग हैं: एक व्यक्ति प्रोफेसर होते हुए प्राचार्य हो सकता है। नई वर्तमान संस्था सहेजने पर पुराना रिकॉर्ड इतिहास में रहेगा। अज्ञात तिथियाँ खाली छोड़ें।</p>{% endif %}
-{% if kind == 'pools' %}<p>पहले प्रारूप बनाएँ, फिर विषय सीमा और सदस्य जोड़ें। स्वीकृति दर्ज करना विश्वविद्यालय की मौजूदा स्वीकृति का अभिलेखन है।</p>{% endif %}
+{% extends 'office/base.html' %}{% load i18n %}{% block content %}
+<h1>{{ title }} · {% if is_edit %}{% translate "बदलें" %}{% else %}{% translate "नया" %}{% endif %}</h1>
+{% if kind == 'experts' %}<p>{% translate "क्रमांक एक बार स्वतः मिलेगा। पहले शैक्षणिक पदनाम और विषय दर्ज करें। प्रशासनिक पद वैकल्पिक है; यदि पद धारण करते हैं तो उसका नाम और समाप्ति तिथि दर्ज करें। तिथि ज्ञात न हो तो खाली छोड़ें।" %}</p>{% endif %}
+{% if kind == 'appointments' %}<p>{% translate 'शैक्षणिक पदनाम और प्रशासनिक पद अलग हैं: एक व्यक्ति प्रोफेसर होते हुए प्राचार्य हो सकता है। नई वर्तमान संस्था सहेजने पर पुराना रिकॉर्ड इतिहास में रहेगा। अज्ञात तिथियाँ खाली छोड़ें।' %}</p>{% endif %}
+{% if kind == 'pools' %}<p>{% translate 'पहले प्रारूप बनाएँ, फिर विषय सीमा और सदस्य जोड़ें। स्वीकृति दर्ज करना विश्वविद्यालय की मौजूदा स्वीकृति का अभिलेखन है।' %}</p>{% endif %}
 <section class="office-card"><form method="post">{% csrf_token %}
-{% if form.errors %}<div class="alert alert-danger" role="alert"><strong>सहेजा नहीं गया।</strong>{{ form.non_field_errors }}<a href="{{ back }}" target="_blank" rel="noopener">वर्तमान रिकॉर्ड नए टैब में देखें</a></div>{% endif %}
+{% if form.errors %}<div class="alert alert-danger" role="alert"><strong>{% translate "सहेजा नहीं गया।" %}</strong>{{ form.non_field_errors }}<a href="{{ back }}" target="_blank" rel="noopener">{% translate "वर्तमान रिकॉर्ड नए टैब में देखें" %}</a></div>{% endif %}
 {% for field in form %}{% if field.is_hidden %}{{ field }}{{ field.errors }}{% else %}<div class="office-field"{% if field.name == 'administrative_post' or field.name == 'administrative_post_title' or field.name == 'post_end_date' %} data-administrative-post-field{% endif %}>{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}</div>{% endif %}{% endfor %}
-<div class="office-actions"><button class="btn btn-primary">सहेजें</button><a href="{{ back }}" class="btn btn-outline-secondary">वापस</a></div></form></section>
+<div class="office-actions"><button class="btn btn-primary">{% translate "सहेजें" %}</button><a href="{{ back }}" class="btn btn-outline-secondary">{% translate "वापस" %}</a></div></form></section>
 <script>
 (() => {
   const postChoice = document.querySelectorAll('input[name="holds_administrative_post"]');

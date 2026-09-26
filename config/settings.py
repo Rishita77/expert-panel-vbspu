@@ -37,6 +37,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
                 "apps.workspace.context.shell",
             ]
         },
@@ -54,6 +55,11 @@ DATABASES = {
     }
 }
 LANGUAGE_CODE = "hi"
+LANGUAGES = [
+    ("hi", "हिन्दी"),
+    ("en", "English"),
+]
+LOCALE_PATHS = [BASE_DIR / "locale"]
 TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
 USE_TZ = True

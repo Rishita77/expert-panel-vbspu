@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.accounts.access import require_role
@@ -18,10 +19,10 @@ from .models import RequestDraft
 from .services import EditConflict, approve_review, return_request, save_record, submit_request
 
 REGISTRY = {
-    "institutions": (Institution, InstitutionForm, "संस्थाएँ", "master"),
-    "subjects": (Subject, SubjectForm, "विषय", "master"),
-    "requests": (RequestDraft, DraftForm, "अनुरोध प्रारूप", "processor"),
-    "staff": (StaffUser, StaffForm, "कर्मचारी खाते", "admin"),
+    "institutions": (Institution, InstitutionForm, _("संस्थाएँ"), "master"),
+    "subjects": (Subject, SubjectForm, _("विषय"), "master"),
+    "requests": (RequestDraft, DraftForm, _("अनुरोध प्रारूप"), "processor"),
+    "staff": (StaffUser, StaffForm, _("कर्मचारी खाते"), "admin"),
 }
 
 
@@ -104,7 +105,7 @@ def edit(request, kind, pk=None):
                     request.user,
                     data,
                     data["roles"],
-                    data.get("reason", "नया कर्मचारी खाता बनाया गया"),
+                data.get("reason", _("नया कर्मचारी खाता बनाया गया")),
                     pk,
                 )
             else:
@@ -119,7 +120,7 @@ def edit(request, kind, pk=None):
             for message in exc.messages:
                 form.add_error(None, message)
         except IntegrityError:
-            form.add_error(None, "रिकॉर्ड बदल गया या यह पहचान पहले से मौजूद है। जाँचकर पुनः सहेजें।")
+            form.add_error(None, _("रिकॉर्ड बदल गया या यह पहचान पहले से मौजूद है। जाँचकर पुनः सहेजें।"))
             status = 409
     return render(
         request,
@@ -174,7 +175,7 @@ def detail(request, kind, pk):
             continue
         value = getattr(obj, name)
         if isinstance(value, bool):
-            value = "हाँ" if value else "नहीं"
+            value = _("हाँ") if value else _("नहीं")
         if value is None or value == "":
             value = "—"
         display = getattr(obj, f"get_{name}_display", None)
@@ -182,7 +183,7 @@ def detail(request, kind, pk):
     if kind == "staff":
         rows.append(
             (
-                "अनुमतियाँ",
+                _("अनुमतियाँ"),
                 ", ".join(
                     a.get_role_display()
                     for a in obj.role_assignments.filter(revoked_at__isnull=True)
@@ -191,11 +192,11 @@ def detail(request, kind, pk):
             )
         )
         if not obj.has_usable_password():
-            rows.append(("प्रमाण-पत्र स्थिति", "अभी जारी नहीं"))
+            rows.append((_("प्रमाण-पत्र स्थिति"), _("अभी जारी नहीं")))
         elif obj.must_change_password:
-            rows.append(("प्रमाण-पत्र स्थिति", "अस्थायी पासवर्ड सक्रिय"))
+            rows.append((_("प्रमाण-पत्र स्थिति"), _("अस्थायी पासवर्ड सक्रिय")))
         else:
-            rows.append(("प्रमाण-पत्र स्थिति", "पासवर्ड निर्धारित"))
+            rows.append((_("प्रमाण-पत्र स्थिति"), _("पासवर्ड निर्धारित")))
     events = AuditEvent.objects.filter(
         target_type=model._meta.label_lower, target_id=obj.pk
     ).select_related("actor")

@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy
 """All-or-nothing CSV creation for institution directory records."""
 
 import csv
@@ -32,28 +33,28 @@ INSTITUTION_SCHEMA = [
 
 
 class InstitutionUploadForm(forms.Form):
-    file = forms.FileField(label="UTF-8 CSV फ़ाइल (अधिकतम 250 KB, 500 पंक्तियाँ)")
+    file = forms.FileField(label=gettext_lazy("UTF-8 CSV फ़ाइल (अधिकतम 250 KB, 500 पंक्तियाँ)"))
 
 
 def csv_rows(raw):
     if len(raw) > 250_000:
-        raise ValidationError("फ़ाइल 250 KB से बड़ी है।")
+        raise ValidationError(gettext_lazy("फ़ाइल 250 KB से बड़ी है।"))
     try:
         text = raw.decode("utf-8-sig")
     except UnicodeDecodeError as exc:
-        raise ValidationError("UTF-8 CSV निर्यात करें; पुरानी फ़ॉन्ट एन्कोडिंग स्वीकार नहीं है।") from exc
+        raise ValidationError(gettext_lazy("UTF-8 CSV निर्यात करें; पुरानी फ़ॉन्ट एन्कोडिंग स्वीकार नहीं है।")) from exc
     reader = csv.DictReader(io.StringIO(text), strict=True)
     if reader.fieldnames != INSTITUTION_SCHEMA:
-        raise ValidationError("स्तम्भ दिए गए प्रारूप से मेल नहीं खाते। सही प्रारूप डाउनलोड करें।")
+        raise ValidationError(gettext_lazy("स्तम्भ दिए गए प्रारूप से मेल नहीं खाते। सही प्रारूप डाउनलोड करें।"))
     rows = []
     for number, raw_row in enumerate(reader, start=2):
         if number > 501:
-            raise ValidationError("अधिकतम 500 डेटा पंक्तियाँ स्वीकार हैं।")
+            raise ValidationError(gettext_lazy("अधिकतम 500 डेटा पंक्तियाँ स्वीकार हैं।"))
         if None in raw_row or any(value is None for value in raw_row.values()):
-            raise ValidationError(f"पंक्ति {number}: स्तम्भों की संख्या गलत है।")
+            raise ValidationError(f"gettext_lazy(पंक्ति ){number}gettext_lazy(: स्तम्भों की संख्या गलत है।)")
         rows.append((number, {key: value.strip() for key, value in raw_row.items()}))
     if not rows:
-        raise ValidationError("CSV फ़ाइल में कम-से-कम एक संस्था पंक्ति आवश्यक है।")
+        raise ValidationError(gettext_lazy("CSV फ़ाइल में कम-से-कम एक संस्था पंक्ति आवश्यक है।"))
     return rows
 
 
@@ -65,7 +66,7 @@ def validate_institutions_csv(raw):
         def required(*keys):
             for key in keys:
                 if not row[key]:
-                    errors.append(f"{key}: आवश्यक है।")
+                    errors.append(f"{key}gettext_lazy(: आवश्यक है।)")
 
         required(
             "source_key",
@@ -76,29 +77,29 @@ def validate_institutions_csv(raw):
             "is_active",
         )
         if row["source_key"] in source_keys:
-            errors.append("source_key इसी फ़ाइल में दोहराया गया है।")
+            errors.append(gettext_lazy("source_key इसी फ़ाइल में दोहराया गया है।"))
         source_keys.add(row["source_key"])
         normalized_name = row["name"].casefold()
         if normalized_name in names:
-            errors.append("name इसी फ़ाइल में दोहराया गया है।")
+            errors.append(gettext_lazy("name इसी फ़ाइल में दोहराया गया है।"))
         names.add(normalized_name)
         if row["name"] and Institution.objects.filter(name__iexact=row["name"]).exists():
-            errors.append("name: इसी नाम की संस्था पहले से मौजूद है।")
+            errors.append(gettext_lazy("name: इसी नाम की संस्था पहले से मौजूद है।"))
         if row["official_code"]:
             normalized_code = row["official_code"].casefold()
             if normalized_code in codes:
-                errors.append("official_code इसी फ़ाइल में दोहराया गया है।")
+                errors.append(gettext_lazy("official_code इसी फ़ाइल में दोहराया गया है।"))
             codes.add(normalized_code)
             if Institution.objects.filter(official_code__iexact=row["official_code"]).exists():
-                errors.append("official_code: यह आधिकारिक कोड पहले से मौजूद है।")
+                errors.append(gettext_lazy("official_code: यह आधिकारिक कोड पहले से मौजूद है।"))
         if row["institution_kind"] not in Institution.Kind.values:
-            errors.append("institution_kind: college, university या other चुनें।")
+            errors.append(gettext_lazy("institution_kind: college, university या other चुनें।"))
         if row["management_type"] not in Institution.Management.values:
-            errors.append("management_type: government, aided, other या unknown चुनें।")
+            errors.append(gettext_lazy("management_type: government, aided, other या unknown चुनें।"))
         if row["is_affiliated_to_vbspu"] not in {"true", "false"}:
-            errors.append("is_affiliated_to_vbspu: true या false लिखें।")
+            errors.append(gettext_lazy("is_affiliated_to_vbspu: true या false लिखें।"))
         if row["is_active"] not in {"true", "false"}:
-            errors.append("is_active: true या false लिखें।")
+            errors.append(gettext_lazy("is_active: true या false लिखें।"))
         for key, limit in {
             "source_key": 100,
             "name": 255,
@@ -107,7 +108,7 @@ def validate_institutions_csv(raw):
             "address": 1000,
         }.items():
             if len(row[key]) > limit:
-                errors.append(f"{key}: पाठ अधिक लम्बा है।")
+                errors.append(f"{key}gettext_lazy(: पाठ अधिक लम्बा है।)")
         candidate = Institution(
             name=row["name"],
             official_code=row["official_code"],
@@ -129,7 +130,7 @@ def validate_institutions_csv(raw):
 @transaction.atomic
 def import_institutions(actor, rows):
     if any(row["errors"] for row in rows):
-        raise ValidationError("त्रुटिपूर्ण फ़ाइल आयात नहीं की जा सकती।")
+        raise ValidationError(gettext_lazy("त्रुटिपूर्ण फ़ाइल आयात नहीं की जा सकती।"))
     batch_id = uuid4()
     created = []
     for row in rows:
@@ -166,7 +167,7 @@ def upload(request):
             if request.POST.get("action") == "import" and not any(row["errors"] for row in rows):
                 imported = import_institutions(request.user, rows)
         except (ValidationError, csv.Error) as exc:
-            form.add_error(None, exc if isinstance(exc, ValidationError) else "CSV संरचना अमान्य है।")
+            form.add_error(None, exc if isinstance(exc, ValidationError) else gettext_lazy("CSV संरचना अमान्य है।"))
     return render(request, "institutions/bulk_import.html", {"form": form, "rows": rows, "imported": imported})
 
 
