@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html lang="hi">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +30,7 @@
     <div class="sidebar-bottom"><span class="cycle-label">नामांकन वर्ष</span><strong>{{ nomination_cycle }}</strong><small>01 जुलाई — 30 जून</small><div class="sidebar-rule"></div><p>वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय<br>जौनपुर, उत्तर प्रदेश</p></div>
   </aside>
   <div class="main-column">
-    <header class="topbar"><div><span class="institution-name">वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय</span><small lang="en">Expert Panel Nomination System</small></div><span class="preview-badge"><i aria-hidden="true"></i> स्थानीय पूर्वावलोकन</span></header>
+    <header class="topbar"><div><span class="institution-name">वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय</span><small lang="en">Expert Panel Nomination System</small></div><div class="office-account"><form method="post" action="{% url 'set_language' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="language" value="{% if LANGUAGE_CODE == 'en' %}hi{% else %}en{% endif %}"><button class="btn btn-outline-secondary btn-sm">{% if LANGUAGE_CODE == 'en' %}हिन्दी{% else %}English{% endif %}</button></form><span class="preview-badge"><i aria-hidden="true"></i> स्थानीय पूर्वावलोकन</span></div></header>
     <main id="main" tabindex="-1">{% block content %}{% endblock %}</main>
     <footer class="page-footer"><span>विश्वविद्यालय कार्यालय हेतु</span><span>पूर्वावलोकन • कोई विवरण सहेजा नहीं जाता</span></footer>
   </div>

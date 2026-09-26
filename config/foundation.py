@@ -38,10 +38,12 @@ AUTHENTICATION_BACKENDS = ["apps.accounts.auth.StaffBackend"]
 MIDDLEWARE = [
     MIDDLEWARE[0],
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     *MIDDLEWARE[1:],
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "apps.accounts.middleware.SessionSecurityMiddleware",
     "apps.accounts.middleware.PasswordChangeRequiredMiddleware",
+    "apps.workspace.middleware.InterfaceTranslationMiddleware",
 ]
 TEMPLATES[0]["OPTIONS"]["context_processors"] += [
     "django.contrib.auth.context_processors.auth",

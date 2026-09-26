@@ -1,5 +1,5 @@
 {% load static %}
-<!doctype html><html lang="hi"><head><meta charset="utf-8">
+<!doctype html><html lang="{{ LANGUAGE_CODE }}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>{{ title|default:'विश्वविद्यालय कार्यालय' }} · VBSPU</title>
 <link rel="icon" href="{% static 'brand.svg' %}" type="image/svg+xml">
@@ -20,6 +20,6 @@
 {% if can_accounts %}<a class="nav-item" href="{% url 'office_list' 'staff' %}">कर्मचारी खाते</a>{% endif %}
 {% endif %}</nav><div class="sidebar-bottom"><p>वीर बहादुर सिंह पूर्वांचल विश्वविद्यालय<br>जौनपुर, उत्तर प्रदेश</p></div></aside>
 <div class="main-column"><header class="topbar"><div><span class="institution-name">विश्वविद्यालय कार्यालय</span><small>स्थानीय प्रदर्शन · परीक्षण जानकारी हेतु</small></div>
-{% if user.is_authenticated %}<div class="office-account"><span>{{ user.full_name }}</span><a class="btn btn-outline-secondary btn-sm" href="{% url 'password_change' %}">पासवर्ड बदलें</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="btn btn-outline-secondary btn-sm">साइन आउट</button></form></div>{% endif %}</header>
+<div class="office-account"><form method="post" action="{% url 'set_language' %}">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><input type="hidden" name="language" value="{% if LANGUAGE_CODE == 'en' %}hi{% else %}en{% endif %}"><button class="btn btn-outline-secondary btn-sm">{% if LANGUAGE_CODE == 'en' %}हिन्दी{% else %}English{% endif %}</button></form>{% if user.is_authenticated %}<span>{{ user.full_name }}</span><a class="btn btn-outline-secondary btn-sm" href="{% url 'password_change' %}">पासवर्ड बदलें</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="btn btn-outline-secondary btn-sm">साइन आउट</button></form>{% endif %}</div></header>
 <main id="main" tabindex="-1" class="office-main">{% block content %}{% endblock %}</main>
 <footer class="page-footer">© 2026 Veer Bahadur Purvanchal University. All rights reserved.</footer></div></div></body></html>

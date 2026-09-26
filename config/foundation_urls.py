@@ -5,6 +5,7 @@ from apps.cases import views
 from apps.institutions import bulk_import as institution_bulk_import
 
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
     path("office/allocation/", include("apps.nominations.urls")),
     path("office/catalog/", include("apps.experts.urls")),
     path("office/reports/", include("apps.reporting.urls")),
