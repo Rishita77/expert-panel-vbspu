@@ -2718,3 +2718,15 @@ msgstr "Changed"
 
 msgid "स्वीकृत पद"
 msgstr "Sanctioned posts"
+
+#: .\apps\experts\import_preview.py .\apps\institutions\bulk_import.py
+msgid "UTF-8 CSV फ़ाइल (अधिकतम 1 MB, 1,500 पंक्तियाँ)"
+msgstr "UTF-8 CSV file (maximum 1 MB, 1,500 rows)"
+
+#: .\apps\experts\import_preview.py .\apps\institutions\bulk_import.py
+msgid "फ़ाइल 1 MB से बड़ी है।"
+msgstr "The file is larger than 1 MB."
+
+#: .\apps\experts\import_preview.py .\apps\institutions\bulk_import.py
+msgid "अधिकतम 1,500 डेटा पंक्तियाँ स्वीकार हैं।"
+msgstr "A maximum of 1,500 data rows is accepted."

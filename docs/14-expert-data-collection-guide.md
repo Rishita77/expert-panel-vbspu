@@ -43,7 +43,7 @@ Do not supply editable utilisation totals as expert master fields. Annual/lifeti
 
 Sign in with directory-maintenance permission and open **Experts → Data import check** at `/office/catalog/import/`. Download the required format and the existing-name/identity mapping. Templates contain headers only; the mapping contains no mobile or email information.
 
-Keep headers unchanged. Save as UTF-8 CSV (UTF-8 BOM is supported), with no merged cells. Maximum preview size is 250 KB and 500 data rows. Use `YYYY-MM-DD` dates and lowercase `true` / `false` values.
+Keep headers unchanged. Save as UTF-8 CSV (UTF-8 BOM is supported), with no merged cells. Maximum upload size is 1 MB and 1,500 data rows. Use `YYYY-MM-DD` dates and lowercase `true` / `false` values.
 
 The collection guide above can be used by staff in their own sheet. The CSV identifiers below are for the maintainer's controlled mapping step; staff need not invent UUIDs. A missing or ambiguous identity requires review; names are never matched fuzzily or merged automatically.
 

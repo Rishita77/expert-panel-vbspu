@@ -30,12 +30,12 @@ BULK_EXPERT_SCHEMA = [
 
 
 class BulkExpertUploadForm(forms.Form):
-    file = forms.FileField(label=gettext_lazy("UTF-8 CSV फ़ाइल (अधिकतम 250 KB, 500 पंक्तियाँ)"))
+    file = forms.FileField(label=gettext_lazy("UTF-8 CSV फ़ाइल (अधिकतम 1 MB, 1,500 पंक्तियाँ)"))
 
 
 def csv_rows(raw):
-    if len(raw) > 250_000:
-        raise ValidationError(gettext_lazy("फ़ाइल 250 KB से बड़ी है।"))
+    if len(raw) > 1_000_000:
+        raise ValidationError(gettext_lazy("फ़ाइल 1 MB से बड़ी है।"))
     try:
         text = raw.decode("utf-8-sig")
     except UnicodeDecodeError as exc:
@@ -45,8 +45,8 @@ def csv_rows(raw):
         raise ValidationError(gettext_lazy("स्तम्भ दिए गए प्रारूप से मेल नहीं खाते। सही प्रारूप डाउनलोड करें।"))
     rows = []
     for number, raw_row in enumerate(reader, start=2):
-        if number > 501:
-            raise ValidationError(gettext_lazy("अधिकतम 500 डेटा पंक्तियाँ स्वीकार हैं।"))
+        if number > 1501:
+            raise ValidationError(gettext_lazy("अधिकतम 1,500 डेटा पंक्तियाँ स्वीकार हैं।"))
         if None in raw_row or any(value is None for value in raw_row.values()):
             raise ValidationError(f"gettext_lazy(पंक्ति ){number}gettext_lazy(: स्तम्भों की संख्या गलत है।)")
         rows.append((number, {key: value.strip() for key, value in raw_row.items()}))
@@ -178,7 +178,7 @@ def preview(request):
     rows = imported = None
     if request.method == "POST" and form.is_valid():
         try:
-            rows = validate_bulk_experts_csv(form.cleaned_data["file"].read(250_001))
+            rows = validate_bulk_experts_csv(form.cleaned_data["file"].read(1_000_001))
             if request.POST.get("action") == "import" and not any(row["errors"] for row in rows):
                 imported = import_bulk_experts(request.user, rows)
         except (ValidationError, csv.Error) as exc:
