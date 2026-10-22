@@ -52,7 +52,13 @@ def csv_rows(raw):
             raise ValidationError(gettext_lazy("अधिकतम 1,500 डेटा पंक्तियाँ स्वीकार हैं।"))
         if None in raw_row or any(value is None for value in raw_row.values()):
             raise ValidationError(f"gettext_lazy(पंक्ति ){number}gettext_lazy(: स्तम्भों की संख्या गलत है।)")
-        rows.append((number, {key: value.strip() for key, value in raw_row.items()}))
+        row = {key: value.strip() for key, value in raw_row.items()}
+        # Normalise controlled values only; preserve names and other display text.
+        for key in (
+            "institution_kind", "management_type", "is_affiliated_to_vbspu", "is_active",
+        ):
+            row[key] = row[key].casefold()
+        rows.append((number, row))
     if not rows:
         raise ValidationError(gettext_lazy("CSV फ़ाइल में कम-से-कम एक संस्था पंक्ति आवश्यक है।"))
     return rows
