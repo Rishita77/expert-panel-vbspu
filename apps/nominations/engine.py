@@ -173,6 +173,8 @@ def demonstration(at_date, appointment_type="principal", scenario="standard"):
         "scst": [person(10, "sc")],
         "obc": [person(11, "obc")],
     }
+    if appointment_type == "subject_expert":
+        pools["vc"].append(person(12))
     if scenario == "fairness":
         pools["professor"] = [
             Candidate(

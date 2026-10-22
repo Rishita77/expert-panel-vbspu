@@ -24,6 +24,7 @@ from apps.institutions.models import Institution
 
 from .engine import ROLE_LABELS, Candidate, allocate, nomination_year
 from .history import verified_history
+from .policies import POLICIES
 from .models import (
     AllocationRun,
     Assessment,
@@ -335,7 +336,8 @@ def _selection_issues(selection, require_assessments=True):
     selected = list(selection.members.filter(selected=True).select_related("expert"))
     issues = []
     roles = {role: [m for m in selected if m.role == role] for role in ROLE_LABELS}
-    expected = {"vc": 1, "principal": 1, "professor": 4}
+    policy = selection.source_run.snapshot.get("policy", {})
+    expected = {"vc": policy.get("vc_nominees", 1), "principal": policy.get("principals", 1), "professor": policy.get("final_professors", 4)}
     for role, count in expected.items():
         if len(roles[role]) != count:
             issues.append(f"{ROLE_LABELS[role]}: {count} आवश्यक, {len(roles[role])} चुने गए।")
@@ -361,7 +363,10 @@ def _selection_issues(selection, require_assessments=True):
             issues.append(f"{expert.name}: विशेषज्ञ निष्क्रिय है।")
         snapshot = member.snapshot
         home = snapshot.get("home") or {}
-        if home.get("institution") == str(selection.request.institution_id):
+        own_principal = member.role == "principal" and policy.get("principal_from_requesting_college", False)
+        if own_principal and home.get("institution") != str(selection.request.institution_id):
+            issues.append(f"{expert.name}: अनुरोध करने वाले महाविद्यालय का प्राचार्य आवश्यक है।")
+        elif not own_principal and home.get("institution") == str(selection.request.institution_id):
             issues.append(f"{expert.name}: अपने महाविद्यालय के लिए नामांकन वर्जित है।")
         if require_assessments:
             assessment = assessment_by_expert.get(expert.pk)
@@ -864,7 +869,10 @@ def candidate_facts(expert, case, at_date, assessment, permanent, role):
     if not home:
         reasons.append("आवंटन तिथि की संस्था / पद स्पष्ट नहीं है।")
     else:
-        if home.institution_id == case.institution_id:
+        own_principal = role == "principal" and POLICIES[case.appointment_type].principal_from_requesting_college
+        if own_principal and home.institution_id != case.institution_id:
+            reasons.append("अनुरोध करने वाले महाविद्यालय का प्राचार्य आवश्यक है।")
+        elif not own_principal and home.institution_id == case.institution_id:
             reasons.append("अपने महाविद्यालय के लिए नामांकन वर्जित है (DEC-024)।")
         if not home.institution.is_active:
             reasons.append("संस्था निष्क्रिय है।")

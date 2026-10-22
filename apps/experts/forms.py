@@ -122,6 +122,13 @@ class AppointmentForm(RevisionForm):
         self.fields["holds_administrative_post"].initial = (
             "yes" if self.instance.administrative_post else "no"
         )
+        self.order_fields([
+            "institution", "university", "academic_designation",
+            "is_current", "start_date", "end_date",
+            "holds_administrative_post", "administrative_post",
+            "administrative_post_title", "post_end_date",
+            "classification", "evidence", "reason", "revision", "expert_revision",
+        ])
 
     def clean(self):
         cleaned = super().clean()

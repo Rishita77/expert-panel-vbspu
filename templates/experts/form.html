@@ -5,7 +5,18 @@
 {% if kind == 'pools' %}<p>{% translate 'पहले प्रारूप बनाएँ, फिर विषय सीमा और सदस्य जोड़ें। स्वीकृति दर्ज करना विश्वविद्यालय की मौजूदा स्वीकृति का अभिलेखन है।' %}</p>{% endif %}
 <section class="office-card"><form method="post">{% csrf_token %}
 {% if form.errors %}<div class="alert alert-danger" role="alert"><strong>{% translate "सहेजा नहीं गया।" %}</strong>{{ form.non_field_errors }}<a href="{{ back }}" target="_blank" rel="noopener">{% translate "वर्तमान रिकॉर्ड नए टैब में देखें" %}</a></div>{% endif %}
-{% for field in form %}{% if field.is_hidden %}{{ field }}{{ field.errors }}{% else %}<div class="office-field"{% if field.name == 'administrative_post' or field.name == 'administrative_post_title' or field.name == 'post_end_date' %} data-administrative-post-field{% endif %}>{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}</div>{% endif %}{% endfor %}
+{% for field in form %}
+{% if field.is_hidden %}{{ field }}{{ field.errors }}
+{% elif field.name == 'holds_administrative_post' %}
+<fieldset class="office-field administrative-post-choice">
+  <legend>{{ field.label }}</legend>
+  <div class="office-radio-options">
+    {% for option in field %}<label for="{{ option.id_for_label }}">{{ option.tag }} <span>{{ option.choice_label }}</span></label>{% endfor %}
+  </div>
+  {{ field.errors }}
+</fieldset>
+{% else %}<div class="office-field"{% if field.name == 'administrative_post' or field.name == 'administrative_post_title' or field.name == 'post_end_date' %} data-administrative-post-field{% endif %}>{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}</div>{% endif %}
+{% endfor %}
 <div class="office-actions"><button class="btn btn-primary">{% translate "सहेजें" %}</button><a href="{{ back }}" class="btn btn-outline-secondary">{% translate "वापस" %}</a></div></form></section>
 <script>
 (() => {

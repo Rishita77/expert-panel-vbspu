@@ -2730,3 +2730,75 @@ msgstr "The file is larger than 1 MB."
 #: .\apps\experts\import_preview.py .\apps\institutions\bulk_import.py
 msgid "अधिकतम 1,500 डेटा पंक्तियाँ स्वीकार हैं।"
 msgstr "A maximum of 1,500 data rows is accepted."
+
+msgid "जाँच नहीं हुई: पहले %(roles)s की समस्या दूर करें। यह श्रेणी उम्मीदवारों की कमी का निष्कर्ष नहीं है।"
+msgstr "Not evaluated: first resolve the problem with %(roles)s. This does not mean there is a shortage of category candidates."
+
+msgid "आवश्यक: %(required)s; योग्य उपलब्ध: %(eligible)s; चयनित: %(selected)s।"
+msgstr "Required: %(required)s; eligible available: %(eligible)s; selected: %(selected)s."
+
+msgid "चयन रुका है: पहले %(roles)s की समस्या दूर करें।"
+msgstr "Selection is blocked: first resolve the problem with %(roles)s."
+
+msgid "इस भूमिका / श्रेणी की कोई उम्मीदवार प्रविष्टि नहीं मिली।"
+msgstr "No candidate entries were found for this role/category."
+
+msgid "संख्या प्रभावित उम्मीदवारों की है; एक व्यक्ति के एक से अधिक कारण हो सकते हैं।"
+msgstr "Counts show affected candidates; a person can have more than one exclusion reason."
+
+msgid "अनुरोध करने वाले महाविद्यालय का प्राचार्य आवश्यक है।"
+msgstr "The Principal must belong to the requesting college."
+
+msgid "विशेषज्ञ निष्क्रिय है (SRS 12/26, DEC-037)।"
+msgstr "Expert is inactive (SRS 12/26, DEC-037)."
+
+msgid "श्रेणी का रिकॉर्ड अपूर्ण है (SRS 6/7)।"
+msgstr "Category record is incomplete (SRS 6/7)."
+
+msgid "अनुरोध विषय विशेषज्ञ के विषयों में दर्ज नहीं है।"
+msgstr "The requested subject is not recorded among the expert's subjects."
+
+msgid "आवंटन तिथि की संस्था / पद स्पष्ट नहीं है।"
+msgstr "There is no unambiguous institution/appointment record for the allocation date."
+
+msgid "अपने महाविद्यालय के लिए नामांकन वर्जित है (DEC-024)।"
+msgstr "Nomination to the expert's own college is prohibited (DEC-024)."
+
+msgid "संस्था निष्क्रिय है।"
+msgstr "Institution is inactive."
+
+msgid "प्राचार्य पद आवश्यक है (SRS 5)।"
+msgstr "A Principal appointment is required (SRS 5)."
+
+msgid "प्राचार्य पद आवंटन तिथि से पहले समाप्त हो चुका है।"
+msgstr "The Principal appointment ended before the allocation date."
+
+msgid "प्रोफेसर शैक्षणिक पदनाम आवश्यक है (SRS 4/5)।"
+msgstr "Professor academic designation is required (SRS 4/5)."
+
+msgid "प्रोफेसर / सहायक प्रोफेसर शैक्षणिक पदनाम आवश्यक है (SRS 6)।"
+msgstr "Professor or Assistant Professor academic designation is required (SRS 6)."
+
+msgid "VC के लिए VBSPU सम्बद्धता स्पष्ट होना आवश्यक है (SRS 4.1)।"
+msgstr "VBSPU affiliation must be recorded for VC nominee eligibility (SRS 4.1)."
+
+msgid "VC के लिए बाह्य या सम्बद्ध राजकीय/अनुदानित संस्था आवश्यक है (SRS 4.1)।"
+msgstr "VC nominees require an external institution or an affiliated government/aided college (SRS 4.1)."
+
+msgid "SC/ST श्रेणी आवश्यक है।"
+msgstr "SC/ST category is required."
+
+msgid "OBC श्रेणी आवश्यक है।"
+msgstr "OBC category is required."
+
+msgid "इसी पैनल की दूसरी भूमिका में चयनित — दोहराव वर्जित (SRS 26)।"
+msgstr "Already selected for another role in this panel; duplicate membership is prohibited (SRS 26)."
+
+msgid "नामांकन इतिहास अपूर्ण / असत्यापित है; शून्य नहीं माना गया।"
+msgstr "Nomination history is incomplete or unverified; it was not treated as zero."
+
+msgid "विषय विशेषज्ञ: अनुरोध करने वाले महाविद्यालय का 1 प्राचार्य, 2 VC नामित और 5 प्रोफेसर; आवश्यक श्रेणी विशेषज्ञ अतिरिक्त होंगे।"
+msgstr "Subject Expert: 1 Principal from the requesting college, 2 VC nominees and 5 Professors, plus any required category supplements."
+
+msgid "%(principals)s प्राचार्य, %(professors)s प्रोफेसर और %(vc)s अलग VC नामित चुनें। SC/ST और OBC प्रतिनिधित्व पूर्ण होना चाहिए; VC इस जाँच में शामिल नहीं है।"
+msgstr "Select %(principals)s Principal, %(professors)s Professors and %(vc)s separate VC nominees. SC/ST and OBC representation must be complete; VC nominees are excluded from this check."

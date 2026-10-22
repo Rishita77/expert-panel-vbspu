@@ -16,6 +16,7 @@ from apps.cases.models import RequestDraft
 from apps.cases.services import EditConflict
 
 from .engine import demonstration
+from .diagnostics import allocation_diagnostics
 from .forms import (
     AssessmentForm,
     FinalSelectionForm,
@@ -172,6 +173,7 @@ def run_detail(request, pk):
         "nominations/result.html",
         {
             "result": run.snapshot,
+            "diagnostics": allocation_diagnostics(run.snapshot),
             "run": run,
             "stale": run.request_revision != run.request.revision,
             "selection": getattr(run, "finalselection", None),

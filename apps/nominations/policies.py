@@ -30,6 +30,8 @@ class CompositionPolicy:
     vc_nominees: int
     required_categories: tuple[str, ...]
     provisional: bool
+    principal_from_requesting_college: bool = False
+    final_professors: int = 4
 
     def snapshot(self) -> dict:
         # Return an independent structure: callers cannot mutate the policy.
@@ -65,15 +67,16 @@ POLICIES = MappingProxyType(
             False,
         ),
         "subject_expert": CompositionPolicy(
-            "subject-expert-v1-provisional",
+            "subject-expert-v2",
             "subject_expert",
             "विषय विशेषज्ञ / प्रवक्ता",
             "Subject expert / Lecturer",
-            1,
+            2,
             1,
             5,
-            1,
+            2,
             ("SC_ST", "OBC"),
+            False,
             True,
         ),
     }

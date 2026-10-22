@@ -6,6 +6,10 @@
 
 .expert-related{padding:16px 0;border-bottom:1px solid #ddd}.office-card dd{overflow-wrap:anywhere}.office-card details dl{overflow-wrap:anywhere}@media(max-width:900px){.office-body .sidebar nav{flex-wrap:wrap}.office-body .sidebar nav a{flex:1 1 110px}}
 .allocation-demo-form { display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; }
+.administrative-post-choice legend { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.office-radio-options { display: flex; gap: 24px; flex-wrap: wrap; }
+.office-field .office-radio-options label { display: inline-flex; align-items: center; gap: 8px; margin: 0; min-height: 32px; cursor: pointer; }
+.office-radio-options input[type="radio"] { width: 1em; height: 1em; margin: 0; flex: 0 0 auto; }
 .allocation-demo-form > div { flex: 1 1 220px; min-width: 0; }
 .allocation-demo-form label { display: block; margin-bottom: .5rem; }
 .allocation-demo-form select { display: block; width: 100%; padding: .65rem; border: 1px solid #a5b5b4; border-radius: 4px; background: white; }

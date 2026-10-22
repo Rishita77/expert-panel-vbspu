@@ -14,7 +14,7 @@ class StyledForm:
             if not isinstance(field.widget, forms.HiddenInput):
                 field.widget.attrs["class"] = (
                     "form-check-input"
-                    if isinstance(field.widget, forms.CheckboxInput)
+                    if isinstance(field.widget, (forms.CheckboxInput, forms.RadioSelect))
                     else "form-select"
                     if isinstance(field.widget, forms.Select)
                     else "form-control"
