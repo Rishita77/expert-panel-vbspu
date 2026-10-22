@@ -1,6 +1,6 @@
 # Running and verifying the application locally
 
-This guide is for the local demonstration environment on this computer. It is not a production deployment guide. The application uses the project-owned PostgreSQL database under `.local`; it does not use a `.db` file.
+This guide describes the original portable PostgreSQL environment on this computer. For a fresh installation with standard PostgreSQL, follow the [README](../README.md) first. These portable database paths are not included in a clone. This is not a production deployment guide.
 
 ## Before you begin
 
@@ -24,18 +24,20 @@ If it is not running, start it:
 
 ```powershell
 & .\.tools\postgresql17\pgsql\bin\pg_ctl.exe -D .\.local\postgres17-foundation -l .\.local\postgres.log -w start
+```
 
 On some Windows installations `pg_ctl start` can fail with a restricted-token
 error even though the PostgreSQL cluster itself is healthy. In that case, run
 the server directly in a separate PowerShell window and leave that window open:
 
+```powershell
 & .\.tools\postgresql17\pgsql\bin\postgres.exe -D .\.local\postgres17-foundation
+```
 
 The successful startup ends with `database system is ready to accept
 connections`. Then use a second window for Django. This is the project-owned
 cluster on port 55432; the Windows PostgreSQL service on port 5432 is not the
-database used by `config.foundation`.
-```
+database used by this portable setup's `config.foundation` configuration.
 
 To stop it when finished:
 
@@ -63,7 +65,9 @@ Open [http://127.0.0.1:8000/office/](http://127.0.0.1:8000/office/). Leave the P
 
 This command automatically reloads Python and template changes. If a CSS, image, or other static-file change does not appear, refresh the browser with `Ctrl+F5`.
 
-## First-time setup on a new machine
+## Alternative: portable PostgreSQL setup on a new Windows machine
+
+Prefer the standard PostgreSQL installation described in the [README](../README.md). The following helper is Windows-specific and expects separately downloaded binaries. If it fails after creating the cluster (for example with the restricted-token error), do not rerun it or delete the data directory blindly: it does not resume partial initialisation. Starting PostgreSQL alone will not finish role/database/config creation.
 
 1. Install Python 3.13 and the `uv` package manager.
 2. From the project folder, create the virtual environment and install the pinned dependencies:
