@@ -1,0 +1,15 @@
+{% extends 'office/base.html' %}{% load i18n ui_i18n %}{% block content %}
+<h1>{% translate 'प्रतिस्थापन विकल्प' %} · {{ outgoing.name }}</h1>
+<a href="{% if locked %}{% url 'panel_change_start' source.pk %}{% else %}{% url 'allocation_run' source.pk %}{% endif %}">{% translate 'वापस' %}</a>
+{% if error %}<p role="alert">{{ error|translate_ui }}</p>{% endif %}
+{% if options %}<form method="post" class="office-card">{% csrf_token %}
+<input type="hidden" name="top" value="{{ options.0.id }}">
+<fieldset><legend>{% translate 'पात्र विशेषज्ञ प्राथमिकता क्रम में' %}</legend>
+<div class="table-responsive"><table class="table"><thead><tr><th>{% translate 'विशेषज्ञ' %}</th><th>{% translate 'संस्था' %}</th><th>{% translate 'वर्तमान शैक्षणिक पदनाम' %}</th><th>{% translate 'इस वर्ष' %}</th></tr></thead><tbody>
+{% for o in options %}<tr><td><label><input type="radio" name="choice" value="{{ o.id }}" {% if forloop.first %}checked{% endif %}> {{ o.name }}{% if forloop.first %} · {% translate 'अनुशंसित' %}{% endif %}</label></td><td>{{ o.facts.home.institution_name }}</td><td>{{ o.designation }}</td><td>{{ o.count }}</td></tr>{% endfor %}
+</tbody></table></div></fieldset>
+<label class="office-field">{% translate 'कारण' %}<textarea name="reason" required maxlength="500" class="form-control"></textarea></label>
+{% if locked %}<label class="office-field">{% translate 'सत्यापनकर्ता' %}<input name="verifier" required maxlength="200" class="form-control"></label>{% endif %}
+<button class="btn btn-primary">{% if locked %}{% translate 'प्रतिस्थापन प्रारूप सहेजें' %}{% else %}{% translate 'संशोधित प्रस्ताव सहेजें' %}{% endif %}</button></form>
+{% else %}<p>{% translate 'इस भूमिका के लिए अगला योग्य विशेषज्ञ उपलब्ध नहीं है।' %}</p>{% endif %}
+{% endblock %}

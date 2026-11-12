@@ -943,3 +943,11 @@ main:focus {
 .small-copy,.form-text,.field-errors,.form-actions>span {
   font-size:12px!important
 }
+
+/* Keep long responses on a full row without growing the surrounding form. */
+form :is(div, p, label):has(> textarea) { grid-column: 1 / -1; min-width: 0; }
+form label:has(> textarea), form label.office-field { display: block; }
+form textarea, .office-main form textarea {
+  box-sizing: border-box; display: block; width: 100%; max-width: 48rem;
+  height: 7rem; min-height: 7rem; max-height: 7rem; overflow-y: auto; resize: none;
+}

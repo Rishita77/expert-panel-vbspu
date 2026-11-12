@@ -22,13 +22,14 @@ from apps.cases.services import EditConflict
 from apps.experts.models import Expert
 from apps.institutions.models import Institution
 
-from .engine import ROLE_LABELS, Candidate, allocate, nomination_year
+from .engine import ROLE_LABELS, Candidate, allocate, nomination_year, rank_key
 from .history import verified_history
 from .policies import POLICIES
 from .models import (
     AllocationRun,
     Assessment,
     FinalMember,
+    FinalRelease,
     FinalSelection,
     Letter,
     LetterEvent,
@@ -308,6 +309,8 @@ def approve_letter(actor, revision_id, revision_number):
         return revision
     if revision.state != LetterRevision.State.SUBMITTED or revision.revision != revision_number:
         raise EditConflict("पत्र संशोधन बदल चुका है।")
+    if revision.source_run_id and revision.source_run.request_revision != revision.letter.request.revision:
+        raise EditConflict("पैनल बदल गया है। विकल्प फिर से जाँचें।")
     pdf = render_letter_pdf(revision)
     checksum = hashlib.sha256(pdf).hexdigest()
     root = Path(settings.PRIVATE_DOCUMENT_ROOT)
@@ -370,6 +373,10 @@ def _selection_issues(selection, require_assessments=True):
             issues.append(f"{expert.name}: अपने महाविद्यालय के लिए नामांकन वर्जित है।")
         if require_assessments:
             assessment = assessment_by_expert.get(expert.pk)
+            person, _ = candidate_facts(expert, selection.request, selection.source_run.allocation_date,
+                                        assessment, set(), member.role)
+            if selection.source_run.snapshot.get("policy", {}).get("version") == POLICIES[selection.request.appointment_type].version:
+                issues.extend(f"{expert.name}: {reason}" for reason in person.reasons)
             if not assessment:
                 issues.append(f"{expert.name}: उपलब्धता / हित-संघर्ष सत्यापन शेष है।")
             elif assessment.status != "available" or assessment.conflict:
@@ -383,7 +390,7 @@ def create_final_selection(actor, run_id):
     run = AllocationRun.objects.select_for_update().select_related("request").get(pk=run_id)
     if not run.snapshot.get("complete"):
         raise ValidationError("पूर्ण अनुशंसा से ही अंतिम चयन प्रारूप बनाया जा सकता है।")
-    if run.request_revision != run.request.revision:
+    if FinalSelection.objects.filter(request=run.request, state="locked").exclude(source_run=run).exists() or run.request_revision != run.request.revision:
         raise EditConflict("अनुरोध बदल चुका है। नई अनुशंसा बनाएँ।")
     selection, created = FinalSelection.objects.get_or_create(
         source_run=run,
@@ -426,6 +433,8 @@ def save_final_selection(actor, selection_id, data, selected_ids):
     selection = FinalSelection.objects.select_for_update().get(pk=selection_id)
     if selection.state != FinalSelection.State.DRAFT:
         raise ValidationError("इस चयन में अब बदलाव नहीं किया जा सकता।")
+    if selection.source_run.request_revision != selection.request.revision:
+        raise EditConflict("पैनल बदल गया है। विकल्प फिर से जाँचें।")
     if selection.revision != data["revision"]:
         raise EditConflict("अंतिम चयन बदल चुका है। वर्तमान विवरण फिर खोलें।")
     selected_ids = {str(pk) for pk in selected_ids}
@@ -457,6 +466,10 @@ def lock_final_selection(actor, selection_id, revision, reason=""):
         raise ValidationError("केवल VC के प्रारूप चयन को लॉक किया जा सकता है।")
     if selection.revision != revision:
         raise EditConflict("अंतिम चयन बदल चुका है।")
+    if selection.source_run.request_revision != selection.request.revision or FinalSelection.objects.filter(
+        request_id=selection.request_id, state="locked"
+    ).exclude(pk=selection.pk).exists():
+        raise EditConflict("पैनल बदल गया है। विकल्प फिर से जाँचें।")
     issues = _selection_issues(selection, require_assessments=True)
     if issues:
         raise ValidationError(issues)
@@ -504,6 +517,7 @@ def _current_panel_members(selection):
             "expert_id": member.expert_id,
             "role": member.role,
             "member": member,
+            "name": member.snapshot["name"],
         }
         for member in selection.members.filter(selected=True)
     }
@@ -517,6 +531,7 @@ def _current_panel_members(selection):
             "expert_id": change.replacement_expert_id,
             "role": change.role,
             "member": None,
+            "name": change.replacement_expert.name,
         }
     return members
 
@@ -541,61 +556,137 @@ def _active_contribution(expert_id, selection):
     return None, contribution
 
 
-def _recommended_replacement(run, role, excluded):
-    role_rows = next(
-        (item["rows"] for item in run.snapshot.get("roles", []) if item["key"] == role), []
-    )
-    for row in role_rows:
-        if not row["reasons"] and row["id"] not in excluded:
-            return row
-    return None
+def replacement_options(case, members, outgoing_id, at_date, *, proposal=False):
+    """Rank for the actual vacant seat; never reserve candidates in hypothetical roles."""
+    outgoing_id = str(outgoing_id)
+    if outgoing_id not in members:
+        raise ValidationError("चुना गया विशेषज्ञ वर्तमान प्रभावी पैनल में नहीं है।")
+    role = members[outgoing_id]
+    remaining = [pk for pk, seat in members.items() if pk != outgoing_id and seat != "vc"]
+    coverage = set(Expert.objects.filter(pk__in=remaining).values_list("category", flat=True))
+    experts = list(Expert.objects.filter(is_active=True).exclude(pk__in=members)
+                   .prefetch_related("subjects", "appointments__institution"))
+    history = verified_history([x.pk for x in experts], at_date)
+    checks = {}
+    for a in Assessment.objects.filter(request=case, request_revision=case.revision,
+                                       allocation_date=at_date).order_by("-recorded_at"):
+        checks.setdefault(a.expert_id, a)
+    permanent = {str(pk) for pk in Assessment.objects.filter(status__in=PERMANENT)
+                 .values_list("expert_id", flat=True)}
+    # A revised proposal may acquire a supplement; a locked replacement changes only one seat.
+    supplement_ids = {"obc": set(), "scst": set()}
+    if proposal:
+        for expert in experts:
+            supplement_role = {"obc": "obc", "sc": "scst", "st": "scst"}.get(expert.category)
+            if not supplement_role:
+                continue
+            candidate, _ = candidate_facts(expert, case, at_date, checks.get(expert.pk), permanent, supplement_role)
+            if not candidate.reasons and history[candidate.id].valid(at_date):
+                supplement_ids[supplement_role].add(candidate.id)
+    options = []
+    for expert in experts:
+        person, facts = candidate_facts(expert, case, at_date, checks.get(expert.pk), permanent, role)
+        covered = coverage | ({person.category} if role != "vc" else set())
+        h = history[person.id]
+        if (person.reasons or not h.valid(at_date)
+                or ("obc" not in covered and not (supplement_ids["obc"] - {person.id}))
+                or (not covered & {"sc", "st"} and not (supplement_ids["scst"] - {person.id}))):
+            continue
+        person = replace(person, history=h)
+        options.append((rank_key(person), {
+            "id": person.id, "name": person.name, "role": role, "label": ROLE_LABELS[role],
+            "sequence": person.sequence, "category": person.category, "count": h.annual_count,
+            "verified": person.verified, "facts": facts,
+        }))
+    return [item for _, item in sorted(options, key=lambda pair: pair[0])]
+
+
+def override_report_facts(case, recommended, chosen, at_date):
+    return {
+        "manual": chosen["id"] != recommended["id"], "recommended_name": recommended["name"],
+        "chosen_name": chosen["name"], "year": nomination_year(at_date), "category": chosen["category"],
+        "college_id": str(case.institution_id), "subject_id": str(case.subject_id),
+    }
+
+
+def choose_replacement(options, wanted, expected_top):
+    if not options:
+        raise ValidationError("इस भूमिका के लिए अगला योग्य विशेषज्ञ उपलब्ध नहीं है।")
+    if expected_top is not None and expected_top != options[0]["id"]:
+        raise EditConflict("पैनल बदल गया है। विकल्प फिर से जाँचें।")
+    if wanted is None:
+        return options[0]
+    for item in options:
+        if item["id"] == wanted:
+            return item
+    raise ValidationError("यह विशेषज्ञ इस स्थान के लिए पात्र नहीं है।")
 
 
 @transaction.atomic
-def create_replacement_change(actor, selection_id, outgoing_expert_id, reason, verifier):
-    """Generate the new-date rule evidence and reserve its top valid replacement in a draft."""
-    actor = actor_for_reviewer(actor)
-    selection = (
-        FinalSelection.objects.select_for_update().select_related("request").get(pk=selection_id)
-    )
+def revise_proposal(actor, run_id, outgoing, wanted, reason, expected_top):
+    actor = actor_for_vc(actor)
+    source = AllocationRun.objects.select_related("request").get(pk=run_id)
+    case = RequestDraft.objects.select_for_update().get(pk=source.request_id)
+    if (case.revision != source.request_revision or not source.snapshot.get("complete")
+            or FinalSelection.objects.filter(request=case, state="locked").exists()):
+        raise EditConflict("पैनल बदल गया है। विकल्प फिर से जाँचें।")
+    members = {s["id"]: s["role"] for s in source.snapshot["seats"]}
+    options = replacement_options(case, members, outgoing, timezone.localdate(), proposal=True)
+    chosen = choose_replacement(options, wanted, expected_top)
+    if not reason.strip() or len(reason.strip()) > 500:
+        raise ValidationError("परिवर्तन का कारण 1 से 500 अक्षरों में लिखें।")
+    preferred = {}
+    for pk, role in members.items():
+        preferred.setdefault(role, []).append(chosen["id"] if pk == outgoing else pk)
+    # Re-evaluate retained seats and category supplements using the ordinary engine.
+    run = generate(actor, case.pk, case.revision, preferred=preferred, omit=outgoing)
+    if not run.snapshot["complete"]:
+        raise ValidationError(run.snapshot["issues"])
+    record(actor, "allocation.proposal_replaced", run, after={
+        **override_report_facts(case, options[0], chosen, run.allocation_date),
+        "source_run": str(source.pk), "outgoing": outgoing, "recommended": options[0]["id"],
+        "chosen": chosen["id"], "role": members[outgoing],
+    }, reason=reason)
+    return run
+
+
+@transaction.atomic
+def create_replacement_change(actor, selection_id, outgoing_expert_id, reason, verifier,
+                              *, wanted=None, expected_top=None):
+    actor = actor_for_vc(actor) if wanted is not None else actor_for_reviewer(actor)
+    selection = FinalSelection.objects.select_for_update().select_related("request").get(pk=selection_id)
     if selection.state != FinalSelection.State.LOCKED:
         raise ValidationError("प्रतिस्थापन केवल लॉक चयन के लिए बनाया जा सकता है।")
     if not reason.strip() or not verifier.strip():
         raise ValidationError("प्रतिस्थापन का कारण और सत्यापनकर्ता आवश्यक हैं।")
+    if len(reason.strip()) > 500:
+        raise ValidationError("परिवर्तन का कारण 1 से 500 अक्षरों में लिखें।")
     current = _current_panel_members(selection)
-    outgoing = current.get(str(outgoing_expert_id))
-    if not outgoing:
-        raise ValidationError("चुना गया विशेषज्ञ वर्तमान प्रभावी पैनल में नहीं है।")
-    # This run uses the replacement's allocation date and the normal SRS engine.
-    run = generate(actor, selection.request_id, selection.request.revision, review_generation=False)
-    recommended = _recommended_replacement(run, outgoing["role"], set(current))
-    if not recommended:
-        raise ValidationError("इस भूमिका के लिए अगला योग्य विशेषज्ञ उपलब्ध नहीं है।")
-    original_member = outgoing["member"]
-    change = PanelChange.objects.create(
-        selection=selection,
-        change_type=PanelChange.Type.REPLACEMENT,
-        outgoing_member=original_member,
-        outgoing_expert_id=outgoing["expert_id"],
-        replacement_expert_id=recommended["id"],
-        role=outgoing["role"],
-        source_run=run,
-        reason=reason.strip(),
-        verifier=verifier.strip(),
-        created_by=actor,
-        updated_by=actor,
-    )
-    record(
-        actor,
-        "panel_change.replacement_drafted",
-        change,
-        after={
-            "outgoing": str(outgoing_expert_id),
-            "replacement": recommended["id"],
-            "run": str(run.pk),
+    members = {pk: v["role"] for pk, v in current.items()}
+    today = timezone.localdate()
+    options = replacement_options(selection.request, members, outgoing_expert_id, today)
+    chosen = choose_replacement(options, wanted, expected_top)
+    role = chosen["role"]
+    run = AllocationRun.objects.create(
+        request=selection.request, request_revision=selection.request.revision, created_by=actor,
+        allocation_date=today, snapshot={
+            "complete": False, "replacement_only": True, "allocation_date": today.isoformat(),
+            "seats": [chosen], "candidate_evidence": [chosen["facts"]], "roles": [],
+            "policy": selection.source_run.snapshot.get("policy", {}),
+            "recommended": options[0]["id"], "ranked_options": [o["id"] for o in options],
         },
-        reason=reason,
     )
+    change = PanelChange.objects.create(
+        selection=selection, change_type=PanelChange.Type.REPLACEMENT,
+        outgoing_member=current[str(outgoing_expert_id)]["member"], outgoing_expert_id=outgoing_expert_id,
+        replacement_expert_id=chosen["id"], role=role, source_run=run,
+        reason=reason.strip(), verifier=verifier.strip(), created_by=actor, updated_by=actor,
+    )
+    record(actor, "panel_change.replacement_drafted", change, after={
+        **override_report_facts(selection.request, options[0], chosen, today),
+        "outgoing": str(outgoing_expert_id), "recommended": options[0]["id"],
+        "replacement": chosen["id"], "run": str(run.pk), "role": role,
+    }, reason=reason)
     return change
 
 
@@ -674,6 +765,11 @@ def _change_issues(change, require_assessment=False):
             .order_by("-recorded_at")
             .first()
         )
+        person, _ = candidate_facts(
+            change.replacement_expert, change.selection.request, change.source_run.allocation_date,
+            assessment, set(), change.role,
+        )
+        issues.extend(person.reasons)
         if not assessment:
             issues.append("प्रतिस्थापन का उपलब्धता / हित-संघर्ष सत्यापन शेष है।")
         elif assessment.status != "available" or assessment.conflict:
@@ -884,9 +980,9 @@ def candidate_facts(expert, case, at_date, assessment, permanent, role):
         if role in {"professor", "vc"} and home.academic_designation != "professor":
             reasons.append("प्रोफेसर शैक्षणिक पदनाम आवश्यक है (SRS 4/5)।")
         if role in {"scst", "obc"} and (
-            home.academic_designation not in {"professor", "assistant"}
+            home.academic_designation not in {"professor", "associate", "assistant"}
         ):
-            reasons.append("प्रोफेसर / सहायक प्रोफेसर शैक्षणिक पदनाम आवश्यक है (SRS 6)।")
+            reasons.append("प्रोफेसर / सह प्राध्यापक / सहायक प्रोफेसर शैक्षणिक पदनाम आवश्यक है (SRS 6)।")
         if role == "vc":
             if home.institution.is_affiliated_to_vbspu is None:
                 reasons.append("VC के लिए VBSPU सम्बद्धता स्पष्ट होना आवश्यक है (SRS 4.1)।")
@@ -949,7 +1045,7 @@ def candidate_facts(expert, case, at_date, assessment, permanent, role):
 
 
 @transaction.atomic
-def generate(actor, request_id, revision, review_generation=True):
+def generate(actor, request_id, revision, review_generation=True, *, preferred=None, omit=None):
     actor = actor_for_vc(actor) if review_generation else actor_for_write(actor)
     case = (
         RequestDraft.objects.select_for_update(of=("self",))
@@ -958,6 +1054,8 @@ def generate(actor, request_id, revision, review_generation=True):
     )
     if case.revision != revision:
         raise EditConflict("अनुरोध बदल चुका है। वर्तमान विवरण फिर खोलें।")
+    if review_generation and FinalSelection.objects.filter(request=case, state="locked").exists():
+        raise ValidationError("लॉक पैनल के लिए प्रतिस्थापन प्रक्रिया अपनाएँ।")
     if review_generation and case.state not in {
         RequestDraft.State.REVIEWED,
         RequestDraft.State.OFFERED,
@@ -991,14 +1089,15 @@ def generate(actor, request_id, revision, review_generation=True):
             person, facts = candidate_facts(
                 expert, case, at_date, assessments.get(expert.pk), permanent, role
             )
-            candidates[role].append(person)
+            if str(expert.pk) != omit:
+                candidates[role].append(person)
             evidence.append(facts)
     history = verified_history({p.id for people in candidates.values() for p in people}, at_date)
     candidates = {
         role: [replace(p, history=history.get(p.id)) for p in people]
         for role, people in candidates.items()
     }
-    result = allocate(case.appointment_type, candidates, at_date, errors)
+    result = allocate(case.appointment_type, candidates, at_date, errors, preferred=preferred)
     expert_ids = {seat["id"] for seat in result["seats"]}
     lifetime_counts = {
         str(row["expert_id"]): row["total"]
@@ -1019,6 +1118,10 @@ def generate(actor, request_id, revision, review_generation=True):
             "notice": "अनुरोध प्रारूप है। यह जारी पैनल या अंतिम चयन नहीं है।",
         }
     )
+    if preferred is not None:
+        case.revision += 1
+        case.save(update_fields=["revision"])
+        revision = case.revision
     run = AllocationRun.objects.create(
         request=case,
         request_revision=revision,
@@ -1038,3 +1141,33 @@ def generate(actor, request_id, revision, review_generation=True):
         case.save(update_fields=["state", "updated_by", "updated_at"])
         record(actor, "request.offered_panel_generated", case, after={"state": case.state})
     return run
+
+
+@transaction.atomic
+def release_final_letter(actor, revision_id, expected_revision):
+    # Release is an administrative responsibility, independent of VC powers.
+    lock_access()
+    actor = current_actor(actor)
+    require_role(actor, Role.REVIEWER)
+    revision = LetterRevision.objects.select_for_update().select_related("letter").get(pk=revision_id)
+    if (revision.letter.kind != Letter.Kind.FINAL or revision.state != LetterRevision.State.APPROVED
+            or not revision.source_selection_id or revision.revision != expected_revision):
+        raise ValidationError("केवल VC-स्वीकृत अंतिम पत्र जारी किया जा सकता है।")
+    selection = FinalSelection.objects.select_for_update().get(pk=revision.source_selection_id)
+    if selection.state != FinalSelection.State.LOCKED or selection.request_id != revision.letter.request_id:
+        raise ValidationError("केवल VC-स्वीकृत अंतिम पत्र जारी किया जा सकता है।")
+    existing = FinalRelease.objects.filter(selection=selection).first()
+    if existing:
+        if existing.letter_revision_id == revision.pk:
+            return existing
+        raise ValidationError("इस अंतिम पैनल का पत्र पहले ही जारी हो चुका है।")
+    path = Path(settings.PRIVATE_DOCUMENT_ROOT) / revision.pdf_key
+    if (not revision.pdf_key or not path.is_file()
+            or hashlib.sha256(path.read_bytes()).hexdigest() != revision.checksum):
+        raise ValidationError("स्वीकृत PDF उपलब्ध नहीं है या उसकी सत्यापन जाँच असफल है।")
+    release = FinalRelease.objects.create(selection=selection, letter_revision=revision, confirmed_by=actor)
+    record(actor, "final_letter.released", release, after={
+        "selection": str(selection.pk), "letter_revision": str(revision.pk),
+        "reference": revision.letter.reference, "checksum": revision.checksum,
+    })
+    return release

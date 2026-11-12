@@ -7,12 +7,14 @@ from datetime import date
 from django.db.models import Q
 from django.utils import timezone
 
+from apps.audit.models import AuditEvent
 from apps.cases.models import RequestDraft
 from apps.experts.models import Appointment, Expert
 from apps.institutions.models import Institution, Subject
 from apps.nominations.engine import ROLE_LABELS, nomination_year
 from apps.nominations.models import (
     FinalSelection,
+    FinalRelease,
     Letter,
     LetterRevision,
     PanelChange,
@@ -36,7 +38,7 @@ REPORTS = {
     "maximum-nominations": ("REP-11", gettext_lazy("सर्वाधिक नामांकित विशेषज्ञ"), "maximum"),
     "cancellations": ("REP-12", gettext_lazy("रद्द नामांकन"), "cancellations"),
     "replacements": ("REP-13", gettext_lazy("प्रतिस्थापन विशेषज्ञ"), "replacements"),
-    "manual-deviations": ("REP-14", gettext_lazy("मान्य मैनुअल विचलन"), "unavailable_deviations"),
+    "manual-deviations": ("REP-14", gettext_lazy("मान्य मैनुअल विचलन"), "deviations"),
     "expired-ec": ("REP-15", gettext_lazy("अवधि समाप्त EC विशेषज्ञ"), "unavailable_expiry"),
 }
 
@@ -202,6 +204,23 @@ def _lifetime_stats():
     return counts, last
 
 
+def directory_details(ids):
+    appointments = {
+        item.expert_id: item for item in Appointment.objects.filter(
+            is_current=True, expert_id__in=ids
+        ).select_related("institution")
+    }
+    details = {}
+    for expert in Expert.objects.filter(pk__in=ids).prefetch_related("subjects"):
+        home = appointments.get(expert.pk)
+        details[str(expert.pk)] = {
+            "institution": home.institution.name if home else "—",
+            "designation": home.get_academic_designation_display() if home else "—",
+            "subjects": ", ".join(s.name for s in expert.subjects.all()) or "—",
+        }
+    return details
+
+
 def expert_utilisation_rows(filters):
     current = defaultdict(int)
     roles = defaultdict(set)
@@ -214,11 +233,11 @@ def expert_utilisation_rows(filters):
         for item in Appointment.objects.filter(is_current=True).select_related("institution")
     }
     rows = []
-    for expert in Expert.objects.filter(is_active=True).order_by("sequence"):
+    for expert in Expert.objects.filter(is_active=True).prefetch_related("subjects").order_by("sequence"):
         appointment = appointments.get(str(expert.pk))
         if filters["category"] and expert.category != filters["category"]:
             continue
-        if filters["subject"] and not expert.subjects.filter(pk=filters["subject"]).exists():
+        if filters["subject"] and not any(str(s.pk) == filters["subject"] for s in expert.subjects.all()):
             continue
         rows.append(
             {
@@ -231,6 +250,7 @@ def expert_utilisation_rows(filters):
                 "roles": ", ".join(sorted(roles[str(expert.pk)])) or "—",
                 "institution": appointment.institution.name if appointment else gettext_lazy("सत्यापन शेष"),
                 "designation": appointment.get_academic_designation_display() if appointment else gettext_lazy("सत्यापन शेष"),
+                "subjects": ", ".join(s.name for s in expert.subjects.all()) or "—",
                 "post": appointment.get_administrative_post_display() if appointment else "—",
                 "active": gettext_lazy("सक्रिय"),
             }
@@ -238,49 +258,37 @@ def expert_utilisation_rows(filters):
     return rows
 
 
-def dashboard(filters):
+def overall_cards():
     locked = FinalSelection.objects.filter(state=FinalSelection.State.LOCKED)
-    locked_request_ids = locked.values_list("request_id", flat=True)
     pending = RequestDraft.objects.filter(
-        state__in=[RequestDraft.State.SUBMITTED, RequestDraft.State.OFFERED]
-    ).exclude(pk__in=locked_request_ids)
+        state__in=[RequestDraft.State.SUBMITTED, RequestDraft.State.REVIEWED, RequestDraft.State.OFFERED]
+    ).exclude(pk__in=locked.values("request_id"))
+    return [
+        (gettext_lazy("कुल अनुरोध"), RequestDraft.objects.count()),
+        (gettext_lazy("लंबित अनुरोध"), pending.count()),
+        (gettext_lazy("लॉक समितियाँ"), locked.count()),
+        (gettext_lazy("जारी अंतिम पत्र"), FinalRelease.objects.count()),
+        (gettext_lazy("सक्रिय विशेषज्ञ"), Expert.objects.filter(is_active=True).count()),
+    ]
+
+
+def dashboard(filters):
+    # Every displayed count and date comes from the same filtered ledger.
     contributions = effective_contributions(filters)
-    expert_rows = expert_utilisation_rows(filters)
-    return {
-        "cards": [
-            (gettext_lazy("कुल अनुरोध"), RequestDraft.objects.count(), gettext_lazy("सभी अनुरोध प्रारूप")),
-            (gettext_lazy("लंबित अनुरोध"), pending.count(), gettext_lazy("प्रस्तुत/प्रस्तावित, अभी अंतिम लॉक नहीं")),
-            (gettext_lazy("लॉक समितियाँ"), locked.count(), gettext_lazy("VC/Admin द्वारा अंतिम लॉक")),
-            (
-                gettext_lazy("जारी अंतिम पत्र"),
-                LetterRevision.objects.filter(
-                    state=LetterRevision.State.APPROVED, letter__kind=Letter.Kind.FINAL
-                )
-                .values("source_selection_id")
-                .distinct()
-                .count(),
-                gettext_lazy("स्वीकृत अंतिम दस्तावेज"),
-            ),
-            (gettext_lazy("सक्रिय विशेषज्ञ"), Expert.objects.filter(is_active=True).count(), gettext_lazy("निर्देशिका")),
-            (
-                gettext_lazy("SC/ST सक्रिय विशेषज्ञ"),
-                Expert.objects.filter(is_active=True, category__in=["sc", "st"]).count(),
-                gettext_lazy("निर्देशिका"),
-            ),
-            (
-                gettext_lazy("OBC सक्रिय विशेषज्ञ"),
-                Expert.objects.filter(is_active=True, category="obc").count(),
-                gettext_lazy("निर्देशिका"),
-            ),
-            (
-                gettext_lazy("इस वर्ष शून्य उपयोग"),
-                sum(row["current"] == 0 for row in expert_rows),
-                gettext_lazy("सक्रिय विशेषज्ञ; केस-विशिष्ट पात्रता का दावा नहीं"),
-            ),
-        ],
-        "contribution_count": len(contributions),
-        "expert_rows": expert_rows,
-    }
+    details = directory_details({row["expert_id"] for row in contributions})
+    grouped = {}
+    for row in contributions:
+        key = row["expert_id"]
+        item = grouped.setdefault(key, {
+            "expert": row["expert"], "sequence": row["sequence"],
+            "category": Expert.Category(row["category"]).label if row["category"] else "—",
+            **details.get(key, {"institution": "—", "designation": "—", "subjects": "—"}),
+            "current": 0, "last": None,
+        })
+        item["current"] += 1
+        day = row["recorded_at"].date()
+        item["last"] = max(item["last"] or day, day)
+    return {"expert_rows": sorted(grouped.values(), key=lambda row: row["sequence"])}
 
 
 def _group(rows, key, label):
@@ -319,12 +327,16 @@ def report_data(slug, filters):
         required_role = {"professors": "professor", "principals": "principal", "vc-nominees": "vc"}[slug]
         rows = [row for row in rows if row["role"] == required_role]
         grouped = defaultdict(lambda: {gettext_lazy("नामांकन"): 0, gettext_lazy("अंतिम नामांकन"): None, gettext_lazy("भूमिका"): ""})
+        details = directory_details({row["expert_id"] for row in rows})
+        profile_columns = [gettext_lazy("वर्तमान संस्था"), gettext_lazy("वर्तमान शैक्षणिक पदनाम"), gettext_lazy("वर्तमान विषय")]
         for row in rows:
-            item = grouped[row["expert"]]
+            item = grouped[row["expert_id"]]
+            profile = details[row["expert_id"]]
+            item.update(zip(profile_columns, (profile["institution"], profile["designation"], profile["subjects"])))
             item.update({gettext_lazy("विशेषज्ञ"): row["expert"], gettext_lazy("क्रमांक"): row["sequence"], gettext_lazy("भूमिका"): row["role_label"]})
             item[gettext_lazy("नामांकन")] += 1
             item[gettext_lazy("अंतिम नामांकन")] = max(item[gettext_lazy("अंतिम नामांकन")] or row["recorded_at"].date(), row["recorded_at"].date())
-        data["columns"] = [gettext_lazy("विशेषज्ञ"), gettext_lazy("क्रमांक"), gettext_lazy("भूमिका"), gettext_lazy("नामांकन"), gettext_lazy("अंतिम नामांकन")]
+        data["columns"] = [gettext_lazy("विशेषज्ञ"), gettext_lazy("क्रमांक"), *profile_columns, gettext_lazy("भूमिका"), gettext_lazy("नामांकन"), gettext_lazy("अंतिम नामांकन")]
         data["rows"] = sorted(grouped.values(), key=lambda item: (-item[gettext_lazy("नामांकन")], item[gettext_lazy("क्रमांक")]))
     elif kind == "annual":
         data["columns"] = [gettext_lazy("विशेषज्ञ"), gettext_lazy("क्रमांक"), gettext_lazy("श्रेणी"), gettext_lazy("नामांकन"), gettext_lazy("अंतिम नामांकन")]
@@ -436,6 +448,20 @@ def report_data(slug, filters):
             }
             for change in changes
         ]
+    elif kind == "deviations":
+        columns = [gettext_lazy("स्थिति"), gettext_lazy("भूमिका"), gettext_lazy("अनुशंसित"),
+                   gettext_lazy("चयनित विशेषज्ञ"), gettext_lazy("कारण"), gettext_lazy("दिनांक")]
+        data["columns"] = columns
+        events = AuditEvent.objects.filter(
+            action__in=["allocation.proposal_replaced", "panel_change.replacement_drafted"],
+            after__manual=True, after__year=filters["year"],
+        )
+        for event in events:
+            facts = event.after
+            if _matches(facts, filters):
+                stage = gettext_lazy("संशोधित प्रस्ताव") if event.action == "allocation.proposal_replaced" else gettext_lazy("प्रतिस्थापन प्रारूप")
+                data["rows"].append(dict(zip(columns, (stage, gettext(ROLE_LABELS[facts["role"]]),
+                    facts["recommended_name"], facts["chosen_name"], event.reason, event.occurred_at.date()))))
     elif kind == "replacements":
         changes = PanelChange.objects.filter(
             change_type=PanelChange.Type.REPLACEMENT, state=PanelChange.State.CONFIRMED
@@ -454,9 +480,5 @@ def report_data(slug, filters):
             for change in changes
         ]
     else:
-        data["unavailable"] = (
-            gettext_lazy("मैनुअल विचलन के लिए कोई अधिकृत ओवरराइड रिकॉर्ड नहीं है।")
-            if kind == "unavailable_deviations"
-            else gettext_lazy("EC विशेषज्ञ निर्देशिका में वैधता-अवधि का नियंत्रित रिकॉर्ड अभी परिभाषित नहीं है।")
-        )
+        data["unavailable"] = gettext_lazy("EC विशेषज्ञ निर्देशिका में वैधता-अवधि का नियंत्रित रिकॉर्ड अभी परिभाषित नहीं है।")
     return data

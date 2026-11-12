@@ -101,10 +101,11 @@ def validate_bulk_experts_csv(raw):
             errors.append(gettext_lazy("category: general, obc, sc या st चुनें।"))
         if row["academic_designation"] not in {
             Appointment.AcademicDesignation.PROFESSOR,
+            Appointment.AcademicDesignation.ASSOCIATE,
             Appointment.AcademicDesignation.ASSISTANT,
             Appointment.AcademicDesignation.OTHER,
         }:
-            errors.append(gettext_lazy("academic_designation: professor, assistant या other चुनें।"))
+            errors.append(gettext_lazy("academic_designation: professor, associate, assistant या other चुनें।"))
         if row["holds_administrative_post"] not in {"true", "false"}:
             errors.append(gettext_lazy("holds_administrative_post: true या false लिखें।"))
         if row["is_active"] not in {"true", "false"}:

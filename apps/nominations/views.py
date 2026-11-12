@@ -31,6 +31,7 @@ from .models import (
     AllocationRun,
     Assessment,
     FinalSelection,
+    FinalRelease,
     LetterEvent,
     LetterRevision,
     PanelChange,
@@ -38,12 +39,14 @@ from .models import (
 from .policies import POLICIES
 from .services import (
     _current_panel_members,
+    replacement_options, revise_proposal,
     approve_letter,
     assess,
     confirm_panel_change,
     create_cancellation_change,
     create_final_selection,
     create_letter,
+    release_final_letter,
     create_replacement_change,
     generate,
     lock_final_selection,
@@ -178,6 +181,9 @@ def run_detail(request, pk):
             "stale": run.request_revision != run.request.revision,
             "selection": getattr(run, "finalselection", None),
             "can_vc": can_vc,
+            "can_replace": (can_vc and run.snapshot.get("complete") and
+                            run.request_revision == run.request.revision and
+                            not FinalSelection.objects.filter(request=run.request, state="locked").exists()),
             "can_reviewer": can_vc,
             "member_rows": member_rows,
             "errors": errors,
@@ -264,6 +270,10 @@ def letter(request, pk):
                     request.user, pk, form.cleaned_data["revision"], form.cleaned_data["reason"]
                 )
                 return redirect("letter", pk=revision.pk)
+            elif action == "release":
+                require_role(request.user, Role.REVIEWER)
+                revision = release_final_letter(request.user, pk, form.cleaned_data["revision"])
+                return redirect("letter", pk=revision.letter_revision_id)
             elif action == "approve":
                 require_role(request.user, Role.VC)
                 revision = approve_letter(request.user, pk, form.cleaned_data["revision"])
@@ -284,6 +294,8 @@ def letter(request, pk):
             "can_process": can_process,
             "can_reviewer": can_reviewer,
             "can_vc": can_vc,
+            "release": FinalRelease.objects.filter(letter_revision=revision).select_related("confirmed_by").first(),
+            "can_release": bool(roles & {Role.REVIEWER, Role.ADMIN}),
             "events": revision.events.select_related("actor"),
         },
         status=status,
@@ -294,9 +306,14 @@ def letter(request, pk):
 def document_queue(request):
     state = request.GET.get("state", "").strip()
     revisions = LetterRevision.objects.select_related(
-        "letter", "letter__request", "created_by", "approved_by"
+        "letter", "letter__request", "created_by", "approved_by", "final_release"
     ).order_by("state", "-created_at")
-    if state in LetterRevision.State.values:
+    if state == "pending_release":
+        revisions = revisions.filter(state="approved", letter__kind="final",
+                                      source_selection__state="locked", source_selection__release__isnull=True)
+    elif state == "released":
+        revisions = revisions.filter(final_release__isnull=False)
+    elif state in LetterRevision.State.values:
         revisions = revisions.filter(state=state)
     return render(
         request,
@@ -304,7 +321,7 @@ def document_queue(request):
         {
             "revisions": Paginator(revisions, 30).get_page(request.GET.get("page")),
             "selected_state": state,
-            "states": LetterRevision.State.choices,
+            "states": [*LetterRevision.State.choices, ("pending_release", gettext_lazy("रजिस्ट्रार की पुष्टि लंबित")), ("released", gettext_lazy("रजिस्ट्रार द्वारा जारी"))],
         },
     )
 
@@ -322,6 +339,7 @@ def letter_download(request, pk):
         revision.letter.kind != "final"
         or not revision.source_selection_id
         or revision.source_selection.state != FinalSelection.State.LOCKED
+        or not FinalRelease.objects.filter(letter_revision=revision).exists()
     ):
         from django.core.exceptions import PermissionDenied
 
@@ -359,7 +377,10 @@ def final_selection(request, pk):
     )
     roles = roles_for(request.user)
     is_poc_only = Role.PROCESSOR in roles and not roles & {Role.REVIEWER, Role.VC, Role.ADMIN}
-    if is_poc_only and selection.state != FinalSelection.State.LOCKED:
+    if is_poc_only and (
+        selection.state != FinalSelection.State.LOCKED
+        or not FinalRelease.objects.filter(selection=selection).exists()
+    ):
         from django.core.exceptions import PermissionDenied
 
         raise PermissionDenied(gettext_lazy("प्रस्तावित पैनल केवल रजिस्ट्रार, VC और प्रशासक देख सकते हैं।"))
@@ -429,22 +450,75 @@ def final_selection(request, pk):
     )
 
 
+@permitted(Role.VC)
+@require_http_methods(["GET", "POST"])
+def choose_member(request, pk, outgoing, locked):
+    outgoing = str(outgoing)
+    if locked:
+        source = get_object_or_404(FinalSelection.objects.select_related("request"), pk=pk, state="locked")
+        members = {key: item["role"] for key, item in _current_panel_members(source).items()}
+    else:
+        source = get_object_or_404(AllocationRun.objects.select_related("request"), pk=pk)
+        if (not source.snapshot.get("complete") or source.request_revision != source.request.revision
+                or FinalSelection.objects.filter(request=source.request, state="locked").exists()):
+            raise Http404
+        members = {s["id"]: s["role"] for s in source.snapshot["seats"]}
+    if outgoing not in members:
+        raise Http404
+    from apps.experts.models import Expert
+    options = replacement_options(source.request, members, outgoing, timezone.localdate(), proposal=not locked)
+    from apps.experts.models import Appointment
+    for item in options:
+        item["designation"] = Appointment.AcademicDesignation(item["facts"]["home"]["academic_designation"]).label
+    error = None
+    if request.method == "POST":
+        try:
+            choice = request.POST.get("choice", "")
+            reason = request.POST.get("reason", "").strip()
+            verifier = request.POST.get("verifier", "").strip()
+            if not reason or len(reason) > 500 or len(verifier) > 200:
+                raise ValidationError(gettext_lazy("परिवर्तन का कारण आवश्यक है।"))
+            if locked:
+                change = create_replacement_change(request.user, pk, outgoing, reason, verifier,
+                    wanted=choice, expected_top=request.POST.get("top", ""))
+                return redirect("panel_change", pk=change.pk)
+            revised = revise_proposal(request.user, pk, outgoing, choice, reason, request.POST.get("top", ""))
+            return redirect("allocation_run", pk=revised.pk)
+        except (ValidationError, EditConflict) as exc:
+            error = "; ".join(exc.messages) if isinstance(exc, ValidationError) else str(exc)
+    return render(request, "nominations/choose_member.html", {
+        "source": source, "locked": locked, "outgoing": Expert.objects.get(pk=outgoing),
+        "options": options, "error": error,
+    }, status=409 if error else 200)
+
+
 @permitted(Role.REVIEWER, Role.VC)
 @require_http_methods(["GET", "POST"])
 def panel_change_start(request, pk):
     selection = get_object_or_404(FinalSelection, pk=pk, state=FinalSelection.State.LOCKED)
     current = _current_panel_members(selection)
-    form = PanelChangeStartForm(experts=[member["expert_id"] for member in current.values()])
+    member_ids = [member["expert_id"] for member in current.values()]
+    replacement_form = PanelChangeStartForm(experts=member_ids, auto_id="replace_%s")
+    cancel_form = PanelChangeStartForm(experts=[], auto_id="cancel_%s")
+    if request.method == "GET" and "outgoing" in request.GET:
+        require_role(request.user, Role.VC)
+        outgoing = request.GET["outgoing"]
+        if outgoing not in current:
+            raise Http404
+        return redirect("replace_locked", pk=selection.pk, outgoing=outgoing)
     errors, status = [], 200
     if request.method == "POST":
         require_role(request.user, Role.REVIEWER, Role.VC)
-        form = PanelChangeStartForm(
-            request.POST, experts=[member["expert_id"] for member in current.values()]
-        )
+        if request.POST.get("action") == "cancellation":
+            form = cancel_form = PanelChangeStartForm(request.POST, experts=[], auto_id="cancel_%s")
+        else:
+            form = replacement_form = PanelChangeStartForm(request.POST, experts=member_ids, auto_id="replace_%s")
         try:
             if not form.is_valid():
                 status = 400
             elif request.POST.get("action") == "replacement":
+                if not form.cleaned_data["outgoing_expert"]:
+                    raise ValidationError(gettext_lazy("बदला जाने वाला विशेषज्ञ चुनें।"))
                 change = create_replacement_change(
                     request.user,
                     selection.pk,
@@ -470,7 +544,8 @@ def panel_change_start(request, pk):
     return render(
         request,
         "nominations/panel_change_start.html",
-        {"selection": selection, "form": form, "errors": errors},
+        {"selection": selection, "replacement_form": replacement_form, "cancel_form": cancel_form,
+         "errors": errors, "effective_members": current.values()},
         status=status,
     )
 

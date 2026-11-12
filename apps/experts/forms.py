@@ -22,6 +22,7 @@ class ExpertForm(RevisionForm):
         label=_("शैक्षणिक पदनाम"),
         choices=[
             (Appointment.AcademicDesignation.PROFESSOR, _("प्रोफेसर")),
+            (Appointment.AcademicDesignation.ASSOCIATE, _("सह प्राध्यापक")),
             (Appointment.AcademicDesignation.ASSISTANT, _("सहायक प्रोफेसर")),
             (Appointment.AcademicDesignation.OTHER, _("अन्य")),
         ],

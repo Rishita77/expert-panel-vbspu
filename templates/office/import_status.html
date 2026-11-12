@@ -1,0 +1,3 @@
+{% load i18n static %}
+<p data-working role="status" aria-live="polite" hidden data-check="{% translate 'फ़ाइल की जाँच जारी है…' %}" data-import="{% translate 'रिकॉर्ड आयात किए जा रहे हैं…' %}"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> <span data-message></span></p>
+<script defer src="{% static 'bulk-upload.js' %}"></script>

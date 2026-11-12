@@ -318,7 +318,7 @@ class LetterRevision(models.Model):
         DRAFT = "draft", _("प्रारूप")
         SUBMITTED = "submitted", _("समीक्षा हेतु प्रस्तुत")
         RETURNED = "returned", _("वापस किया गया")
-        APPROVED = "approved", _("डाउनलोड हेतु स्वीकृत")
+        APPROVED = "approved", _("कुलपति द्वारा स्वीकृत")
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     letter = models.ForeignKey(Letter, on_delete=models.PROTECT, related_name="revisions")
@@ -373,6 +373,11 @@ class LetterRevision(models.Model):
             ),
         ]
 
+    def get_workflow_status_display(self):
+        if self.letter.kind == Letter.Kind.FINAL and self.state == self.State.APPROVED:
+            return _("रजिस्ट्रार द्वारा जारी") if hasattr(self, "final_release") else _("रजिस्ट्रार की पुष्टि लंबित")
+        return self.get_state_display()
+
 
 class LetterEvent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -390,3 +395,13 @@ class LetterEvent(models.Model):
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     reason = models.CharField(max_length=1000, blank=True)
     occurred_at = models.DateTimeField(auto_now_add=True)
+
+
+class FinalRelease(models.Model):
+    """Registrar's immutable release of a VC-approved final committee letter."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    selection = models.OneToOneField(FinalSelection, on_delete=models.PROTECT, related_name="release")
+    letter_revision = models.OneToOneField(LetterRevision, on_delete=models.PROTECT, related_name="final_release")
+    confirmed_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    confirmed_at = models.DateTimeField(auto_now_add=True)

@@ -3,6 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path("run/<uuid:pk>/replace/<uuid:outgoing>/", views.choose_member, {"locked": False}, name="replace_proposed"),
+    path("final-selection/<uuid:pk>/replace/<uuid:outgoing>/", views.choose_member, {"locked": True}, name="replace_locked"),
     path("documents/", views.document_queue, name="document_queue"),
     path("demo/", views.demo, name="allocation_demo"),
     path("request/<uuid:pk>/", views.workbench, name="allocation_workbench"),

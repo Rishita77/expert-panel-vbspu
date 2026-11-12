@@ -1,4 +1,5 @@
 import csv
+from urllib.parse import urlencode
 
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
@@ -6,16 +7,21 @@ from django.shortcuts import render
 from apps.accounts.access import permitted
 from apps.accounts.models import Role
 
-from .services import REPORTS, dashboard, normalise_filters, report_data
+from .services import REPORTS, dashboard, normalise_filters, report_data, overall_cards
+
+
+def filter_query(filters):
+    return urlencode({key: filters[key] for key in ("year", "college", "subject", "role", "category")})
 
 
 @permitted(Role.REVIEWER, Role.VC)
 def home(request):
     filters = normalise_filters(request.GET)
+    overview = overall_cards()
     return render(
         request,
         "reporting/home.html",
-        {"filters": filters, "dashboard": dashboard(filters), "reports": REPORTS},
+        {"filters": filters, "dashboard": dashboard(filters), "overview": overview, "reports": REPORTS, "filter_query": filter_query(filters)},
     )
 
 
@@ -27,7 +33,7 @@ def report(request, slug):
     return render(
         request,
         "reporting/report.html",
-        {"filters": filters, "report": report_data(slug, filters), "reports": REPORTS},
+        {"filters": filters, "report": report_data(slug, filters), "reports": REPORTS, "filter_query": filter_query(filters)},
     )
 
 

@@ -61,7 +61,7 @@ def rank_key(candidate):
     return h.annual_count, h.last_nomination or date.min, candidate.sequence
 
 
-def allocate(appointment_type, candidates, at_date, source_errors=None):
+def allocate(appointment_type, candidates, at_date, source_errors=None, *, preferred=None):
     policy = POLICIES[appointment_type]
     source_errors = source_errors or {}
     result = {
@@ -119,7 +119,17 @@ def allocate(appointment_type, candidates, at_date, source_errors=None):
             errors.append(f"{ROLE_LABELS[role]}: {count} आवश्यक, {len(eligible)} योग्य उपलब्ध।")
         success = not errors
         if success and can_commit:
-            for person, row in eligible[:count]:
+            picks = eligible[:count]
+            if preferred and role in preferred:
+                wanted = preferred[role]
+                available = {p.id: (p, r) for p, r in eligible}
+                if len(set(wanted)) != count or any(pk not in available for pk in wanted):
+                    errors.append("पैनल बदल गया है। विकल्प फिर से जाँचें।")
+                    picks = []
+                    success = False
+                else:
+                    picks = [available[pk] for pk in wanted]
+            for person, row in picks:
                 row["selected"] = True
                 used.add(person.id)
                 verified = verified and person.verified

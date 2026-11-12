@@ -2,6 +2,25 @@
 <div class="office-heading"><h1>{% translate 'पैनल में परिवर्तन' %}</h1><a href="{% url 'final_selection' selection.pk %}">{% translate 'अंतिम चयन पर लौटें' %}</a></div>
 <p>{% translate 'लॉक पैनल:' %} {{ selection.request }}{% translate '। मूल चयन और उसके उपयोग अभिलेख सुरक्षित रहेंगे।' %}</p>
 {% for error in errors %}<p role="alert" class="alert alert-danger">{{ error }}</p>{% endfor %}
-<section class="office-card"><h2>{% translate 'प्रतिस्थापन' %}</h2><p>{% translate 'अगला योग्य व्यक्ति वर्तमान तिथि पर नियम-इंजन से अनुशंसित होगा। लॉक होने तक उपयोग संख्या नहीं बदलेगी।' %}</p><form method="post">{% csrf_token %}<input type="hidden" name="action" value="replacement">{{ form.outgoing_expert.as_field_group }}{{ form.reason.as_field_group }}{{ form.verifier.as_field_group }}<button class="btn btn-primary">{% translate 'नियम-इंजन अनुशंसा बनाएँ' %}</button></form></section>
-<section class="office-card"><h2>{% translate 'पूरा पैनल रद्द करें' %}</h2><p>{% translate 'यह केवल तब है जब चयन कार्य अभी नहीं हुआ है। समीक्षा पुष्टि पर सक्रिय उपयोग योगदान वापस होंगे।' %}</p><form method="post">{% csrf_token %}<input type="hidden" name="action" value="cancellation">{{ form.reason.as_field_group }}{{ form.verifier.as_field_group }}{{ form.work_not_occurred.as_field_group }}<button class="btn btn-outline-danger">{% translate 'रद्दीकरण प्रारूप बनाएँ' %}</button></form></section>
+<section class="office-card"><h2>{% translate 'प्रतिस्थापन' %}</h2>
+{% if can_vc %}
+<form method="get">
+<div class="office-field"><label for="outgoing">{% translate 'बदला जाने वाला विशेषज्ञ' %}</label>
+<select name="outgoing" id="outgoing" required><option value="">{% translate 'सदस्य चुनें' %}</option>
+{% for m in effective_members %}<option value="{{ m.expert_id }}">{{ m.name }}</option>{% endfor %}</select></div>
+<button class="btn btn-primary">{% translate 'पात्र प्रतिस्थापन देखें' %}</button></form>
+{% else %}
+<form method="post">{% csrf_token %}<input type="hidden" name="action" value="replacement">
+<div class="office-field">{{ replacement_form.outgoing_expert.as_field_group }}</div>
+<div class="office-field">{{ replacement_form.reason.as_field_group }}</div>
+<div class="office-field">{{ replacement_form.verifier.as_field_group }}</div>
+<button class="btn btn-primary">{% translate 'नियम-इंजन अनुशंसा बनाएँ' %}</button></form>
+{% endif %}</section>
+<section class="office-card"><h2>{% translate 'पूरा पैनल रद्द करें' %}</h2>
+<p>{% translate 'यह केवल तब है जब चयन कार्य अभी नहीं हुआ है। समीक्षा पुष्टि पर सक्रिय उपयोग योगदान वापस होंगे।' %}</p>
+<form method="post">{% csrf_token %}<input type="hidden" name="action" value="cancellation">
+<div class="office-field">{{ cancel_form.reason.as_field_group }}</div>
+<div class="office-field">{{ cancel_form.verifier.as_field_group }}</div>
+<div class="office-field">{{ cancel_form.work_not_occurred.as_field_group }}</div>
+<button class="btn btn-outline-danger">{% translate 'रद्दीकरण प्रारूप बनाएँ' %}</button></form></section>
 {% endblock %}

@@ -77,6 +77,7 @@ class Appointment(TrackedRecord):
 
     class AcademicDesignation(models.TextChoices):
         PROFESSOR = "professor", _("प्रोफेसर")
+        ASSOCIATE = "associate", _("सह प्राध्यापक")
         ASSISTANT = "assistant", _("सहायक प्रोफेसर")
         OTHER = "other", _("अन्य")
         UNKNOWN = "unknown", _("सत्यापन शेष")
@@ -148,7 +149,7 @@ class Appointment(TrackedRecord):
             ),
             models.CheckConstraint(
                 condition=models.Q(
-                    academic_designation__in=["professor", "assistant", "other", "unknown"]
+                    academic_designation__in=["professor", "associate", "assistant", "other", "unknown"]
                 ),
                 name="appointment_academic_designation_valid",
             ),

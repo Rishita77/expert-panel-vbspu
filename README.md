@@ -6,8 +6,11 @@ Django application for university staff to process college requests, allocate ex
 
 - POC enters and submits requests for colleges.
 - Registrar reviews applications. The VC (or Admin) generates panels and approves/locks final selections.
+- After VC final lock and letter approval, Registrar/Admin confirms release. POC can view the panel and download its final letter only after that release. Existing approved letters need confirmation too; none are released automatically.
 - Proposed names are visible to Registrar, VC and Admin; POC can see the finalised panel.
 - Admin maintains accounts and directories. Institutions and experts support validated bulk CSV imports (up to 1,500 rows).
+- Associate Professor is a distinct academic designation (CSV: `associate`). It qualifies for additional OBC/SC-ST seats only; a separately held Principal post is evaluated independently.
+- VC/Admin can replace a proposed member or draft a change to a locked panel. Replacement options are ranked for the actual seat. A lower-ranked choice requires a recorded reason; a revised proposal needs fresh availability checks. Only confirmation of a locked-panel change reverses and reassigns utilisation.
 - Final locking updates utilisation; letters, replacements, reporting and audit records use the saved workflow history.
 - Subject Expert proposals contain one Principal from the requesting college, two VC nominees and five Professors, plus required category supplements. Final selection retains both VC nominees and four Professors. Principal/HoD rules are unchanged. See [current composition policy](docs/33-subject-expert-policy-and-allocation-explanations.md).
 

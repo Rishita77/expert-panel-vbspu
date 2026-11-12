@@ -822,7 +822,7 @@ msgstr "Cancellation notice"
 
 #: .\apps\nominations\models.py:321
 msgid "डाउनलोड हेतु स्वीकृत"
-msgstr "Approved for download"
+msgstr "VC approved"
 
 #: .\apps\nominations\models.py:383
 msgid "तैयार"
@@ -1830,7 +1830,7 @@ msgstr "This letter is awaiting VC / administrator approval."
 
 #: .\templates\nominations\letter.html:8
 msgid "डाउनलोड के लिए स्वीकृत"
-msgstr "Approved for download"
+msgstr "VC approved"
 
 #: .\templates\nominations\letter.html:8
 msgid "समीक्षक:"
@@ -2802,3 +2802,156 @@ msgstr "Subject Expert: 1 Principal from the requesting college, 2 VC nominees a
 
 msgid "%(principals)s प्राचार्य, %(professors)s प्रोफेसर और %(vc)s अलग VC नामित चुनें। SC/ST और OBC प्रतिनिधित्व पूर्ण होना चाहिए; VC इस जाँच में शामिल नहीं है।"
 msgstr "Select %(principals)s Principal, %(professors)s Professors and %(vc)s separate VC nominees. SC/ST and OBC representation must be complete; VC nominees are excluded from this check."
+
+msgid "फ़ाइल की जाँच जारी है…"
+msgstr "Checking file…"
+
+msgid "रिकॉर्ड आयात किए जा रहे हैं…"
+msgstr "Importing records…"
+
+msgid "सह प्राध्यापक"
+msgstr "Associate Professor"
+
+msgid "professor, associate, assistant या other"
+msgstr "professor, associate, assistant or other"
+
+msgid "academic_designation: professor, associate, assistant या other चुनें।"
+msgstr "academic_designation: choose professor, associate, assistant or other."
+
+msgid "प्रोफेसर / सह प्राध्यापक / सहायक प्रोफेसर शैक्षणिक पदनाम आवश्यक है (SRS 6)।"
+msgstr "Professor, Associate Professor or Assistant Professor designation is required for this supplement (SRS 6)."
+
+msgid "वर्तमान शैक्षणिक पदनाम"
+msgstr "Current academic designation"
+
+msgid "वर्तमान विषय"
+msgstr "Current subjects"
+
+msgid "पैनल बदल गया है। विकल्प फिर से जाँचें।"
+msgstr "The panel has changed. Review the options again."
+
+msgid "चुना गया विशेषज्ञ वर्तमान प्रभावी पैनल में नहीं है।"
+msgstr "The outgoing expert is no longer on the effective panel."
+
+msgid "यह विशेषज्ञ इस स्थान के लिए पात्र नहीं है।"
+msgstr "This expert is not eligible for this seat."
+
+msgid "बदला जाने वाला विशेषज्ञ चुनें।"
+msgstr "Choose the outgoing expert."
+
+msgid "प्रतिस्थापन विकल्प"
+msgstr "Replacement options"
+
+msgid "पात्र विशेषज्ञ प्राथमिकता क्रम में"
+msgstr "Eligible experts in order of priority"
+
+msgid "अनुशंसित"
+msgstr "Recommended"
+
+msgid "प्रतिस्थापन प्रारूप सहेजें"
+msgstr "Save replacement draft"
+
+msgid "संशोधित प्रस्ताव सहेजें"
+msgstr "Save revised proposal"
+
+msgid "इस भूमिका के लिए अगला योग्य विशेषज्ञ उपलब्ध नहीं है।"
+msgstr "No eligible replacement is available for this seat."
+
+msgid "के स्थान पर चयनित विशेषज्ञ:"
+msgstr "is being replaced by:"
+
+msgid "चयनित प्रतिस्थापन"
+msgstr "Selected replacement"
+
+msgid "प्रस्तावित पैनल देखें या बदलें"
+msgstr "View or revise the proposed panel"
+
+msgid "लॉक पैनल के लिए प्रतिस्थापन प्रक्रिया अपनाएँ।"
+msgstr "Use the replacement process for a locked panel."
+
+msgid "परिवर्तन का कारण 1 से 500 अक्षरों में लिखें।"
+msgstr "Enter a reason of 1 to 500 characters."
+
+msgid "संशोधित प्रस्ताव"
+msgstr "Revised proposal"
+
+msgid "प्रतिस्थापन प्रारूप"
+msgstr "Replacement draft"
+
+msgid "चयनित विशेषज्ञ"
+msgstr "Chosen expert"
+
+msgid "दिनांक"
+msgstr "Date"
+
+msgid "सदस्य चुनें"
+msgstr "Select a member"
+
+msgid "पात्र प्रतिस्थापन देखें"
+msgstr "View eligible replacements"
+
+msgid "फ़िल्टर के अनुसार विशेषज्ञ उपयोग"
+msgstr "Expert utilisation for selected filters"
+
+msgid "फ़िल्टर के अनुसार नामांकन"
+msgstr "Matching nominations"
+
+msgid "फ़िल्टर के अनुसार अंतिम नामांकन"
+msgstr "Last matching nomination"
+
+msgid "इन फ़िल्टरों में कोई नामांकन नहीं मिला।"
+msgstr "No nominations match these filters."
+
+msgid "अनुरोध करने वाला महाविद्यालय"
+msgstr "Requesting college"
+
+msgid "फ़िल्टर नामांकन पर लागू होते हैं। महाविद्यालय का अर्थ अनुरोध करने वाला महाविद्यालय है। विशेषज्ञ की संस्था, पदनाम और विषय वर्तमान निर्देशिका विवरण हैं।"
+msgstr "Filters apply to nominations. Requesting college is the college requesting the panel. An expert’s institution, designation and subjects are current directory details."
+
+msgid "विश्वविद्यालय के समग्र आँकड़े"
+msgstr "University-wide totals"
+
+msgid "ये सभी वर्षों के आँकड़े हैं। फ़िल्टर लगाने पर केवल फ़िल्टर किए गए परिणाम दिखेंगे।"
+msgstr "These totals cover all years. Applying filters shows only the filtered results."
+
+msgid "फ़िल्टर हटाएँ / समग्र दृश्य"
+msgstr "Clear filters / overview"
+
+msgid "ये सभी वर्षों के समग्र आँकड़े हैं; नीचे के फ़िल्टर इन पर लागू नहीं होते।"
+msgstr "These are overall totals across all years; the filters below do not affect them."
+
+msgid "केवल VC-स्वीकृत अंतिम पत्र जारी किया जा सकता है।"
+msgstr "Only a VC-approved final letter can be released."
+
+msgid "इस अंतिम पैनल का पत्र पहले ही जारी हो चुका है।"
+msgstr "A letter for this final panel has already been released."
+
+msgid "स्वीकृत PDF उपलब्ध नहीं है या उसकी सत्यापन जाँच असफल है।"
+msgstr "The approved PDF is missing or its integrity check failed."
+
+msgid "रजिस्ट्रार द्वारा जारी करना"
+msgstr "Registrar release"
+
+msgid "रजिस्ट्रार द्वारा जारी"
+msgstr "Released by Registrar"
+
+msgid "रजिस्ट्रार की पुष्टि तक POC को अंतिम पैनल और पत्र उपलब्ध नहीं होंगे।"
+msgstr "The final panel and letter remain hidden from the POC until Registrar confirmation."
+
+msgid "अंतिम पैनल और पत्र जारी करने की पुष्टि करें"
+msgstr "Confirm release of final panel and letter"
+
+msgid "रजिस्ट्रार की पुष्टि लंबित"
+msgstr "Pending Registrar release"
+
+msgid "VC-स्वीकृत अंतिम पैनल और पत्र की जाँच करके ऑपरेटरों के लिए जारी करें।"
+msgstr "Review the VC-approved final panel and letter, then confirm release to operators."
+
+msgid "लंबित अंतिम पत्र देखें"
+msgstr "View pending final letters"
+
+msgid "अंतिम पैनल जारी करने के लिए रजिस्ट्रार की पुष्टि लंबित है।"
+msgstr "The final panel is awaiting Registrar confirmation for release."
+
+msgid "कुलपति द्वारा स्वीकृत"
+msgstr "VC approved"

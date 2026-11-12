@@ -13,7 +13,7 @@ class StyledAccountForm(forms.Form):
         for field in self.fields.values():
             field.widget.attrs["class"] = (
                 "form-check-input"
-                if isinstance(field.widget, forms.CheckboxInput)
+                if isinstance(field.widget, (forms.CheckboxInput, forms.RadioSelect))
                 else "form-control"
             )
 

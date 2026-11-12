@@ -171,7 +171,7 @@ def detail(request, kind, pk):
     form = form_class(instance=obj)
     rows = []
     for name, field in form.fields.items():
-        if name in {"reason", "revision", "roles"}:
+        if name not in {f.name for f in model._meta.fields}:
             continue
         value = getattr(obj, name)
         if isinstance(value, bool):
@@ -204,6 +204,7 @@ def detail(request, kind, pk):
 
     roles = roles_for(request.user)
     final_selection = None
+    pending_registrar_release = False
     final_letter = None
     letter_revisions = None
     if kind == "requests":
@@ -223,6 +224,12 @@ def detail(request, kind, pk):
                 .select_related("letter")
                 .first()
             )
+        if not roles & {Role.REVIEWER, Role.VC, Role.ADMIN}:
+            from apps.nominations.models import FinalRelease
+            release = FinalRelease.objects.filter(selection=final_selection).select_related("letter_revision").first() if final_selection else None
+            pending_registrar_release = bool(final_selection and not release)
+            final_selection = final_selection if release else None
+            final_letter = release.letter_revision if release else None
         if bool(roles & {Role.REVIEWER, Role.VC, Role.ADMIN}):
             letter_revisions = (
                 LetterRevision.objects.filter(letter__request=obj)
@@ -270,6 +277,7 @@ def detail(request, kind, pk):
             "can_panel_view": kind == "requests"
             and bool(roles & {Role.VC, Role.ADMIN})
             and obj.state == RequestDraft.State.OFFERED,
+            "pending_registrar_release": pending_registrar_release,
             "final_selection": final_selection,
             "final_letter": final_letter,
             "letter_revisions": letter_revisions,

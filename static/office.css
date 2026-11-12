@@ -1,3 +1,4 @@
+@media(min-width:761px){.office-body .sidebar{overflow-y:auto}.office-body .sidebar>*{flex-shrink:0}}
 .office-main{padding:36px;max-width:1250px;width:100%;margin:auto}.office-card{background:#fff;border:1px solid #dddcd5;border-radius:12px;padding:26px;margin:20px 0}.office-card .office-actions{margin-top:12px}.office-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}.office-heading,.office-account,.office-actions,.office-pagination{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.office-heading{justify-content:space-between}.office-field{margin-bottom:20px}.office-field label{display:block;font-weight:600;margin-bottom:8px}.office-field .form-control,.office-field .form-select{max-width:800px}.office-field textarea{min-height:100px}.office-search{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:22px 0}.office-search input{max-width:420px}.office-records{padding:0;list-style:none;margin:0}.office-records li{padding:18px 0;border-bottom:1px solid #e5e5e0}.office-records li:last-child{border:0}.office-records small{display:block;margin-top:6px;color:#555}.office-details{display:grid;grid-template-columns:minmax(120px,1fr) 2fr;gap:16px;margin:0}.office-details dd,.audit-event dd{overflow-wrap:anywhere}.login-card{max-width:520px;margin:50px auto}.errorlist{color:#a02323;margin-top:8px}.audit-event{margin:14px 0}.audit-event summary{cursor:pointer}.office-main h1{font-size:1.8rem;line-height:1.5}.office-main h2{font-size:1.3rem}.office-main h3{font-size:1.1rem}.office-account{font-size:.9rem}.office-main a{overflow-wrap:anywhere}@media(max-width:700px){.office-main{padding:20px 14px}.office-card{padding:18px}.office-details{grid-template-columns:1fr;gap:6px}.office-details dd{margin-bottom:12px}.office-account{gap:6px}.topbar{flex-wrap:wrap;gap:12px}.office-search input{max-width:100%}}
 
 .office-body{font-size:16px}.office-body .nav-item{font-size:15px}.office-body .institution-name{font-size:16px}.office-body .page-footer{font-size:12px}.office-main .btn{font-size:15px}.office-body .sidebar-bottom p{font-size:12px}
@@ -17,3 +18,28 @@
 .report-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.report-card{margin:0;padding:20px}.report-card h2{font-size:2rem;margin:0 0 5px}.report-card p{font-size:.85rem;margin:8px 0 0;color:#555}.report-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;align-items:end}.report-filters label{display:block;font-weight:600;margin-bottom:6px}.report-filters select{width:100%;padding:.55rem;border:1px solid #a5b5b4;border-radius:4px;background:#fff}.report-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}.report-links a{padding:12px;border:1px solid #dddcd5;border-radius:6px;text-decoration:none}
 
 .credential-card{max-width:720px}.credential-card input[type=radio]{margin-right:8px}.credential-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.25rem;letter-spacing:.04em;padding:14px 16px;background:#f2f4f3;border-radius:8px;overflow-wrap:anywhere}
+
+.office-main form :is(input:not([type]),input[type=text],input[type=email],input[type=password],input[type=tel],input[type=url],input[type=number],input[type=date],select:not([multiple]),textarea) {
+  display: block; box-sizing: border-box; width: 100%; max-width: 48rem;
+  padding: .55rem .7rem; border: 1px solid #a5b5b4; border-radius: .35rem;
+}
+.office-main form :is(input:not([type]),input[type=text],input[type=email],input[type=password],input[type=tel],input[type=url],input[type=number],input[type=date],select:not([multiple])) { height: 2.75rem; }
+.office-field, .office-main form fieldset { min-width: 0; }
+.office-main form p:has(> :is(input,select,textarea)) > label { display: block; margin-bottom: .4rem; }
+.office-main .office-grid > :has(textarea) { grid-column: 1 / -1; }
+
+/* A contrasting sidebar scrollbar makes navigation easier to discover. */
+@media (min-width: 761px) {
+  .office-body .sidebar {
+    scrollbar-width: auto;
+    scrollbar-color: #b8cfca #203b40;
+  }
+  .office-body .sidebar::-webkit-scrollbar { width: 12px; }
+  .office-body .sidebar::-webkit-scrollbar-track { background: #203b40; }
+  .office-body .sidebar::-webkit-scrollbar-thumb {
+    background: #b8cfca;
+    border: 3px solid #203b40;
+    border-radius: 8px;
+  }
+  .office-body .sidebar::-webkit-scrollbar-thumb:hover { background: #fff; }
+}
