@@ -1,0 +1,26 @@
+{% if data.appointment_key == 'subject_expert' %}
+<p><strong>चयन समिति का गठन :-</strong></p>
+<p><strong>प्रवक्ता पद हेतु –</strong>{% if data.subject %} {{ data.subject }}{% endif %}</p>
+<ol class="constitution">
+<li>प्रबन्ध समिति के अध्यक्ष अथवा उसके द्वारा नामोदिष्ट प्रबन्ध समिति का सदस्य, जो अध्यक्ष होगा।</li>
+<li>महाविद्यालय का प्राचार्य।<ol class="names">{% for member in principal_members %}<li>{{ member.name }}</li>{% endfor %}</ol></li>
+<li>सम्बन्धित विषय का विभागाध्यक्ष।</li>
+<li>कुलपति के {% if vc_members|length == 2 %}दो{% else %}{{ vc_members|length }}{% endif %} नामनिर्देशित
+<ol class="names">{% for member in vc_members %}<li>{{ member.name }}</li>{% endfor %}</ol></li>
+<li>{% if data.kind == 'offer' %}कार्य परिषद द्वारा अनुमोदित विषय विशेषज्ञ की सूची से कुलपति द्वारा पाँच सदस्यों के पैनल में से संस्तुत प्रबन्ध समिति के अध्यक्ष द्वारा नामनिर्देशित, किये जाने वाले दो विषय विशेषज्ञ जो महाविद्यालय से सम्बन्धित न हो।{% else %}कार्य परिषद द्वारा अनुमोदित विषय विशेषज्ञ की सूची से चयनित विषय विशेषज्ञ, जो महाविद्यालय से सम्बन्धित न हों।{% endif %}
+<ol class="names">{% for member in professor_members %}<li>{{ member.name }}</li>{% endfor %}</ol></li>
+{% if category_members %}<li>{% include 'nominations/letter_category_clause.html' %}</li>{% endif %}
+</ol>
+{% else %}
+<p><strong>चयन समिति का गठन निम्नलिखित प्रकार से है :-</strong></p>
+<p><strong>{% if data.appointment_key == 'hod' %}विभागाध्यक्ष{% else %}प्राचार्य{% endif %} पद हेतु</strong>{% if data.subject %} – {{ data.subject }}{% endif %}</p>
+<ol class="constitution">
+<li>प्रबन्ध समिति के अध्यक्ष अथवा उसके द्वारा नाम-निर्दिष्ट प्रबन्ध समिति का एक सदस्य, जो अध्यक्ष होगा।</li>
+<li>प्रबन्ध समिति अध्यक्ष द्वारा नाम-निर्दिष्ट किये जाने वाले प्रबन्ध समिति के दो सदस्य, जिनमें से एक शैक्षिक प्रशासन में विशेषज्ञ होगा।</li>
+<li>कुलपति का एक नाम निर्देशिति, जो उच्च शिक्षा का एक विशेषज्ञ होगा।
+<ol class="names">{% for member in vc_members %}<li>{{ member.name }}</li>{% endfor %}</ol></li>
+<li>{% if data.kind == 'offer' %}तीन विशेषज्ञ, जिसमें महाविद्यालय का प्राचार्य, एक आचार्य और एक निष्णात शिक्षाविद्, जो आचार्य के रैंक के नीचे का न हो, कार्यकारी परिषद द्वारा अनुमोदित छ: विशेषज्ञों के पैनल में से प्रबन्ध समिति द्वारा नाम-निर्दिष्ट किये जायेंगे।{% else %}कार्यकारी परिषद द्वारा अनुमोदित विशेषज्ञों के पैनल से चयनित विशेषज्ञों की सूची निम्नलिखित है।{% endif %}
+<ol class="names">{% for member in main_members %}<li>{{ member.name }}{% if member.role == 'principal' %} — प्राचार्य{% endif %}</li>{% endfor %}</ol></li>
+<li>{% include 'nominations/letter_category_clause.html' %}</li>
+</ol>
+{% endif %}

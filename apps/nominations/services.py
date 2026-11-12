@@ -75,6 +75,9 @@ def _letter_snapshot(kind, source):
         seats = source.snapshot.get("seats", [])
         return {
             "kind": kind,
+            "template_version": 2,
+            "college_name": source.request.institution.name,
+            "appointment_key": source.request.appointment_type,
             "request": str(source.request),
             "appointment_type": source.request.get_appointment_type_display(),
             "subject": source.request.subject.name if source.request.subject_id else "",
@@ -95,6 +98,9 @@ def _letter_snapshot(kind, source):
         ]
         return {
             "kind": kind,
+            "template_version": 2,
+            "college_name": source.request.institution.name,
+            "appointment_key": source.request.appointment_type,
             "request": str(source.request),
             "appointment_type": source.request.get_appointment_type_display(),
             "subject": source.request.subject.name if source.request.subject_id else "",
@@ -205,6 +211,11 @@ def render_letter_pdf(revision):
             "revision": revision,
             "data": revision.snapshot,
             "rows": _letter_rows(revision.snapshot),
+            "vc_members": [m for m in revision.snapshot.get("members", []) if m["role"] == "vc"],
+            "principal_members": [m for m in revision.snapshot.get("members", []) if m["role"] == "principal"],
+            "professor_members": [m for m in revision.snapshot.get("members", []) if m["role"] == "professor"],
+            "main_members": [m for m in revision.snapshot.get("members", []) if m["role"] in {"principal", "professor"}],
+            "category_members": [m for m in revision.snapshot.get("members", []) if m["role"] in {"obc", "scst"}],
             "font_url": font_path.as_uri() if font_path else "",
             "logo_url": logo_path.as_uri() if logo_path.is_file() else "",
         },
